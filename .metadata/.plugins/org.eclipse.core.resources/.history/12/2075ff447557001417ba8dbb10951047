@@ -54,8 +54,7 @@ public class LoginActivity extends Activity {
 
 	private ToggleButton createButton(CharacterClass c) {
 		ToggleButton btn = new ToggleButton(this);
-		btn.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-		btn.setTextSize(9f);
+		btn.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 		btn.setText(c.name());
 		btn.setTextOn(c.name());
 		btn.setTextOff(c.name());

@@ -22,7 +22,6 @@ import android.widget.ToggleButton;
 
 public class LoginActivity extends Activity {
 	private ParseInstallation currentInstallation;
-	
 	static final RadioGroup.OnCheckedChangeListener ToggleListener = new RadioGroup.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(final RadioGroup radioGroup, final int i) {
@@ -32,30 +31,28 @@ public class LoginActivity extends Activity {
             }
         }
     };
-    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        this.currentInstallation = ParseHelper.initializeParse(this);
+		Parse.initialize(this, "62c4LxASRWuWfmkUiNhQQYzvBffHP3sNZVRDNS1t", "xhMJeAAqAVeGKwPnHoziBQzRMs1U5DTecIzq975g");
+        ParseObject.registerSubclass(AnywallPost.class);
+        ParseObject.registerSubclass(User.class);       
+        this.currentInstallation = ParseInstallation.getCurrentInstallation();
+        this.currentInstallation.saveInBackground();
 		if(this.userExistsForInstallation(this.currentInstallation.getInstallationId())) {
 			this.goToMainActivity();
 		}
 		setContentView(R.layout.activity_login);
-		this.populateRadioGroup();
-	}
-	
-	private void populateRadioGroup() {
 		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.toggleGroup);
 		for(CharacterClass c : CharacterClass.values()) {
 			radioGroup.addView(this.createButton(c));
 		}
 		radioGroup.setOnCheckedChangeListener(ToggleListener);
 	}
-
+	
 	private ToggleButton createButton(CharacterClass c) {
 		ToggleButton btn = new ToggleButton(this);
-		btn.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-		btn.setTextSize(9f);
+		btn.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT));
 		btn.setText(c.name());
 		btn.setTextOn(c.name());
 		btn.setTextOff(c.name());

@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:inputType="text" >
 
@@ -24,7 +24,7 @@
     <RadioGroup android:id="@+id/toggleGroup"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="24dp"
                 android:orientation="horizontal"
         		android:layout_below="@+id/usernameText"
             >
@@ -35,7 +35,7 @@
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="19dp"
         android:text="@string/login"
         android:onClick="addUser" 
         android:layout_below="@+id/toggleGroup" />
