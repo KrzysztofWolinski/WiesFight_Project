@@ -1,0 +1,5 @@
+package com.WiesFight.Enums;
+
+public enum CharacterClass {
+
+}

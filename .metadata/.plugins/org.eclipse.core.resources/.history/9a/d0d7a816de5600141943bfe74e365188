@@ -1,0 +1,24 @@
+package com.example.test;
+
+import com.parse.ParseClassName;
+import com.parse.ParseInstallation;
+import com.parse.ParseObject;
+
+@ParseClassName("Users")
+public class User extends ParseObject {
+	public String getUsername() {
+		return getString("Username");
+	}
+	 
+	public void setUsername(String value) {
+	    put("Username", value);
+	}
+	
+	public void setInstallation(ParseInstallation value) {
+		put("Installation", value);
+	}
+	
+	public void add() {
+		this.saveInBackground();
+	}
+}

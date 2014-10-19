@@ -1,0 +1,5 @@
+package com.WiesFight.DataModels;
+
+public class UserModel {
+
+}

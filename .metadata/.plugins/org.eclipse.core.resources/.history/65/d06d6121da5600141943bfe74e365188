@@ -1,0 +1,15 @@
+package com.example.test;
+
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
+
+@ParseClassName("Users")
+public class User extends ParseObject {
+	public String getUsername() {
+		return getString("Username");
+	}
+	 
+	public void setUsername(String value) {
+	    put("Username", value);
+	}
+}
