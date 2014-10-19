@@ -6,10 +6,10 @@ import com.wiesfight.R;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,12 +18,13 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class LoginActivity extends Activity {
 	private ParseInstallation currentInstallation;
 	
-	static final RadioGroup.OnCheckedChangeListener ToggleListener = new RadioGroup.OnCheckedChangeListener() {
+	private RadioGroup.OnCheckedChangeListener ToggleListener = new RadioGroup.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(final RadioGroup radioGroup, final int i) {
             for (int j = 0; j < radioGroup.getChildCount(); j++) {
@@ -50,6 +51,7 @@ public class LoginActivity extends Activity {
 			radioGroup.addView(this.createButton(c));
 		}
 		radioGroup.setOnCheckedChangeListener(ToggleListener);
+		radioGroup.check(0);
 	}
 
 	private ToggleButton createButton(CharacterClass c) {
@@ -63,6 +65,7 @@ public class LoginActivity extends Activity {
 		btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            	((RadioGroup)view.getParent()).clearCheck();
             	((RadioGroup)view.getParent()).check(view.getId());
             }
         });
@@ -90,14 +93,36 @@ public class LoginActivity extends Activity {
     
     public void addUser(View v) {
     	EditText editText = (EditText) findViewById(R.id.usernameText);
-    	RadioGroup radioGroup = (RadioGroup) findViewById(R.id.toggleGroup);
-    	User newUser = new User();
-		newUser.setUsername(editText.getText().toString().trim());
-		newUser.setUserClass(radioGroup.getCheckedRadioButtonId());
-		newUser.setInstallation(this.currentInstallation.getInstallationId());
-		newUser.add();
-		this.goToMainActivity();
+    	String username = editText.getText().toString().trim();
+    	int userClass = ((RadioGroup) findViewById(R.id.toggleGroup)).getCheckedRadioButtonId();
+    	if(this.correctUsername(username)) {
+        	User newUser = new User(username, this.currentInstallation.getInstallationId(), userClass);
+    		newUser.saveUser();
+    		this.goToMainActivity();
+    	}
+    	else {
+    		Context context = getApplicationContext();
+    		CharSequence text = "Nazwa u¿ytkownika za krótka lub zajêta";
+    		int duration = Toast.LENGTH_SHORT;
+
+    		Toast toast = Toast.makeText(context, text, duration);
+    		toast.show();
+    	}
     }
+
+	private boolean correctUsername(String username) {
+		if(username.length() < 3)
+			return false;
+		ParseQuery<User> query = ParseQuery.getQuery(User.class);
+    	query.whereEqualTo("Username", username);
+    	try {
+    		User user = query.getFirst();
+    		return user == null;
+    	}
+    	catch(ParseException e) {
+    		return true;
+    	}
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
