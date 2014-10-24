@@ -1,6 +1,9 @@
 package com.wiesfight.activities;
 
+import main.com.wiesfight.api.ParseHelper;
+
 import com.wiesfight.dataaccesslayer.*;
+import com.wiesfight.dto.enums.CharacterClass;
 import com.wiesfight.enums.*;
 import com.wiesfight.R;
 import com.parse.Parse;
@@ -102,7 +105,7 @@ public class LoginActivity extends Activity {
     	}
     	else {
     		Context context = getApplicationContext();
-    		CharSequence text = "Nazwa u¿ytkownika za krótka lub zajêta";
+    		CharSequence text = "Nazwa uï¿½ytkownika za krï¿½tka lub zajï¿½ta";
     		int duration = Toast.LENGTH_SHORT;
 
     		Toast toast = Toast.makeText(context, text, duration);

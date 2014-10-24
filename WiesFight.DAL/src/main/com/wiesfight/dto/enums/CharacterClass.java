@@ -1,4 +1,4 @@
-package com.wiesfight.enums;
+package main.com.wiesfight.dto.enums;
 
 public enum CharacterClass {
 	INFORMATYK(20, 5, 0.1, 0.9, 0.15, 1.1),
@@ -7,17 +7,17 @@ public enum CharacterClass {
 	MOHER(2, 10, 0.1, 0.9, 0.15, 1.1),
 	BLACHARA(8, 10, 0.1, 0.9, 0.15, 1.1);
 	
-	// zadawane obraøenia
+	// zadawane obra≈ºenia
 	private final int attackPower;
-	// punkty øycia
+	// punkty ≈ºycia
 	private final int healthPoints;
-	// zmniejszone obraøenia zadane przez przeciwnika
+	// zmniejszone obra≈ºenia zadane przez przeciwnika
 	private final double defence;
 	// szansa na trafienie
 	private final double accuracy;
 	// szansa na trafienie krytyczne
 	private final double criticalChance;
-	// obraøenia zadawane podczas trafienia krytycznego (mnoønik do obraøeÒ podstawowych)
+	// obra≈ºenia zadawane podczas trafienia krytycznego (mno≈ºnik do obra≈ºe≈Ñ podstawowych)
 	private final double criticalPower;
 	
 	private CharacterClass(int attackPower, int healthPoints, double defence, double accuracy, 
