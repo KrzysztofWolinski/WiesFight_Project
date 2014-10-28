@@ -1,7 +1,0 @@
-package com.example.test;
-
-import ParseObject;
-
-public class User extends ParseObject {
-
-}

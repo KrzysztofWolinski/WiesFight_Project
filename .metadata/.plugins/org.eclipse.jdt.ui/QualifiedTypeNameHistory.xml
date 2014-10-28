@@ -26,4 +26,5 @@
 <fullyQualifiedTypeName name="android.widget.Button"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="com.wiesfight.activities.FightActivity"/>
 </qualifiedTypeNameHistroy>

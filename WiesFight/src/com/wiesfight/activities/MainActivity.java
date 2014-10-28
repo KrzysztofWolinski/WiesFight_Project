@@ -1,6 +1,5 @@
 package com.wiesfight.activities;
 
-import com.wiesfight.dataaccesslayer.*;
 import com.wiesfight.R;
 
 import android.app.Activity;
@@ -18,35 +17,19 @@ public class MainActivity extends Activity {
         
         setContentView(R.layout.activity_main);
     }
-
-	@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    
+    public void goToFight(View v) {
+    	Intent intent = new Intent(this, FightActivity.class);
+    	startActivity(intent);
     }
     
-    public void addPost(View v) {
-    	EditText editText = (EditText) findViewById(R.id.editText);
-    	AnywallPost post = new AnywallPost();
-    	post.setText(editText.getText().toString().trim());
-    	post.add();
+    public void goToShop(View v) {
+    	Intent intent = new Intent(this, ShopActivity.class);
+    	startActivity(intent);
     }
     
-    public void showPosts(View v) {
-    	Intent intent = new Intent(this, PostsActivity.class);
+    public void goToSettings(View v) {
+    	Intent intent = new Intent(this, SettingsActivity.class);
     	startActivity(intent);
     }
 }

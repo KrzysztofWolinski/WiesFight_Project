@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.wiesfight.activities.MainActivity" >
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/logo" 
+        android:contentDescription="@string/logo"/>
+
+    <ImageButton
+        android:id="@+id/ibtnFight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imgLogo"
+        android:layout_below="@+id/imgLogo"
+        android:layout_marginTop="35dp"
+        android:src="@drawable/walka"
+        android:contentDescription="@string/walka"
+        android:background="@android:color/transparent" />
+
+    <ImageButton
+        android:id="@+id/ibtnShop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ibtnFight"
+        android:layout_below="@+id/ibtnFight"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/sklep"
+        android:contentDescription="@string/sklep"
+        android:background="@android:color/transparent" />
+
+    <ImageButton
+        android:id="@+id/ibtnSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ibtnShop"
+        android:layout_below="@+id/ibtnShop"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ustawienia"
+        android:contentDescription="@string/ustawienia"
+        android:background="@android:color/transparent" />
+
+</RelativeLayout>

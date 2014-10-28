@@ -1,10 +1,7 @@
 package com.wiesfight.activities;
 
-import main.com.wiesfight.api.ParseHelper;
-
 import com.wiesfight.dataaccesslayer.*;
-import com.wiesfight.dto.enums.CharacterClass;
-import com.wiesfight.enums.*;
+import main.com.wiesfight.dto.enums.*;
 import com.wiesfight.R;
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -40,21 +37,21 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        this.currentInstallation = ParseHelper.initializeParse(this);
+        /*this.currentInstallation = ParseHelper.initializeParse(this);
 		if(this.userExistsForInstallation(this.currentInstallation.getInstallationId())) {
 			this.goToMainActivity();
-		}
+		}*/
 		setContentView(R.layout.activity_login);
-		this.populateRadioGroup();
+		//this.populateRadioGroup();
 	}
 	
 	private void populateRadioGroup() {
-		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.toggleGroup);
-		for(CharacterClass c : CharacterClass.values()) {
-			radioGroup.addView(this.createButton(c));
-		}
-		radioGroup.setOnCheckedChangeListener(ToggleListener);
-		radioGroup.check(0);
+//		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.toggleGroup);
+//		for(CharacterClass c : CharacterClass.values()) {
+//			radioGroup.addView(this.createButton(c));
+//		}
+//		radioGroup.setOnCheckedChangeListener(ToggleListener);
+//		radioGroup.check(0);
 	}
 
 	private ToggleButton createButton(CharacterClass c) {
@@ -94,8 +91,15 @@ public class LoginActivity extends Activity {
     	finish();
     }
     
+    public void goToMenu(View v) {
+    	Intent intent = new Intent(this, MainActivity.class);
+    	startActivity(intent);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    	finish();
+    }
+    
     public void addUser(View v) {
-    	EditText editText = (EditText) findViewById(R.id.usernameText);
+    	/*EditText editText = (EditText) findViewById(R.id.usernameText);
     	String username = editText.getText().toString().trim();
     	int userClass = ((RadioGroup) findViewById(R.id.toggleGroup)).getCheckedRadioButtonId();
     	if(this.correctUsername(username)) {
@@ -110,7 +114,7 @@ public class LoginActivity extends Activity {
 
     		Toast toast = Toast.makeText(context, text, duration);
     		toast.show();
-    	}
+    	}*/
     }
 
 	private boolean correctUsername(String username) {
@@ -125,24 +129,5 @@ public class LoginActivity extends Activity {
     	catch(ParseException e) {
     		return true;
     	}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.login, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
 	}
 }
