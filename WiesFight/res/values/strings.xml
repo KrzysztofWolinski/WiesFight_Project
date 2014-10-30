@@ -14,5 +14,6 @@
     <string name="title_activity_fight">FightActivity</string>
     <string name="title_activity_shop">ShopActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="nickHint">Podaj nick</string>
 
 </resources>

@@ -17,22 +17,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class LoginActivity extends Activity {
 	private ParseInstallation currentInstallation;
-	
-	private RadioGroup.OnCheckedChangeListener ToggleListener = new RadioGroup.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(final RadioGroup radioGroup, final int i) {
-            for (int j = 0; j < radioGroup.getChildCount(); j++) {
-                final ToggleButton view = (ToggleButton) radioGroup.getChildAt(j);
-                view.setChecked(view.getId() == i);
-            }
-        }
-    };
+	private int currentClass = 0;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +36,9 @@ public class LoginActivity extends Activity {
 			this.goToMainActivity();
 		}*/
 		setContentView(R.layout.activity_login);
+		String className = CharacterClass.values()[this.currentClass].toString();
+    	TextView txt = (TextView) findViewById(R.id.lblClass);
+    	txt.setText(className);
 		//this.populateRadioGroup();
 	}
 	
@@ -91,6 +88,31 @@ public class LoginActivity extends Activity {
     	finish();
     }
     
+    public void changeClass(View v) {
+    	if(v.getId() == R.id.ibtnLeft ) {
+    		if(this.currentClass > 0)
+    			this.currentClass--;
+    		else
+    			return;
+    	}
+    	else if(v.getId() == R.id.ibtnRight) {
+    		if(this.currentClass < 4)
+    			this.currentClass++;
+    		else
+    			return;
+    	}
+    	String className = CharacterClass.values()[this.currentClass].toString();
+    	TextView txt = (TextView) findViewById(R.id.lblClass);
+    	txt.setText(className);
+    	ImageView img = (ImageView) findViewById(R.id.imgAvatar);
+    	try {
+    		img.setImageResource(R.drawable.class.getField(className.toLowerCase()).getInt(null));
+    	}
+    	catch(Exception e) {
+    		
+    	}
+    }
+    
     public void goToMenu(View v) {
     	Intent intent = new Intent(this, MainActivity.class);
     	startActivity(intent);
@@ -99,28 +121,28 @@ public class LoginActivity extends Activity {
     }
     
     public void addUser(View v) {
-    	/*EditText editText = (EditText) findViewById(R.id.usernameText);
+    	EditText editText = (EditText) findViewById(R.id.txtNick);
     	String username = editText.getText().toString().trim();
-    	int userClass = ((RadioGroup) findViewById(R.id.toggleGroup)).getCheckedRadioButtonId();
     	if(this.correctUsername(username)) {
-        	User newUser = new User(username, this.currentInstallation.getInstallationId(), userClass);
-    		newUser.saveUser();
+        	//User newUser = new User(username, this.currentInstallation.getInstallationId(), userClass);
+    		//newUser.saveUser();
     		this.goToMainActivity();
     	}
     	else {
     		Context context = getApplicationContext();
-    		CharSequence text = "Nazwa u�ytkownika za kr�tka lub zaj�ta";
+    		CharSequence text = "Nazwa uzytkownika za krotka lub zajeta";
     		int duration = Toast.LENGTH_SHORT;
 
     		Toast toast = Toast.makeText(context, text, duration);
     		toast.show();
-    	}*/
+    	}
     }
 
 	private boolean correctUsername(String username) {
 		if(username.length() < 3)
 			return false;
-		ParseQuery<User> query = ParseQuery.getQuery(User.class);
+		return true;
+		/*ParseQuery<User> query = ParseQuery.getQuery(User.class);
     	query.whereEqualTo("Username", username);
     	try {
     		User user = query.getFirst();
@@ -128,6 +150,6 @@ public class LoginActivity extends Activity {
     	}
     	catch(ParseException e) {
     		return true;
-    	}
+    	}*/
 	}
 }

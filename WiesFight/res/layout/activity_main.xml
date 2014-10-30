@@ -20,17 +20,6 @@
         android:src="@drawable/logo" />
 
     <Button
-        android:id="@+id/btnFight"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/imgLogo"
-        android:layout_marginRight="60dp"
-        android:layout_marginTop="35dp"
-        android:onClick="goToFight"
-        android:background="@drawable/walka" />
-
-    <Button
         android:id="@+id/btnShop"
         android:layout_width="150dp"
         android:layout_height="50dp"
@@ -49,5 +38,15 @@
         android:layout_marginTop="15dp"
         android:onClick="goToSettings"
         android:background="@drawable/ustawienia" />
+
+    <Button
+        android:id="@+id/btnFight"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/imgLogo"
+        android:layout_below="@+id/imgLogo"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/walka"
+        android:onClick="goToFight" />
 
 </RelativeLayout>

@@ -20,13 +20,77 @@
 
     <Button
         android:id="@+id/btnChoose"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="0dp"
         android:layout_marginLeft="20dp"
         android:background="@drawable/wybierz"
-        android:onClick="goToMenu" />
+        android:onClick="addUser" />
+
+    <ImageButton
+        android:id="@+id/ibtnLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnChoose"
+        android:layout_alignLeft="@+id/btnChoose"
+        android:layout_marginBottom="42dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/lewy"
+        android:onClick="changeClass" />
+
+    <ImageView
+        android:id="@+id/imgAvatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imgFrame"
+        android:layout_alignLeft="@+id/imgFrame"
+        android:layout_alignRight="@+id/imgFrame"
+        android:layout_alignTop="@+id/imgFrame"
+        android:src="@drawable/informatyk" />
+
+    <ImageButton
+        android:id="@+id/ibtnRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/lblClass"
+        android:layout_toRightOf="@+id/imgAvatar"
+        android:background="@android:color/transparent"
+        android:onClick="changeClass"
+        android:src="@drawable/prawy" />
+
+    <TextView
+        android:id="@+id/lblClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ibtnLeft"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_toLeftOf="@+id/ibtnRight"
+        android:layout_toRightOf="@+id/ibtnLeft"
+        android:background="@drawable/przycisknazwaclasy"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageView
+        android:id="@+id/imgFrame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgLogo"
+        android:layout_toRightOf="@+id/ibtnLeft"
+        android:src="@drawable/ramka" />
+
+    <EditText
+        android:id="@+id/txtNick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/imgLogo"
+        android:layout_alignTop="@+id/imgAvatar"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="@string/nickHint"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/holo_red_light" />
 
 </RelativeLayout>
