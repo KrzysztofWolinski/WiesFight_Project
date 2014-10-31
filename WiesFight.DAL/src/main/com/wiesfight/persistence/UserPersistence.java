@@ -1,6 +1,7 @@
 package main.com.wiesfight.persistence;
 
 import main.com.wiesfight.dto.User;
+import main.com.wiesfight.dto.enums.CharacterClass;
 import main.com.wiesfight.persistence.enums.UserParametersEnum;
 
 import com.parse.ParseClassName;
@@ -13,7 +14,7 @@ public class UserPersistence extends ParseObject {
 	
 	public UserPersistence(User user, String installation) {
 		this.setUser(user);
-		put("Installation", installation);	// TODO co to jest installation?
+		this.put("Installation", installation);	// TODO co to jest installation?
 	}
 		
 	public void saveUserToDB() {
@@ -30,14 +31,14 @@ public class UserPersistence extends ParseObject {
 	}
 	
 	public User loadUserFromDB() {
-		this.user.setUserName(getString(UserParametersEnum.USER_NAME.getParameterName()));
-		// this.user.setUserClass(getInt(UserParametersEnum.USER_CLASS.getParameterName()));	// TODO
-		this.user.setUserLevel(getInt(UserParametersEnum.LEVEL.getParameterName()));
-		this.user.setUserExperience(getInt(UserParametersEnum.EXPERIENCE.getParameterName()));
-		this.user.setUserCoins(getInt(UserParametersEnum.COINS.getParameterName()));
-		this.user.setAttackItemCount(getInt(UserParametersEnum.ATTACK_ITEMS_COUNT.getParameterName()));
-		this.user.setDefenceItemCount(getInt(UserParametersEnum.DEFENSE_ITEMS_COUNT.getParameterName()));
-		this.user.setMiscItemCount(getInt(UserParametersEnum.MISC_ITEMS_COUNT.getParameterName()));
+		this.user.setUserName(this.getString(UserParametersEnum.USER_NAME.getParameterName()));
+		this.user.setUserClass(CharacterClass.values()[this.getInt(UserParametersEnum.USER_CLASS.getParameterName())]);
+		this.user.setUserLevel(this.getInt(UserParametersEnum.LEVEL.getParameterName()));
+		this.user.setUserExperience(this.getInt(UserParametersEnum.EXPERIENCE.getParameterName()));
+		this.user.setUserCoins(this.getInt(UserParametersEnum.COINS.getParameterName()));
+		this.user.setAttackItemCount(this.getInt(UserParametersEnum.ATTACK_ITEMS_COUNT.getParameterName()));
+		this.user.setDefenceItemCount(this.getInt(UserParametersEnum.DEFENSE_ITEMS_COUNT.getParameterName()));
+		this.user.setMiscItemCount(this.getInt(UserParametersEnum.MISC_ITEMS_COUNT.getParameterName()));
 		
 		return user;
 	}
