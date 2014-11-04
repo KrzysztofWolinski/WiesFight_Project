@@ -1,79 +1,57 @@
 package com.wiesfight.activities;
 
-import com.wiesfight.dataaccesslayer.*;
+import java.util.Locale;
+
 import main.com.wiesfight.dto.enums.*;
+import main.com.wiesfight.dto.*;
+import main.com.wiesfight.persistence.UserPersistence;
+
 import com.wiesfight.R;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 public class LoginActivity extends Activity {
+	private static final String APPLICATION_ID = "62c4LxASRWuWfmkUiNhQQYzvBffHP3sNZVRDNS1t";
+	private static final String CLIENT_KEY = "xhMJeAAqAVeGKwPnHoziBQzRMs1U5DTecIzq975g";
 	private ParseInstallation currentInstallation;
 	private int currentClass = 0;
+	private User currentUser;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        /*this.currentInstallation = ParseHelper.initializeParse(this);
+		Parse.initialize(this, APPLICATION_ID, CLIENT_KEY);
+        this.currentInstallation = ParseInstallation.getCurrentInstallation();
+        this.currentInstallation.saveInBackground();
+        ParseObject.registerSubclass(UserPersistence.class);
 		if(this.userExistsForInstallation(this.currentInstallation.getInstallationId())) {
 			this.goToMainActivity();
-		}*/
+		}
 		setContentView(R.layout.activity_login);
 		String className = CharacterClass.values()[this.currentClass].toString();
     	TextView txt = (TextView) findViewById(R.id.lblClass);
     	txt.setText(className);
-		//this.populateRadioGroup();
-	}
-	
-	private void populateRadioGroup() {
-//		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.toggleGroup);
-//		for(CharacterClass c : CharacterClass.values()) {
-//			radioGroup.addView(this.createButton(c));
-//		}
-//		radioGroup.setOnCheckedChangeListener(ToggleListener);
-//		radioGroup.check(0);
-	}
-
-	private ToggleButton createButton(CharacterClass c) {
-		ToggleButton btn = new ToggleButton(this);
-		btn.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-		btn.setTextSize(9f);
-		btn.setText(c.name());
-		btn.setTextOn(c.name());
-		btn.setTextOff(c.name());
-		btn.setId(c.ordinal());
-		btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            	((RadioGroup)view.getParent()).clearCheck();
-            	((RadioGroup)view.getParent()).check(view.getId());
-            }
-        });
-		return btn;
 	}
 
     private boolean userExistsForInstallation(String installation) {
-    	ParseQuery<User> query = ParseQuery.getQuery(User.class);
+    	ParseQuery<UserPersistence> query = ParseQuery.getQuery(UserPersistence.class);
     	query.whereEqualTo("Installation", installation);
     	try {
-    		User user = query.getFirst();
+    		UserPersistence user = query.getFirst();
+    		this.currentUser = user.loadUserFromDB();
     		return user != null;
     	}
     	catch(ParseException e) {
@@ -83,6 +61,7 @@ public class LoginActivity extends Activity {
     
     private void goToMainActivity() {
     	Intent intent = new Intent(this, MainActivity.class);
+    	intent.putExtra("currentUser", this.currentUser);
     	startActivity(intent);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     	finish();
@@ -106,7 +85,7 @@ public class LoginActivity extends Activity {
     	txt.setText(className);
     	ImageView img = (ImageView) findViewById(R.id.imgAvatar);
     	try {
-    		img.setImageResource(R.drawable.class.getField(className.toLowerCase()).getInt(null));
+    		img.setImageResource(R.drawable.class.getField(className.toLowerCase(Locale.ENGLISH)).getInt(null));
     	}
     	catch(Exception e) {
     		
@@ -124,8 +103,11 @@ public class LoginActivity extends Activity {
     	EditText editText = (EditText) findViewById(R.id.txtNick);
     	String username = editText.getText().toString().trim();
     	if(this.correctUsername(username)) {
-        	//User newUser = new User(username, this.currentInstallation.getInstallationId(), userClass);
-    		//newUser.saveUser();
+    		this.currentUser = new User();
+    		this.currentUser.setUserClass(CharacterClass.values()[this.currentClass]);
+    		this.currentUser.setUserName(username);
+        	UserPersistence user = new UserPersistence(this.currentUser, this.currentInstallation.getInstallationId());
+        	user.saveUserToDB();
     		this.goToMainActivity();
     	}
     	else {
@@ -141,15 +123,14 @@ public class LoginActivity extends Activity {
 	private boolean correctUsername(String username) {
 		if(username.length() < 3)
 			return false;
-		return true;
-		/*ParseQuery<User> query = ParseQuery.getQuery(User.class);
+		ParseQuery<UserPersistence> query = ParseQuery.getQuery(UserPersistence.class);
     	query.whereEqualTo("Username", username);
     	try {
-    		User user = query.getFirst();
+    		UserPersistence user = query.getFirst();
     		return user == null;
     	}
     	catch(ParseException e) {
     		return true;
-    	}*/
+    	}
 	}
 }

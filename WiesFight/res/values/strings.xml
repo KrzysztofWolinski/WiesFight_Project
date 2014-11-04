@@ -15,5 +15,8 @@
     <string name="title_activity_shop">ShopActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="nickHint">Podaj nick</string>
-
+    <string name="avatar">avatar</string>
+    <string name="lewy">lewy</string>
+    <string name="prawy">prawy</string>
+    <string name="ramka">ramka</string>
 </resources>

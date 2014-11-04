@@ -1,13 +1,16 @@
 package main.com.wiesfight.dto;
 
+import java.io.Serializable;
+
 import main.com.wiesfight.dto.enums.CharacterClass;
 
-public class User {
+public class User implements Serializable {
+	private static final long serialVersionUID = -7060210544600464481L;
 	private String userName;
 	private CharacterClass userClass;
 	private int userExperience;
 	private int userLevel;		// TODO wyliczanie level'a na podstawie experience powinno być bezpieczniejsze
-	private int userCoins;
+	private int userCoins = 10;
 	private int attackItemCount = 1;	// TODO uogólnić? Wszystkie itemy tego samego typu?
 	private int defenceItemCount = 1;
 	private int miscItemCount = 1;
@@ -60,5 +63,5 @@ public class User {
 	}
 	public void setMiscItemCount(int miscItemCount) {
 		this.miscItemCount = miscItemCount;
-	}
+	} 
 }
