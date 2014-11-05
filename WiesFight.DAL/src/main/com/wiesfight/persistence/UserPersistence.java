@@ -31,7 +31,7 @@ public class UserPersistence extends ParseObject {
 	
 	public User loadUserFromDB() {
 		this.user.setUserName(getString(UserParametersEnum.USER_NAME.getParameterName()));
-		// this.user.setUserClass(getInt(UserParametersEnum.USER_CLASS.getParameterName()));	// TODO
+		 this.user.setUserClass(getInt(UserParametersEnum.USER_CLASS.getParameterName()));	// TODO
 		this.user.setUserLevel(getInt(UserParametersEnum.LEVEL.getParameterName()));
 		this.user.setUserExperience(getInt(UserParametersEnum.EXPERIENCE.getParameterName()));
 		this.user.setUserCoins(getInt(UserParametersEnum.COINS.getParameterName()));

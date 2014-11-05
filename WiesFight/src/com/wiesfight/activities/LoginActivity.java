@@ -1,25 +1,19 @@
 package com.wiesfight.activities;
 
-import com.wiesfight.dataaccesslayer.*;
-import main.com.wiesfight.dto.enums.*;
-import com.wiesfight.R;
-import com.parse.Parse;
+import main.com.wiesfight.dto.enums.CharacterClass;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.RadioGroup;
+import android.widget.ToggleButton;
+
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseQuery;
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.EditText;
-import android.widget.RadioGroup;
-import android.widget.Toast;
-import android.widget.ToggleButton;
+import com.wiesfight.R;
+import com.wiesfight.dataaccesslayer.User;
 
 public class LoginActivity extends Activity {
 	private ParseInstallation currentInstallation;
