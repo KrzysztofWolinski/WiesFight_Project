@@ -11,7 +11,7 @@ public class User implements Serializable {
 	private int userExperience;
 	private int userLevel;		// TODO wyliczanie level'a na podstawie experience powinno być bezpieczniejsze
 	private int userCoins = 10;
-	private int attackItemCount = 1;	// TODO uogólnić? Wszystkie itemy tego samego typu?
+	private int attackItemCount = 1;
 	private int defenceItemCount = 1;
 	private int miscItemCount = 1;
 	
@@ -63,5 +63,15 @@ public class User implements Serializable {
 	}
 	public void setMiscItemCount(int miscItemCount) {
 		this.miscItemCount = miscItemCount;
+	} 
+	
+	public void addAttackItemCount() {
+		this.attackItemCount++;
+	}
+	public void addDefenceItemCount() {
+		this.defenceItemCount++;
+	}
+	public void addMiscItemCount() {
+		this.miscItemCount++;
 	} 
 }

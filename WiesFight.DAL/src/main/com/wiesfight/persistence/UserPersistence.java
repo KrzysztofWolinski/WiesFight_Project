@@ -17,7 +17,7 @@ public class UserPersistence extends ParseObject {
 	
 	public UserPersistence(User user, String installation) {
 		this.setUser(user);
-		this.put("Installation", installation);	// TODO co to jest installation?
+		this.put("Installation", installation);
 	}
 		
 	public void saveUserToDB() {
@@ -26,7 +26,7 @@ public class UserPersistence extends ParseObject {
 		this.put(UserParametersEnum.LEVEL.getParameterName(), this.user.getUserLevel());
 		this.put(UserParametersEnum.EXPERIENCE.getParameterName(), this.user.getUserExperience());
 		this.put(UserParametersEnum.COINS.getParameterName(), this.user.getUserCoins());
-		this.put(UserParametersEnum.ATTACK_ITEMS_COUNT.getParameterName(), this.user.getAttackItemCount());	// TODO wszystkie itemy jako jeden typ?
+		this.put(UserParametersEnum.ATTACK_ITEMS_COUNT.getParameterName(), this.user.getAttackItemCount());
 		this.put(UserParametersEnum.DEFENSE_ITEMS_COUNT.getParameterName(), this.user.getDefenceItemCount());
 		this.put(UserParametersEnum.MISC_ITEMS_COUNT.getParameterName(), this.user.getMiscItemCount());
 		
