@@ -1,0 +1,52 @@
+package com.wiesfight.activities;
+
+import main.com.wiesfight.dto.User;
+
+import com.wiesfight.R;
+
+import android.R.string;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+public class MainActivity extends Activity {
+	private User currentUser;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);        
+        Intent intent = getIntent();
+        this.currentUser = (User) intent.getSerializableExtra("user");
+        TextView txt = (TextView) findViewById(R.id.lblUsername);
+    	txt.setText(this.currentUser.getUserName());
+    	ImageView img = (ImageView) findViewById(R.id.imgAvatarMain);
+    	String className = this.currentUser.getUserClass().toString();
+    	try {
+    		img.setImageResource(R.drawable.class.getField(className.toLowerCase()).getInt(null));
+    	}
+    	catch(Exception e) {
+    		
+    	}
+        setContentView(R.layout.activity_main);
+    }
+    
+    public void goToFight(View v) {
+    	Intent intent = new Intent(this, FightActivity.class);
+    	startActivity(intent);
+    }
+    
+    public void goToShop(View v) {
+    	Intent intent = new Intent(this, ShopActivity.class);
+    	startActivity(intent);
+    }
+    
+    public void goToSettings(View v) {
+    	Intent intent = new Intent(this, SettingsActivity.class);
+    	startActivity(intent);
+    }
+}

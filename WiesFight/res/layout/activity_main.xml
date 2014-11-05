@@ -20,17 +20,6 @@
         android:src="@drawable/logo" />
 
     <Button
-        android:id="@+id/btnFight"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/imgLogo"
-        android:layout_marginRight="60dp"
-        android:layout_marginTop="35dp"
-        android:onClick="goToFight"
-        android:background="@drawable/walka" />
-
-    <Button
         android:id="@+id/btnShop"
         android:layout_width="150dp"
         android:layout_height="50dp"
@@ -49,5 +38,61 @@
         android:layout_marginTop="15dp"
         android:onClick="goToSettings"
         android:background="@drawable/ustawienia" />
+
+    <Button
+        android:id="@+id/btnFight"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/imgLogo"
+        android:layout_below="@+id/imgLogo"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/walka"
+        android:onClick="goToFight" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp" >
+
+    <TextView
+        android:id="@+id/lblCoins"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/holo_orange_light" />
+    
+     <FrameLayout 
+        android:id="@+id/layoutAvatar"
+	    android:layout_width="136dp"
+	    android:layout_height="136dp"
+        android:layout_marginTop="60dp" >
+	
+	    <ImageView
+	        android:id="@+id/imgAvatarMain"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:contentDescription="@string/avatar"
+	        android:src="@drawable/informatyk"
+	        android:layout_gravity="center" />
+	
+	    <ImageView
+	        android:id="@+id/imgFrame"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:contentDescription="@string/ramka"
+	        android:src="@drawable/ramka" />
+    
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/lblUsername"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/white" />
+    </LinearLayout>
 
 </RelativeLayout>

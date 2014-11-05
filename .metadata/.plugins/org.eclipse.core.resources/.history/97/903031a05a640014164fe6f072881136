@@ -1,0 +1,108 @@
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.wiesfight.activities.LoginActivity" >
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/logo" />
+
+    <Button
+        android:id="@+id/btnChoose"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/ibtnLeft"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/wybierz"
+        android:onClick="addUser" />
+
+    <ImageButton
+        android:id="@+id/ibtnLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnChoose"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="20dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/lewy"
+        android:src="@drawable/lewy"
+        android:onClick="changeClass" />
+    
+    <FrameLayout 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:above="@+id/lblClass"
+        android:layout_marginTop="40dp"
+	    android:layout_toRightOf="@+id/ibtnLeft"
+	    android:layout_toLeftOf="@+id/ibtnRight" >
+	
+	    <ImageView
+	        android:id="@+id/imgAvatar"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:contentDescription="@string/avatar"
+	        android:src="@drawable/informatyk"
+	        android:layout_gravity="center" />
+	
+	    <ImageView
+	        android:id="@+id/imgFrame"
+	        android:layout_width="fill_parent"
+	        android:layout_height="136dp"
+	        android:contentDescription="@string/ramka"
+	        android:src="@drawable/ramka" />
+    
+    </FrameLayout>
+
+    <ImageButton
+        android:id="@+id/ibtnRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/lblClass"
+        android:layout_toRightOf="@+id/btnChoose"
+        android:background="@android:color/transparent"
+        android:onClick="changeClass"
+        android:contentDescription="@string/prawy"
+        android:src="@drawable/prawy" />
+
+    <TextView
+        android:id="@+id/lblClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ibtnLeft"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_toLeftOf="@+id/ibtnRight"
+        android:layout_toRightOf="@+id/ibtnLeft"
+        android:background="@drawable/przycisknazwaclasy"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/txtNick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/imgLogo"
+        android:layout_below="@+id/imgLogo"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:hint="@string/nickHint"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/holo_red_light" >
+
+        <requestFocus />
+    </EditText>
+
+</RelativeLayout>

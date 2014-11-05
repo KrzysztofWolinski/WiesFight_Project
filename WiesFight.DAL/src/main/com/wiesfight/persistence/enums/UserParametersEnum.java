@@ -1,14 +1,14 @@
 package main.com.wiesfight.persistence.enums;
 
 public enum UserParametersEnum {
-	USER_NAME("UserName"),
+	USER_NAME("Username"),
 	LEVEL("Level"),
 	EXPERIENCE("Experience"),
 	COINS("Coins"),
 	ATTACK_ITEMS_COUNT("AttackItemsCount"),
-	DEFENSE_ITEMS_COUNT("DefenseItemsCount"),
+	DEFENSE_ITEMS_COUNT("DefenceItemsCount"),
 	MISC_ITEMS_COUNT("MiscItemsCount"),
-	USER_CLASS("UserClass");
+	USER_CLASS("Class");
 	
 	private final String parameterName;
 
