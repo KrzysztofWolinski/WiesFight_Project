@@ -1,8 +1,5 @@
 package com.wiesfight.activities;
 
-<<<<<<< HEAD
-import main.com.wiesfight.dto.enums.CharacterClass;
-=======
 import java.util.Locale;
 
 import main.com.wiesfight.dto.enums.*;
@@ -16,27 +13,15 @@ import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
->>>>>>> 5552d468716de9f79f5aa4072800978391822ed5
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-<<<<<<< HEAD
-import android.view.ViewGroup.LayoutParams;
-import android.widget.RadioGroup;
-import android.widget.ToggleButton;
-=======
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
->>>>>>> 5552d468716de9f79f5aa4072800978391822ed5
-
-import com.parse.ParseException;
-import com.parse.ParseInstallation;
-import com.parse.ParseQuery;
-import com.wiesfight.R;
-import com.wiesfight.dataaccesslayer.User;
 
 public class LoginActivity extends Activity {
 	private static final String APPLICATION_ID = "62c4LxASRWuWfmkUiNhQQYzvBffHP3sNZVRDNS1t";
