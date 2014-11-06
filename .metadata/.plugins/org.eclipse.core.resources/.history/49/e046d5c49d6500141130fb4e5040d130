@@ -22,12 +22,10 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);      
         setContentView(R.layout.activity_main);
-
         SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         Gson gson = new Gson();
         String json = mPrefs.getString("currentUser", "");
         this.currentUser = gson.fromJson(json, User.class);
-        
         //Intent intent = getIntent();
         //this.currentUser = (User) intent.getSerializableExtra("currentUser");
         TextView txt = (TextView) findViewById(R.id.lblCoins);
