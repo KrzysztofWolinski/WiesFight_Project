@@ -7,15 +7,21 @@ import main.com.wiesfight.dto.User;
 import com.google.gson.Gson;
 import com.wiesfight.R;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+@SuppressLint("InflateParams")
 public class MainActivity extends Activity {
 	private User currentUser;
     @Override
@@ -67,6 +73,41 @@ public class MainActivity extends Activity {
     
     public void goToSettings(View v) {
     	Intent intent = new Intent(this, SettingsActivity.class);
-    	startActivity(intent);
+    	startActivityForResult(intent, 1);
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == RESULT_CANCELED) {
+                this.finish();
+            }
+        }
+    }
+    
+    @Override
+    public void onBackPressed() {
+    	LayoutInflater inflater = this.getLayoutInflater();
+	    View view = inflater.inflate(R.layout.dialog_exit, null);
+	    final AlertDialog dialog = new AlertDialog.Builder(this)
+	    	.setView(view).create();
+	    Button btn1 = (Button) view.findViewById(R.id.btnYes);
+	    Button btn2 = (Button) view.findViewById(R.id.btnNo);
+	    TextView txt = (TextView) view.findViewById(R.id.txtMessage);
+	    txt.setText(getString(R.string.confirmExit));
+	    btn1.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+        		setResult(RESULT_CANCELED);
+        		finish();    
+			}
+		});
+	    btn2.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+	    dialog.show();
     }
 }

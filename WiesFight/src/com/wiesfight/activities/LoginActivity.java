@@ -72,8 +72,8 @@ public class LoginActivity extends Activity {
         prefsEditor.putString("currentUser", jsonUser);
         prefsEditor.commit();
     	//intent.putExtra("currentUser", this.currentUser);
-    	startActivity(intent);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    	startActivity(intent);
     	finish();
     }
     
