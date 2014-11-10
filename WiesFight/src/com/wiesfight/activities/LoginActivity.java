@@ -7,11 +7,9 @@ import main.com.wiesfight.dto.*;
 import main.com.wiesfight.persistence.UserPersistence;
 
 import com.wiesfight.R;
+import com.wiesfight.managers.PreferencesManager;
 import com.google.gson.Gson;
-import com.parse.Parse;
 import com.parse.ParseException;
-import com.parse.ParseInstallation;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import android.app.Activity;
@@ -28,39 +26,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity {
-	private static final String APPLICATION_ID = "62c4LxASRWuWfmkUiNhQQYzvBffHP3sNZVRDNS1t";
-	private static final String CLIENT_KEY = "xhMJeAAqAVeGKwPnHoziBQzRMs1U5DTecIzq975g";
-	private ParseInstallation currentInstallation;
+	private String currentInstallation;
 	private int currentClass = 0;
 	private User currentUser;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Parse.initialize(this, APPLICATION_ID, CLIENT_KEY);
-        this.currentInstallation = ParseInstallation.getCurrentInstallation();
-        this.currentInstallation.saveInBackground();
-        ParseObject.registerSubclass(UserPersistence.class);
-		if(this.userExistsForInstallation(this.currentInstallation.getInstallationId())) {
-			this.goToMainActivity();
-		}
+        this.currentInstallation = PreferencesManager.getInstallationId(this);
 		setContentView(R.layout.activity_login);
 		String className = CharacterClass.values()[this.currentClass].toString();
     	TextView txt = (TextView) findViewById(R.id.lblClass);
     	txt.setText(className);
-	}
-
-    private boolean userExistsForInstallation(String installation) {
-    	ParseQuery<UserPersistence> query = ParseQuery.getQuery(UserPersistence.class);
-    	query.whereEqualTo("Installation", installation);
-    	try {
-    		UserPersistence user = query.getFirst();
-    		this.currentUser = user.loadUserFromDB();
-    		return user != null;
-    	}
-    	catch(ParseException e) {
-    		return false;
-    	}
 	}
     
     private void goToMainActivity() {
@@ -71,7 +48,6 @@ public class LoginActivity extends Activity {
         String jsonUser = gs.toJson(this.currentUser);
         prefsEditor.putString("currentUser", jsonUser);
         prefsEditor.commit();
-    	//intent.putExtra("currentUser", this.currentUser);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     	startActivity(intent);
     	finish();
@@ -102,21 +78,14 @@ public class LoginActivity extends Activity {
     	}
     }
     
-    public void goToMenu(View v) {
-    	Intent intent = new Intent(this, MainActivity.class);
-    	startActivity(intent);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-    	finish();
-    }
-    
     public void addUser(View v) {
     	EditText editText = (EditText) findViewById(R.id.txtNick);
     	String username = editText.getText().toString().trim();
-    	if(this.correctUsername(username)) {
+    	if(this.isUsernameCorrect(username)) {
     		this.currentUser = new User();
     		this.currentUser.setUserClass(CharacterClass.values()[this.currentClass]);
     		this.currentUser.setUserName(username);
-        	UserPersistence user = new UserPersistence(this.currentUser, this.currentInstallation.getInstallationId());
+        	UserPersistence user = new UserPersistence(this.currentUser, this.currentInstallation);
         	user.saveUserToDB();
     		this.goToMainActivity();
     	}
@@ -130,7 +99,7 @@ public class LoginActivity extends Activity {
     	}
     }
 
-	private boolean correctUsername(String username) {
+	private boolean isUsernameCorrect(String username) {
 		if(username.length() < 3)
 			return false;
 		ParseQuery<UserPersistence> query = ParseQuery.getQuery(UserPersistence.class);

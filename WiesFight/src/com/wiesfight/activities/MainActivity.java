@@ -88,7 +88,7 @@ public class MainActivity extends Activity {
     @Override
     public void onBackPressed() {
     	LayoutInflater inflater = this.getLayoutInflater();
-	    View view = inflater.inflate(R.layout.dialog_exit, null);
+	    View view = inflater.inflate(R.layout.dialog_yesno, null);
 	    final AlertDialog dialog = new AlertDialog.Builder(this)
 	    	.setView(view).create();
 	    Button btn1 = (Button) view.findViewById(R.id.btnYes);
@@ -98,7 +98,7 @@ public class MainActivity extends Activity {
 	    btn1.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-        		setResult(RESULT_CANCELED);
+				dialog.dismiss();
         		finish();    
 			}
 		});

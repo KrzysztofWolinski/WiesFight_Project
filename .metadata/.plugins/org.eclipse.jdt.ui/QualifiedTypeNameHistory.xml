@@ -32,9 +32,7 @@
 <fullyQualifiedTypeName name="java.util.Locale"/>
 <fullyQualifiedTypeName name="com.google.gson.Gson"/>
 <fullyQualifiedTypeName name="android.content.SharedPreferences.Editor"/>
-<fullyQualifiedTypeName name="android.content.Context"/>
 <fullyQualifiedTypeName name="android.content.SharedPreferences"/>
-<fullyQualifiedTypeName name="com.wiesfight.managers.PreferencesManager"/>
 <fullyQualifiedTypeName name="com.wiesfight.R.id"/>
 <fullyQualifiedTypeName name="android.widget.ImageView"/>
 <fullyQualifiedTypeName name="android.app.AlertDialog"/>
@@ -48,4 +46,11 @@
 <fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="com.parse.DeleteCallback"/>
 <fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="android.content.Context"/>
+<fullyQualifiedTypeName name="android.net.ConnectivityManager"/>
+<fullyQualifiedTypeName name="android.net.NetworkInfo"/>
+<fullyQualifiedTypeName name="com.wiesfight.managers.ConnectionManager"/>
+<fullyQualifiedTypeName name="android.R"/>
+<fullyQualifiedTypeName name="android.R.attr"/>
+<fullyQualifiedTypeName name="com.wiesfight.managers.PreferencesManager"/>
 </qualifiedTypeNameHistroy>

@@ -24,6 +24,9 @@
     <string name="no">Nie</string>
     <string name="ok">OK</string>
     <string name="instruction">tutaj instrukcja jak grać</string>
+    <string name="noInternetConnection">Połącz się z internetem i spróbuj ponownie.</string>
     <string name="confirmExit">Czy na pewno chcesz wyjść z gry?</string>
     <string name="confirmDelete">Czy na pewno chcesz usunąć postać?</string>
+    <string name="title_activity_start">StartActivity</string>
+
 </resources>
