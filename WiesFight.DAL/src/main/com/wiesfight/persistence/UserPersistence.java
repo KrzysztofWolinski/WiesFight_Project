@@ -54,4 +54,8 @@ public class UserPersistence extends ParseObject {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	public void removeFromDB() {
+		this.deleteInBackground();
+	}
 }

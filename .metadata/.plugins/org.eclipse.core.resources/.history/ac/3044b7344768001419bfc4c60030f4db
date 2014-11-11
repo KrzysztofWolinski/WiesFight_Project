@@ -1,0 +1,48 @@
+package com.wiesfight.activities;
+
+import com.wiesfight.R;
+import com.wiesfight.managers.PreferencesManager;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+
+public class SettingsActivity extends Activity {
+	Boolean soundOn;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_settings);
+		this.soundOn = PreferencesManager.getSoundPreference(this);
+		if(!this.soundOn) {
+			ImageView img = (ImageView) findViewById(R.id.imgSound);
+			img.setImageResource(R.drawable.wyl);
+		}
+	}
+	
+	public void switchSound(View v) {
+		ImageView img = (ImageView) findViewById(R.id.imgSound);
+		if(!this.soundOn) {
+			this.soundOn = true;
+			img.setImageResource(R.drawable.wl);
+		}
+		else {
+			this.soundOn = false;
+			img.setImageResource(R.drawable.wyl);
+		}
+		PreferencesManager.putSoundPreference(this, this.soundOn);
+	}
+	
+	public void showHowToPlay(View v) {
+		
+	}
+	
+	public void deleteCharacter(View v) {
+		
+	}
+	
+	public void leaveGame(View v) {
+		
+	}
+}
