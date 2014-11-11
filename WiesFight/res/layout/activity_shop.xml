@@ -18,29 +18,6 @@
         android:contentDescription="@string/logo"
         android:src="@drawable/logo" />
 
-    <ImageButton
-        android:id="@+id/imageButton1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imgAvatarShopBig"
-        android:layout_marginRight="32dp"
-        android:layout_marginTop="17dp"
-        android:layout_toLeftOf="@+id/imgLogo"
-        android:background="@android:color/transparent"
-        android:onClick="buyDefenseItem"
-        android:src="@drawable/chodzik" />
-
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageButton1"
-        android:layout_alignTop="@+id/imageButton1"
-        android:layout_marginLeft="81dp"
-        android:background="@android:color/transparent"
-        android:onClick="buyMiscItem"
-        android:src="@drawable/woda" />
-
     <TextView
         android:id="@+id/defenseItemsText"
         android:layout_width="wrap_content"
@@ -62,52 +39,64 @@
 
     <ImageButton
         android:id="@+id/imageButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_above="@+id/miscItemsText"
         android:layout_marginLeft="27dp"
         android:layout_toRightOf="@+id/imageButton2"
         android:background="@android:color/transparent"
         android:onClick="buyAttackItem"
+        android:scaleType="fitXY"
         android:src="@drawable/torba" />
-
-    <TextView
-        android:id="@+id/attackItemsText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/imageButton3"
-        android:layout_marginLeft="27dp"
-        android:layout_toRightOf="@+id/imageButton2"
-        android:text="Ilość:"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/lblClass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imgLogo"
-        android:layout_toLeftOf="@+id/imageButton1"
-        android:text="sklep"
-        android:textColor="@android:color/white" />
-
-    <ImageView
-        android:id="@+id/imgAvatarShopBig"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="59dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/baba_big" />
 
     <TextView
         android:id="@+id/coinsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/lblClass"
-        android:layout_marginRight="35dp"
-        android:layout_toLeftOf="@+id/lblClass"
+        android:layout_alignTop="@+id/imgLogo"
         android:text="Dostępne środki: "
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="72dp"
+        android:layout_toLeftOf="@+id/imgLogo"
+        android:background="@android:color/transparent"
+        android:onClick="buyDefenseItem"
+        android:scaleType="fitXY"
+        android:src="@drawable/chodzik" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:layout_above="@+id/miscItemsText"
+        android:layout_marginLeft="75dp"
+        android:layout_toRightOf="@+id/defenseItemsText"
+        android:background="@android:color/transparent"
+        android:onClick="buyMiscItem"
+        android:scaleType="fitXY"
+        android:src="@drawable/woda" />
+
+    <TextView
+        android:id="@+id/attackItemsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/miscItemsText"
+        android:layout_alignBottom="@+id/miscItemsText"
+        android:layout_alignLeft="@+id/imageButton3"
+        android:text="Ilość:"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <ImageView
+        android:id="@+id/imgAvatarShopBig"
+        android:layout_width="150dp"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/imgLogo"
+        android:scaleType="fitXY"
+        android:src="@drawable/blachara_big" />
 
 </RelativeLayout>

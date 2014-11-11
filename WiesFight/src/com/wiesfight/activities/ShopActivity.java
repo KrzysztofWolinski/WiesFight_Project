@@ -3,9 +3,11 @@ package com.wiesfight.activities;
 import java.util.Locale;
 
 import main.com.wiesfight.dto.User;
+import main.com.wiesfight.persistence.UserPersistence;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -14,19 +16,20 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.wiesfight.R;
+import com.wiesfight.managers.PreferencesManager;
 
 public class ShopActivity extends Activity {
 	private User currentUser;
 	
-	private final int ATTACK_ITEM_PRICE = 5;
-	private final int DEFENSE_ITEM_PRICE = 10;
-	private final int MISC_ITEM_PRICE = 15;	
+	private final int ATTACK_ITEM_PRICE = 1;
+	private final int DEFENSE_ITEM_PRICE = 2;
+	private final int MISC_ITEM_PRICE = 3;	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shop);
-		
+	
 		SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         Gson gson = new Gson();
         String json = mPrefs.getString("currentUser", "");
@@ -39,7 +42,7 @@ public class ShopActivity extends Activity {
 	
 	public void buyAttackItem(View v) {
 		if (currentUser.getUserCoins() >= ATTACK_ITEM_PRICE) {
-			currentUser.setAttackItemCount(currentUser.getAttackItemCount() - ATTACK_ITEM_PRICE);
+			currentUser.setUserCoins(currentUser.getUserCoins() - ATTACK_ITEM_PRICE);
 			currentUser.addAttackItemCount();
 			
 			refreshFeedback();
@@ -48,7 +51,7 @@ public class ShopActivity extends Activity {
 	
 	public void buyDefenseItem(View v) {
 		if (currentUser.getUserCoins() >= DEFENSE_ITEM_PRICE) {
-			currentUser.setDefenceItemCount(currentUser.getDefenseItemCount() - DEFENSE_ITEM_PRICE);
+			currentUser.setUserCoins(currentUser.getUserCoins() - DEFENSE_ITEM_PRICE);
 			currentUser.addDefenceItemCount();
 			
 			refreshFeedback();
@@ -57,7 +60,7 @@ public class ShopActivity extends Activity {
 	
 	public void buyMiscItem(View v) {
 		if (currentUser.getUserCoins() >= MISC_ITEM_PRICE) {
-			currentUser.setMiscItemCount(currentUser.getMiscItemCount() - MISC_ITEM_PRICE);
+			currentUser.setUserCoins(currentUser.getUserCoins() - MISC_ITEM_PRICE);
 			currentUser.addMiscItemCount();
 			
 			refreshFeedback();
@@ -84,6 +87,19 @@ public class ShopActivity extends Activity {
 	    	catch(Exception e) {
 	    		
 	    	}
+	    	
+	    	UserPersistence userPersistence = new UserPersistence(currentUser, PreferencesManager.getInstallationId(this));
+	    	userPersistence.saveUserToDB();
+	    	
+	    	
+	    	SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+	    	Editor prefsEditor = mPrefs.edit();
+	    	Intent intent = new Intent(this, MainActivity.class);
+	        Gson gs = new Gson();
+	        String jsonUser = gs.toJson(this.currentUser);
+	        prefsEditor.putString("currentUser", jsonUser);
+	        prefsEditor.commit();
+	    	
 		}
 	}
 	

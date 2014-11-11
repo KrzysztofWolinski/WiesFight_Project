@@ -16,7 +16,7 @@ public class UserPersistence extends ParseObject {
 	}
 	
 	public UserPersistence(User user, String installation) {
-		this.setUser(user);
+		this.setUser(user);		
 		this.put("Installation", installation);
 	}
 		
