@@ -37,7 +37,7 @@ public class UserPersistenceTest {
 		assertThat("Experience should match", user.getUserExperience(), equalTo(retreivedUser.getUserExperience()));
 		assertThat("Levels should match", user.getUserLevel(), equalTo(retreivedUser.getUserLevel()));
 		assertThat("Attack items count should match", user.getAttackItemCount(), equalTo(retreivedUser.getAttackItemCount()));
-		assertThat("Defense items count should match", user.getDefenceItemCount(), equalTo(retreivedUser.getDefenceItemCount()));
+		assertThat("Defense items count should match", user.getDefenseItemCount(), equalTo(retreivedUser.getDefenseItemCount()));
 		assertThat("Misc items count should match", user.getMiscItemCount(), equalTo(retreivedUser.getMiscItemCount()));
 	}
 	

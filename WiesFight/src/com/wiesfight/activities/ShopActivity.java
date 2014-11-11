@@ -1,17 +1,19 @@
 package com.wiesfight.activities;
 
+import java.util.Locale;
+
 import main.com.wiesfight.dto.User;
-
-import com.wiesfight.R;
-import com.wiesfight.R.layout;
-
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.preference.PreferenceManager;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.wiesfight.R;
 
 public class ShopActivity extends Activity {
 	private User currentUser;
@@ -24,8 +26,15 @@ public class ShopActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shop);
-		Intent intent = getIntent();
-		this.currentUser = (User) intent.getSerializableExtra("currentUser");
+		
+		SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        Gson gson = new Gson();
+        String json = mPrefs.getString("currentUser", "");
+        this.currentUser = gson.fromJson(json, User.class);
+        
+        // TODO uaktualnić usera po zmianach
+		
+		refreshFeedback();
 	}
 	
 	public void buyAttackItem(View v) {
@@ -33,16 +42,16 @@ public class ShopActivity extends Activity {
 			currentUser.setAttackItemCount(currentUser.getAttackItemCount() - ATTACK_ITEM_PRICE);
 			currentUser.addAttackItemCount();
 			
-			refreshCoins();
+			refreshFeedback();
 		}
 	}
 	
 	public void buyDefenseItem(View v) {
 		if (currentUser.getUserCoins() >= DEFENSE_ITEM_PRICE) {
-			currentUser.setDefenceItemCount(currentUser.getDefenceItemCount() - DEFENSE_ITEM_PRICE);
+			currentUser.setDefenceItemCount(currentUser.getDefenseItemCount() - DEFENSE_ITEM_PRICE);
 			currentUser.addDefenceItemCount();
 			
-			refreshCoins();
+			refreshFeedback();
 		}
 	}
 	
@@ -51,13 +60,31 @@ public class ShopActivity extends Activity {
 			currentUser.setMiscItemCount(currentUser.getMiscItemCount() - MISC_ITEM_PRICE);
 			currentUser.addMiscItemCount();
 			
-			refreshCoins();
+			refreshFeedback();
 		}
 	}
 	
-	private void refreshCoins() {
-		TextView txt = (TextView) findViewById(R.id.lblCoins);
-    	txt.setText(this.getCoinsString(this.currentUser.getUserCoins()));
+	private void refreshFeedback() {
+		if (this.currentUser != null) {
+			TextView coinsText = (TextView) findViewById(R.id.coinsText);
+			TextView attackItemsText = (TextView) findViewById(R.id.attackItemsText);
+			TextView miscItemsText = (TextView) findViewById(R.id.miscItemsText);
+			TextView defenseItemsText = (TextView) findViewById(R.id.defenseItemsText);
+			
+			coinsText.setText("Dostępne środki: " + this.getCoinsString(this.currentUser.getUserCoins()));
+			attackItemsText.setText("Ilość: " + this.currentUser.getAttackItemCount());
+			miscItemsText.setText("Ilość: " + this.currentUser.getMiscItemCount());
+			defenseItemsText.setText("Ilość: " + this.currentUser.getDefenseItemCount());
+			
+			ImageView img = (ImageView) findViewById(R.id.imgAvatarShopBig);
+	    	String className = this.currentUser.getUserClass().toString();
+	    	try {
+	    		img.setImageResource(R.drawable.class.getField(className.toLowerCase(Locale.ENGLISH) + "_big").getInt(null));
+	    	}
+	    	catch(Exception e) {
+	    		
+	    	}
+		}
 	}
 	
 	private String getCoinsString(int coins) {

@@ -12,7 +12,7 @@ public class User implements Serializable {
 	private int userLevel;		// TODO wyliczanie level'a na podstawie experience powinno być bezpieczniejsze
 	private int userCoins = 10;
 	private int attackItemCount = 1;
-	private int defenceItemCount = 1;
+	private int defenseItemCount = 1;
 	private int miscItemCount = 1;
 	
 	public String getUserName() {
@@ -48,8 +48,8 @@ public class User implements Serializable {
 	public int getAttackItemCount() {
 		return attackItemCount;
 	}
-	public int getDefenceItemCount() {
-		return defenceItemCount;
+	public int getDefenseItemCount() {
+		return defenseItemCount;
 	}
 	public int getMiscItemCount() {
 		return miscItemCount;
@@ -59,7 +59,7 @@ public class User implements Serializable {
 		this.attackItemCount = attackItemCount;
 	}
 	public void setDefenceItemCount(int defenceItemCount) {
-		this.defenceItemCount = defenceItemCount;
+		this.defenseItemCount = defenceItemCount;
 	}
 	public void setMiscItemCount(int miscItemCount) {
 		this.miscItemCount = miscItemCount;
@@ -69,7 +69,7 @@ public class User implements Serializable {
 		this.attackItemCount++;
 	}
 	public void addDefenceItemCount() {
-		this.defenceItemCount++;
+		this.defenseItemCount++;
 	}
 	public void addMiscItemCount() {
 		this.miscItemCount++;

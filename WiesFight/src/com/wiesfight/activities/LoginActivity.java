@@ -70,7 +70,7 @@ public class LoginActivity extends Activity {
         Gson gs = new Gson();
         String jsonUser = gs.toJson(this.currentUser);
         prefsEditor.putString("currentUser", jsonUser);
-        prefsEditor.commit();
+        prefsEditor.apply();
     	//intent.putExtra("currentUser", this.currentUser);
     	startActivity(intent);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

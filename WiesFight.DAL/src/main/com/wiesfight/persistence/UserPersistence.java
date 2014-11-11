@@ -27,7 +27,7 @@ public class UserPersistence extends ParseObject {
 		this.put(UserParametersEnum.EXPERIENCE.getParameterName(), this.user.getUserExperience());
 		this.put(UserParametersEnum.COINS.getParameterName(), this.user.getUserCoins());
 		this.put(UserParametersEnum.ATTACK_ITEMS_COUNT.getParameterName(), this.user.getAttackItemCount());
-		this.put(UserParametersEnum.DEFENSE_ITEMS_COUNT.getParameterName(), this.user.getDefenceItemCount());
+		this.put(UserParametersEnum.DEFENSE_ITEMS_COUNT.getParameterName(), this.user.getDefenseItemCount());
 		this.put(UserParametersEnum.MISC_ITEMS_COUNT.getParameterName(), this.user.getMiscItemCount());
 		
 		this.saveInBackground();
