@@ -74,7 +74,7 @@ public class ShopActivity extends Activity {
 			TextView miscItemsText = (TextView) findViewById(R.id.miscItemsText);
 			TextView defenseItemsText = (TextView) findViewById(R.id.defenseItemsText);
 			
-			coinsText.setText("Dostępne środki: " + this.getCoinsString(this.currentUser.getUserCoins()));
+			coinsText.setText(this.getCoinsString(this.currentUser.getUserCoins()));
 			attackItemsText.setText("Ilość: " + this.currentUser.getAttackItemCount());
 			miscItemsText.setText("Ilość: " + this.currentUser.getMiscItemCount());
 			defenseItemsText.setText("Ilość: " + this.currentUser.getDefenseItemCount());
