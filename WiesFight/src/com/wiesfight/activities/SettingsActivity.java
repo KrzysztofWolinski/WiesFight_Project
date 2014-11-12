@@ -1,10 +1,11 @@
 package com.wiesfight.activities;
 
-import main.com.wiesfight.dto.User;
 import main.com.wiesfight.persistence.UserPersistence;
 
-import com.google.gson.Gson;
+import com.parse.DeleteCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.wiesfight.R;
 import com.wiesfight.managers.PreferencesManager;
@@ -13,9 +14,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -91,19 +90,23 @@ public class SettingsActivity extends Activity {
 	}
 
 	private void deleteCharacter() {
-		SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        Gson gson = new Gson();
-        String json = mPrefs.getString("currentUser", "");
-        User user = gson.fromJson(json, User.class);
-        ParseQuery<UserPersistence> query = ParseQuery.getQuery(UserPersistence.class);
-    	query.whereEqualTo("Username", user.getUserName());
-    	try {
-			UserPersistence userPer = query.getFirst();
-			userPer.deleteInBackground();
-		} catch (ParseException e) {
-			return;
-		}
-    	Intent intent = new Intent(this, LoginActivity.class);
+		ParseQuery<UserPersistence> query = ParseQuery.getQuery(UserPersistence.class);
+		query.fromPin("currentUser");
+		query.getFirstInBackground(new GetCallback<UserPersistence>() {
+			public void done(UserPersistence user, ParseException e) {
+				ParseObject.unpinAllInBackground("currentUser");
+				user.deleteInBackground(new DeleteCallback() {
+					@Override
+					public void done(ParseException e) {
+						returnToLogin();
+					}
+				});
+			}
+		});
+	}
+	
+	private void returnToLogin() {
+		Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     	startActivity(intent);
     	finish();

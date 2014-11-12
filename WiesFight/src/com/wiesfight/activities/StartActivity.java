@@ -52,10 +52,12 @@ public class StartActivity extends Activity {
 	}
 
 	private void initializeParse() {
+	    ParseObject.registerSubclass(UserPersistence.class);
+	    Parse.enableLocalDatastore(this);
 		Parse.initialize(this, APPLICATION_ID, CLIENT_KEY);
+		ParseObject.unpinAllInBackground("currentUser");
 	    this.currentInstallation = ParseInstallation.getCurrentInstallation();
 	    this.currentInstallation.saveInBackground();
-	    ParseObject.registerSubclass(UserPersistence.class);
 	    PreferencesManager.putInstallationId(this, this.currentInstallation.getInstallationId());
 	}
 
@@ -65,6 +67,7 @@ public class StartActivity extends Activity {
     	try {
     		UserPersistence user = query.getFirst();
     		this.currentUser = user.loadUserFromDB();
+    		user.pin("currentUser");
     		return user != null;
     	}
     	catch(ParseException e) {

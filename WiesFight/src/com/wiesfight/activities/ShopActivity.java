@@ -5,20 +5,18 @@ import java.util.Locale;
 import main.com.wiesfight.dto.User;
 import main.com.wiesfight.persistence.UserPersistence;
 import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.wiesfight.R;
-import com.wiesfight.managers.PreferencesManager;
 
 public class ShopActivity extends Activity {
+	private UserPersistence currentUserPer;
 	private User currentUser;
 	
 	private final int ATTACK_ITEM_PRICE = 1;
@@ -30,14 +28,15 @@ public class ShopActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shop);
 	
-		SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        Gson gson = new Gson();
-        String json = mPrefs.getString("currentUser", "");
-        this.currentUser = gson.fromJson(json, User.class);
-        
-        // TODO uaktualnić usera po zmianach
-		
-		refreshFeedback();
+		ParseQuery<UserPersistence> query = ParseQuery.getQuery(UserPersistence.class);
+		query.fromPin("currentUser");
+		query.getFirstInBackground(new GetCallback<UserPersistence>() {
+			public void done(UserPersistence user, ParseException e) {
+				currentUserPer = user;
+		        currentUser = user.getUser();
+				refreshFeedback();
+			}
+		});
 	}
 	
 	public void buyAttackItem(View v) {
@@ -88,18 +87,6 @@ public class ShopActivity extends Activity {
 	    		
 	    	}
 	    	
-	    	UserPersistence userPersistence = new UserPersistence(currentUser, PreferencesManager.getInstallationId(this));
-	    	userPersistence.saveUserToDB();
-	    	
-	    	
-	    	SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-	    	Editor prefsEditor = mPrefs.edit();
-	    	Intent intent = new Intent(this, MainActivity.class);
-	        Gson gs = new Gson();
-	        String jsonUser = gs.toJson(this.currentUser);
-	        prefsEditor.putString("currentUser", jsonUser);
-	        prefsEditor.commit();
-	    	
 		}
 	}
 	
@@ -112,5 +99,13 @@ public class ShopActivity extends Activity {
     	else if((units == 2 || units == 3 || units == 4) && dozens != 1)
     		coinString = "monety";
 		return coins + " " + coinString;
+    }
+    
+    @Override
+    public void onBackPressed() {
+    	this.currentUserPer.setUser(this.currentUser);
+		this.currentUserPer.saveUserToDB();
+		setResult(RESULT_OK);
+		finish();
     }
 }

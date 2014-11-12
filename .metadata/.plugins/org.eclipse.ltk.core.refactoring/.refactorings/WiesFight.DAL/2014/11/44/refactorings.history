@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Copy element &apos;User.java&apos; to &apos;WiesFight/src/com.wiesfight.dataaccesslayer&apos;&#x0D;&#x0A;- Original project: &apos;WiesFight.DAL&apos;&#x0D;&#x0A;- Destination element: &apos;WiesFight/src/com.wiesfight.dataaccesslayer&apos;&#x0D;&#x0A;- Original element: &apos;main.com.wiesfight.dto.User.java&apos;" description="Copy compilation unit" destination="=WiesFight/src&lt;com.wiesfight.dataaccesslayer" element1="/src&lt;main.com.wiesfight.dto{User.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1414841917994" units="1" version="1.0"/>
-</session>

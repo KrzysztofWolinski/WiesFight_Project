@@ -3,17 +3,18 @@ package com.wiesfight.activities;
 import java.util.Locale;
 
 import main.com.wiesfight.dto.User;
+import main.com.wiesfight.persistence.UserPersistence;
 
-import com.google.gson.Gson;
+import com.parse.GetCallback;
+import com.parse.ParseQuery;
+import com.parse.ParseException;
 import com.wiesfight.R;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,14 +30,22 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);      
         setContentView(R.layout.activity_main);
 
-        SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        Gson gson = new Gson();
-        String json = mPrefs.getString("currentUser", "");
-        this.currentUser = gson.fromJson(json, User.class);
-        
-        //Intent intent = getIntent();
-        //this.currentUser = (User) intent.getSerializableExtra("currentUser");
-        TextView txt = (TextView) findViewById(R.id.lblCoins);
+        this.initializeView();
+    }
+    
+    private void initializeView() {
+    	ParseQuery<UserPersistence> query = ParseQuery.getQuery(UserPersistence.class);
+		query.fromPin("currentUser");
+		query.getFirstInBackground(new GetCallback<UserPersistence>() {
+			public void done(UserPersistence user, ParseException e) {
+		        currentUser = user.getUser();
+		        setControls();
+			}
+		});
+    }
+    
+    private void setControls() {
+    	TextView txt = (TextView) findViewById(R.id.lblCoins);
     	txt.setText(this.getCoinsString(this.currentUser.getUserCoins()));
     	txt = (TextView) findViewById(R.id.lblUsername);
     	txt.setText(this.currentUser.getUserName() + " (lvl " + this.currentUser.getUserLevel() + ")");
@@ -68,7 +77,7 @@ public class MainActivity extends Activity {
     
     public void goToShop(View v) {
     	Intent intent = new Intent(this, ShopActivity.class);
-    	startActivity(intent);
+    	startActivityForResult(intent, 2);
     }
     
     public void goToSettings(View v) {
@@ -81,6 +90,11 @@ public class MainActivity extends Activity {
         if (requestCode == 1) {
             if (resultCode == RESULT_CANCELED) {
                 this.finish();
+            }
+        }
+        if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                this.initializeView();
             }
         }
     }

@@ -87,6 +87,10 @@ public class LoginActivity extends Activity {
     		this.currentUser.setUserName(username);
         	UserPersistence user = new UserPersistence(this.currentUser, this.currentInstallation);
         	user.saveUserToDB();
+        	try {
+				user.pin("currentUser");
+			} catch (ParseException e) {
+			}
     		this.goToMainActivity();
     	}
     	else {
