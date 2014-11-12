@@ -14,15 +14,18 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/instruction"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/btnOk"
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="125dp"
         android:layout_centerHorizontal="true"
-        android:text="@string/ok" />
+        android:background="@drawable/ok" />
 
 </RelativeLayout>

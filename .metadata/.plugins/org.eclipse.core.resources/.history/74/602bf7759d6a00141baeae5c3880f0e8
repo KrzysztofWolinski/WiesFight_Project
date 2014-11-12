@@ -1,0 +1,100 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.wiesfight.activities.MainActivity" >
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/logo" />
+
+    <Button
+        android:id="@+id/btnShop"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/btnFight"
+        android:layout_below="@+id/btnFight"
+        android:layout_marginTop="15dp"
+        android:onClick="goToShop"
+        android:background="@drawable/sklep" />
+
+    <Button
+        android:id="@+id/btnSettings"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/btnShop"
+        android:layout_below="@+id/btnShop"
+        android:layout_marginTop="15dp"
+        android:onClick="goToSettings"
+        android:background="@drawable/ustawienia" />
+
+    <Button
+        android:id="@+id/btnFight"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/imgLogo"
+        android:layout_below="@+id/imgLogo"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/walka"
+        android:onClick="goToFight" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp" >
+
+    <TextView
+        android:id="@+id/lblCoins"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/holo_orange_light" />
+    
+     <FrameLayout 
+        android:id="@+id/layoutAvatar"
+	    android:layout_width="136dp"
+	    android:layout_height="136dp"
+        android:layout_marginTop="60dp" >
+	
+	    <ImageView
+	        android:id="@+id/imgAvatarMain"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:contentDescription="@string/avatar"
+	        android:src="@drawable/informatyk"
+	        android:layout_gravity="center" />
+	
+	    <ImageView
+	        android:id="@+id/imgFrame"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:contentDescription="@string/ramka"
+	        android:src="@drawable/ramka" />
+    
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/lblUsername"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/white" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -15,23 +15,43 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
         android:src="@drawable/logo" 
         android:contentDescription="@string/logo" />
+
+    <ImageView
+        android:id="@+id/imgBtnBg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btnExit"
+        android:layout_alignLeft="@+id/btnSound"
+        android:layout_alignRight="@+id/imgSound"
+        android:layout_alignTop="@+id/btnSound"
+        android:layout_marginBottom="-15dp"
+        android:layout_marginLeft="-10dp"
+        android:layout_marginRight="-10dp"
+        android:layout_marginTop="-15dp"
+        android:alpha="0.3"
+        android:contentDescription="@string/desc"
+        android:src="@drawable/tlopodprzyciski" />
 
     <Button
         android:id="@+id/btnSound"
         android:layout_width="150dp"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:layout_below="@+id/imgLogo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="50dp"
         android:onClick="switchSound"
         android:background="@drawable/glos" />
 
     <Button
         android:id="@+id/btnHowToPlay"
         android:layout_width="150dp"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:layout_alignLeft="@+id/btnSound"
         android:layout_below="@+id/btnSound"
         android:layout_marginTop="15dp"
@@ -41,7 +61,7 @@
     <Button
         android:id="@+id/btnDeleteCharacter"
         android:layout_width="150dp"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:layout_alignLeft="@+id/btnHowToPlay"
         android:layout_below="@+id/btnHowToPlay"
         android:layout_marginTop="15dp"
@@ -51,7 +71,7 @@
     <Button
         android:id="@+id/btnExit"
         android:layout_width="150dp"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:layout_alignRight="@+id/btnDeleteCharacter"
         android:layout_below="@+id/btnDeleteCharacter"
         android:layout_marginTop="15dp"
@@ -64,7 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/btnSound"
         android:layout_toRightOf="@+id/btnSound"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
         android:src="@drawable/wl"
         android:contentDescription="@string/desc" />

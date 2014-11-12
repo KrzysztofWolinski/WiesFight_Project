@@ -15,31 +15,35 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
         android:contentDescription="@string/logo"
         android:src="@drawable/logo" />
 
     <Button
         android:id="@+id/btnChoose"
         android:layout_width="140dp"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/ibtnLeft"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/wybierz"
         android:onClick="addUser" />
 
     <ImageButton
         android:id="@+id/ibtnLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="25dp"
         android:layout_above="@+id/btnChoose"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="30dp"
+        android:adjustViewBounds="false"
         android:background="@android:color/transparent"
         android:contentDescription="@string/lewy"
-        android:src="@drawable/lewy"
-        android:onClick="changeClass" />
+        android:onClick="changeClass"
+        android:scaleType="fitXY"
+        android:src="@drawable/lewy" />
     
     <FrameLayout 
 	    android:layout_width="wrap_content"
@@ -68,13 +72,14 @@
 
     <ImageButton
         android:id="@+id/ibtnRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/lblClass"
+        android:layout_width="20dp"
+        android:layout_height="25dp"
+        android:layout_alignTop="@+id/ibtnLeft"
         android:layout_toRightOf="@+id/btnChoose"
         android:background="@android:color/transparent"
-        android:onClick="changeClass"
         android:contentDescription="@string/prawy"
+        android:onClick="changeClass"
+        android:scaleType="fitXY"
         android:src="@drawable/prawy" />
 
     <TextView
@@ -82,8 +87,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/ibtnLeft"
-        android:layout_marginLeft="14dp"
-        android:layout_marginRight="14dp"
+        android:layout_alignBottom="@+id/ibtnRight"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_toLeftOf="@+id/ibtnRight"
         android:layout_toRightOf="@+id/ibtnLeft"
         android:background="@drawable/przycisknazwaclasy"
@@ -94,10 +100,12 @@
         android:id="@+id/txtNick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/imgLogo"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/imgLogo"
+        android:layout_marginRight="30dp"
         android:layout_marginTop="30dp"
         android:ems="10"
+        android:gravity="center_vertical|center_horizontal"
         android:hint="@string/nickHint"
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/holo_red_light" >

@@ -26,15 +26,15 @@
         </activity>
         <activity
             android:name=".activities.FightActivity"
-            android:label="@string/title_activity_fight" >
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".activities.ShopActivity"
-            android:label="@string/title_activity_shop" >
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".activities.SettingsActivity"
-            android:label="@string/title_activity_settings" >
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="com.wiesfight.activities.StartActivity"

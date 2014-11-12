@@ -1,9 +1,7 @@
 package com.wiesfight.activities;
 
-import main.com.wiesfight.dto.User;
 import main.com.wiesfight.persistence.UserPersistence;
 
-import com.google.gson.Gson;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
@@ -17,10 +15,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,7 +26,6 @@ public class StartActivity extends Activity {
 	private static final String APPLICATION_ID = "62c4LxASRWuWfmkUiNhQQYzvBffHP3sNZVRDNS1t";
 	private static final String CLIENT_KEY = "xhMJeAAqAVeGKwPnHoziBQzRMs1U5DTecIzq975g";
 	private ParseInstallation currentInstallation;
-	private User currentUser;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +60,10 @@ public class StartActivity extends Activity {
     	query.whereEqualTo("Installation", this.currentInstallation.getInstallationId());
     	try {
     		UserPersistence user = query.getFirst();
-    		this.currentUser = user.loadUserFromDB();
-    		user.pin("currentUser");
+    		if(user != null) {
+	    		user.loadUserFromDB();
+	    		user.pin("currentUser");
+    		}
     		return user != null;
     	}
     	catch(ParseException e) {
@@ -76,13 +72,7 @@ public class StartActivity extends Activity {
 	}
     
     private void goToMainActivity() {
-    	SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-    	Editor prefsEditor = mPrefs.edit();
     	Intent intent = new Intent(this, MainActivity.class);
-        Gson gs = new Gson();
-        String jsonUser = gs.toJson(this.currentUser);
-        prefsEditor.putString("currentUser", jsonUser);
-        prefsEditor.commit();
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     	startActivity(intent);
     	finish();

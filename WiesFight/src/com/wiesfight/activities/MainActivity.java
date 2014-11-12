@@ -46,9 +46,11 @@ public class MainActivity extends Activity {
     
     private void setControls() {
     	TextView txt = (TextView) findViewById(R.id.lblCoins);
-    	txt.setText(this.getCoinsString(this.currentUser.getUserCoins()));
+    	//txt.setText(this.getCoinsString(this.currentUser.getUserCoins()));
     	txt = (TextView) findViewById(R.id.lblUsername);
-    	txt.setText(this.currentUser.getUserName() + " (lvl " + this.currentUser.getUserLevel() + ")");
+    	txt.setText(this.currentUser.getUserName());
+    	txt = (TextView) findViewById(R.id.lblLevel);
+    	txt.setText("Poziom " + this.currentUser.getUserLevel());
     	ImageView img = (ImageView) findViewById(R.id.imgAvatarMain);
     	String className = this.currentUser.getUserClass().toString();
     	try {

@@ -13,25 +13,30 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/btnYes"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
+        android:layout_width="125dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="130dp"
-        android:text="@string/yes" />
+        android:layout_marginTop="125dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/tak" />
 
     <Button
         android:id="@+id/btnNo"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
+        android:layout_width="125dp"
+        android:layout_height="40dp"
         android:layout_alignBaseline="@+id/btnYes"
         android:layout_alignBottom="@+id/btnYes"
         android:layout_alignParentRight="true"
-        android:text="@string/no" />
+        android:layout_marginRight="15dp"
+        android:background="@drawable/nie" />
 
 </RelativeLayout>
