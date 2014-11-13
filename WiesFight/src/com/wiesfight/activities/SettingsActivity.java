@@ -77,6 +77,7 @@ public class SettingsActivity extends Activity {
 	    btn1.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				dialog.dismiss();
 				deleteCharacter();
 			}
 		});
@@ -107,7 +108,7 @@ public class SettingsActivity extends Activity {
 	
 	private void returnToLogin() {
 		Intent intent = new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
     	startActivity(intent);
     	finish();
 	}
