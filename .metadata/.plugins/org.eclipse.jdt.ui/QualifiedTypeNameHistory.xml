@@ -5,10 +5,24 @@
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="com.parse.GetCallback"/>
 <fullyQualifiedTypeName name="com.parse.ParseObject"/>
-<fullyQualifiedTypeName name="com.parse.SaveCallback"/>
 <fullyQualifiedTypeName name="com.parse.DeleteCallback"/>
 <fullyQualifiedTypeName name="android.widget.VideoView"/>
 <fullyQualifiedTypeName name="android.media.MediaPlayer.OnCompletionListener"/>
 <fullyQualifiedTypeName name="android.widget.MediaController"/>
 <fullyQualifiedTypeName name="android.net.Uri"/>
+<fullyQualifiedTypeName name="android.view.MotionEvent"/>
+<fullyQualifiedTypeName name="android.view.View.OnTouchListener"/>
+<fullyQualifiedTypeName name="com.wiesfight.managers.PreferencesManager"/>
+<fullyQualifiedTypeName name="com.parse.SaveCallback"/>
+<fullyQualifiedTypeName name="android.content.Intent"/>
+<fullyQualifiedTypeName name="main.com.wiesfight.persistence.UserPersistence"/>
+<fullyQualifiedTypeName name="com.parse.ParseException"/>
+<fullyQualifiedTypeName name="main.com.wiesfight.dto.enums.CharacterClass"/>
+<fullyQualifiedTypeName name="main.com.wiesfight.objects.Fighter"/>
+<fullyQualifiedTypeName name="main.com.wiesfight.objects.IFighter"/>
+<fullyQualifiedTypeName name="main.com.wiesfight.objects.TrainingOpponent"/>
+<fullyQualifiedTypeName name="main.com.wiesfight.dto.User"/>
+<fullyQualifiedTypeName name="android.widget.ProgressBar"/>
+<fullyQualifiedTypeName name="android.R"/>
+<fullyQualifiedTypeName name="android.R.id"/>
 </qualifiedTypeNameHistroy>

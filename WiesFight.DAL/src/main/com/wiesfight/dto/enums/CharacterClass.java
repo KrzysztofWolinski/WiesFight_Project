@@ -5,7 +5,8 @@ public enum CharacterClass {
 	KLOSZARD(5, 20, 0.1, 0.9, 0.15, 1.1),
 	KIBIC(15, 10, 0.1, 0.9, 0.15, 1.1),
 	MOHER(2, 10, 0.1, 0.9, 0.15, 1.1),
-	BLACHARA(8, 10, 0.1, 0.9, 0.15, 1.1);
+	BLACHARA(8, 10, 0.1, 0.9, 0.15, 1.1),
+	TRENING(8, 10, 0.1, 0.9, 0.15, 1.1);
 	
 	// zadawane obrażenia
 	private final int attackPower;

@@ -1,0 +1,12 @@
+package main.com.wiesfight.objects;
+
+import main.com.wiesfight.dto.User;
+
+public class Fighter implements IFighter {
+	private User user;
+	private int health;
+	
+	public Fighter(User u) {
+		this.user = u;
+	}
+}

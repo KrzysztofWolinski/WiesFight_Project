@@ -28,7 +28,7 @@
         android:layout_toRightOf="@+id/ibtnLeft"
         android:layout_marginBottom="40dp"
         android:background="@drawable/wybierz"
-        android:onClick="addUser" />
+        android:onClick="validateUser" />
 
     <ImageButton
         android:id="@+id/ibtnLeft"

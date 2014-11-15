@@ -8,17 +8,14 @@ import main.com.wiesfight.persistence.UserPersistence;
 
 import com.wiesfight.R;
 import com.wiesfight.managers.PreferencesManager;
-import com.google.gson.Gson;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -41,13 +38,7 @@ public class LoginActivity extends Activity {
 	}
     
     private void goToMainActivity() {
-    	SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-    	Editor prefsEditor = mPrefs.edit();
     	Intent intent = new Intent(this, MainActivity.class);
-        Gson gs = new Gson();
-        String jsonUser = gs.toJson(this.currentUser);
-        prefsEditor.putString("currentUser", jsonUser);
-        prefsEditor.commit();
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     	startActivity(intent);
     	finish();
@@ -55,16 +46,10 @@ public class LoginActivity extends Activity {
     
     public void changeClass(View v) {
     	if(v.getId() == R.id.ibtnLeft ) {
-    		if(this.currentClass > 0)
-    			this.currentClass--;
-    		else
-    			return;
+    		this.currentClass = this.currentClass > 0 ? this.currentClass-- : 4;
     	}
     	else if(v.getId() == R.id.ibtnRight) {
-    		if(this.currentClass < 4)
-    			this.currentClass++;
-    		else
-    			return;
+    		this.currentClass = this.currentClass < 4 ? this.currentClass++ : 0;
     	}
     	String className = CharacterClass.values()[this.currentClass].toString();
     	TextView txt = (TextView) findViewById(R.id.lblClass);
@@ -78,29 +63,38 @@ public class LoginActivity extends Activity {
     	}
     }
     
-    public void addUser(View v) {
+    public void validateUser(View v) {
     	EditText editText = (EditText) findViewById(R.id.txtNick);
     	String username = editText.getText().toString().trim();
     	if(this.isUsernameCorrect(username)) {
-    		this.currentUser = new User();
-    		this.currentUser.setUserClass(CharacterClass.values()[this.currentClass]);
-    		this.currentUser.setUserName(username);
-        	UserPersistence user = new UserPersistence(this.currentUser, this.currentInstallation);
-        	user.saveUserToDB();
-        	try {
-				user.pin("currentUser");
-			} catch (ParseException e) {
-			}
-    		this.goToMainActivity();
+    		this.addUser(username);
     	}
     	else {
-    		Context context = getApplicationContext();
-    		CharSequence text = "Nazwa uzytkownika za krotka lub zajeta";
-    		int duration = Toast.LENGTH_SHORT;
-
-    		Toast toast = Toast.makeText(context, text, duration);
-    		toast.show();
+    		this.showToast();
+    		
     	}
+    }
+    
+    private void showToast() {
+		CharSequence text = "Nazwa uzytkownika za krotka lub zajeta";
+		int duration = Toast.LENGTH_SHORT;
+
+		Toast toast = Toast.makeText(this, text, duration);
+		toast.show();
+	}
+
+	private void addUser(String username) {
+    	this.currentUser = new User();
+		this.currentUser.setUserClass(CharacterClass.values()[this.currentClass]);
+		this.currentUser.setUserName(username);
+    	UserPersistence user = new UserPersistence(this.currentUser, this.currentInstallation);
+    	user.saveUserToDB();
+		user.pinInBackground("currentUser", new SaveCallback() {
+			@Override
+			public void done(ParseException e) {
+	    		goToMainActivity();
+			}
+		});
     }
 
 	private boolean isUsernameCorrect(String username) {

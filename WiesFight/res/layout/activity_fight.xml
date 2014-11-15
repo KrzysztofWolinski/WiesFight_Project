@@ -2,29 +2,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="${relativePackage}.${activityClass}" >
 
     <ImageView
-        android:id="@+id/imgLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/imgAvatarOpponent"
+        android:layout_width="84dp"
+        android:layout_height="75dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:src="@drawable/logo"
-        android:contentDescription="@string/logo" />
+        android:contentDescription="@string/desc"
+        android:scaleType="fitXY"
+        android:src="@drawable/informatyk" />
 
-    <TextView
-        android:id="@+id/lblClass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imgLogo"
+    <ImageView
+        android:id="@+id/imgAvatarUser"
+        android:layout_width="84dp"
+        android:layout_height="75dp"
         android:layout_alignParentLeft="true"
-        android:text="walka"
-        android:textColor="@android:color/white" />
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="false"
+        android:contentDescription="@string/desc"
+        android:scaleType="fitXY"
+        android:src="@drawable/informatyk" />
 
 </RelativeLayout>

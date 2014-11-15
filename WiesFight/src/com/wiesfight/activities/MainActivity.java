@@ -73,7 +73,7 @@ public class MainActivity extends Activity {
     }
     
     public void goToFight(View v) {
-    	Intent intent = new Intent(this, FightActivity.class);
+    	Intent intent = new Intent(this, PreFightActivity.class);
     	startActivity(intent);
     }
     

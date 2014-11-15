@@ -26,7 +26,10 @@
     <string name="instruction">tutaj instrukcja jak grać</string>
     <string name="noInternetConnection">Połącz się z internetem i spróbuj ponownie.</string>
     <string name="confirmExit">Czy na pewno chcesz wyjść z gry?</string>
-    <string name="confirmDelete">Czy na pewno chcesz usunąć postać?</string>
+    <string name="confirmDelete">Czy na pewno chcesz usunąć postać? Nie będzie już możliwości jej przywrócenia</string>
+    <string name="confirmLeaveFight">Jeżeli opuścisz walkę, przegrasz. Czy na pewno chcesz to zrobić?</string>
     <string name="title_activity_start">StartActivity</string>
+    <string name="trening">Trening</string>
+    <string name="title_activity_pre_fight">PreFightActivity</string>
 
 </resources>
