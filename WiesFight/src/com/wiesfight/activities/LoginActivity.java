@@ -13,7 +13,6 @@ import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -32,26 +31,12 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
         this.currentInstallation = PreferencesManager.getInstallationId(this);
 		setContentView(R.layout.activity_login);
-		String className = CharacterClass.values()[this.currentClass].toString();
-    	TextView txt = (TextView) findViewById(R.id.lblClass);
-    	txt.setText(className);
+		this.drawControls();
 	}
     
-    private void goToMainActivity() {
-    	Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-    	startActivity(intent);
-    	finish();
-    }
-    
-    public void changeClass(View v) {
-    	if(v.getId() == R.id.ibtnLeft ) {
-    		this.currentClass = this.currentClass > 0 ? this.currentClass-- : 4;
-    	}
-    	else if(v.getId() == R.id.ibtnRight) {
-    		this.currentClass = this.currentClass < 4 ? this.currentClass++ : 0;
-    	}
-    	String className = CharacterClass.values()[this.currentClass].toString();
+    private void drawControls() {
+    	CharacterClass charClass = CharacterClass.values()[this.currentClass];
+    	String className = charClass.toString();
     	TextView txt = (TextView) findViewById(R.id.lblClass);
     	txt.setText(className);
     	ImageView img = (ImageView) findViewById(R.id.imgAvatar);
@@ -61,6 +46,28 @@ public class LoginActivity extends Activity {
     	catch(Exception e) {
     		
     	}
+    	txt = (TextView) findViewById(R.id.txtClassFeatures);
+    	String text = String.format(getString(R.string.charFormat), charClass.getAttackPower(),
+    			charClass.getHealthPoints(), (int)(charClass.getDefence() * 100), (int)(charClass.getAccuracy() * 100),
+    			(int)(charClass.getCriticalChance() * 100), (int)(charClass.getCriticalPower() * 100));
+    	txt.setText(text);
+	}
+
+	private void goToMainActivity() {
+    	Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    	startActivity(intent);
+    	finish();
+    }
+    
+    public void changeClass(View v) {
+    	if(v.getId() == R.id.ibtnLeft ) {
+    		this.currentClass = this.currentClass > 0 ? this.currentClass - 1 : 4;
+    	}
+    	else if(v.getId() == R.id.ibtnRight) {
+    		this.currentClass = this.currentClass < 4 ? this.currentClass + 1 : 0;
+    	}
+    	this.drawControls();
     }
     
     public void validateUser(View v) {
@@ -71,7 +78,6 @@ public class LoginActivity extends Activity {
     	}
     	else {
     		this.showToast();
-    		
     	}
     }
     

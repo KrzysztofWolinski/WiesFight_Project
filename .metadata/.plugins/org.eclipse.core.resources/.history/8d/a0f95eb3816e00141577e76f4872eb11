@@ -1,0 +1,5 @@
+package main.com.wiesfight.dto.enums;
+
+public enum Items {
+
+}

@@ -1,0 +1,123 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/logo" />
+    
+    <TextView
+        android:id="@+id/defenseItemsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageButton1"
+        android:layout_alignTop="@+id/imageButton1"
+        android:layout_marginTop="76dp"
+        android:text="Ilość:"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/white" />
+    
+    <TextView
+        android:id="@+id/miscItemsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageButton2"
+        android:layout_alignTop="@+id/imageButton2"
+        android:layout_marginTop="76dp"
+        android:text="Ilość:"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/white" />    
+
+    <TextView
+        android:id="@+id/attackItemsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageButton3"
+        android:layout_alignTop="@+id/imageButton3"
+        android:layout_marginTop="76dp"
+        android:text="Ilość:"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/white" />
+
+    <ImageView
+        android:id="@+id/imgAvatarShopBig"
+        android:layout_width="130dp"
+        android:layout_height="200dp"
+        android:scaleType="fitXY"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="56dp"
+        android:src="@drawable/blachara_big"
+        android:contentDescription="@string/desc" />
+
+    <TextView
+        android:id="@+id/coinsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageView1"
+        android:layout_alignTop="@+id/imageView1"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="3dp"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/holo_orange_light" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignTop="@+id/imgLogo"
+        android:layout_alignLeft="@+id/imgAvatarShopBig"
+        android:layout_marginTop="14dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/kasa" />
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:layout_toLeftOf="@+id/imageButton2"
+        android:background="@android:color/transparent"
+        android:onClick="buyDefenseItem"
+        android:scaleType="fitXY"
+        android:src="@drawable/chodzik" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignTop="@+id/imageButton1"
+        android:layout_marginRight="26dp"
+        android:layout_toLeftOf="@+id/defenseItemsText"
+        android:background="@android:color/transparent"
+        android:onClick="buyAttackItem"
+        android:scaleType="fitXY"
+        android:src="@drawable/torba" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignRight="@+id/imgLogo"
+        android:layout_alignTop="@+id/imageButton1"
+        android:background="@android:color/transparent"
+        android:onClick="buyMiscItem"
+        android:scaleType="fitXY"
+        android:src="@drawable/woda" />
+
+</RelativeLayout>

@@ -1,0 +1,34 @@
+package com.wiesfight.enums;
+
+public enum Tutorial {
+	KROK1("Kliknij avatar swojej postaci w menu g³ównym, aby podejrzeæ jej cechy.", "blachara", true, false),
+	KROKOSTATNI("Krok ostatni", "tutorial2", false, true);
+	
+	private final Boolean btnNextVisible;
+	private final Boolean btnBackVisible;
+	private final String text;
+	private final String screenFilename;
+	
+	private Tutorial(String text, String filename, Boolean btnNext, Boolean btnBack) {
+		this.btnBackVisible = btnBack;
+		this.btnNextVisible = btnNext;
+		this.text = text;
+		this.screenFilename = filename;
+	}
+	
+	public Boolean getBtnNextVisibility() {
+		return this.btnNextVisible;
+	}
+	
+	public Boolean getBtnBackVisibility() {
+		return this.btnBackVisible;
+	}
+	
+	public String getText() {
+		return this.text;
+	}
+	
+	public String getFilename() {
+		return this.screenFilename;
+	}
+}

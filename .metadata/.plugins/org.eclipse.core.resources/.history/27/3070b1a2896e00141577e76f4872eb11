@@ -1,0 +1,38 @@
+package com.wiesfight.enums;
+
+import android.R;
+import android.view.View;
+import com.wiesfight.R;
+
+public enum Tutorial {
+	KROK1("Kliknij avatar swojej postaci w menu g³ównym, aby podejrzeæ jej cechy.", R.drawable.blachara, View.VISIBLE, View.INVISIBLE),
+	KROKOSTATNI("Krok ostatni", "tutorial2", View.INVISIBLE, View.VISIBLE);
+	
+	private final int btnNextVisible;
+	private final int btnBackVisible;
+	private final String text;
+	private final String screenFilename;
+	
+	private Tutorial(String text, String filename, int btnNext, int btnBack) {
+		this.btnBackVisible = btnBack;
+		this.btnNextVisible = btnNext;
+		this.text = text;
+		this.screenFilename = filename;
+	}
+	
+	public int getBtnNextVisibility() {
+		return this.btnNextVisible;
+	}
+	
+	public int getBtnBackVisibility() {
+		return this.btnBackVisible;
+	}
+	
+	public String getText() {
+		return this.text;
+	}
+	
+	public String getFilename() {
+		return this.screenFilename;
+	}
+}

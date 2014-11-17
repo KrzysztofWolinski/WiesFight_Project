@@ -96,7 +96,9 @@
 	        android:layout_height="wrap_content"
 	        android:contentDescription="@string/avatar"
 	        android:src="@drawable/informatyk"
-	        android:layout_gravity="center" />
+	        android:layout_gravity="center"
+	        android:clickable="true"
+	        android:onClick="showStats" />
 	
 	    <ImageView
 	        android:id="@+id/imgFrame"

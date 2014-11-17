@@ -47,8 +47,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.wiesfight.activities.PreFightActivity"
+            android:name=".activities.PreFightActivity"
             android:label="@string/title_activity_pre_fight" >
+        </activity>
+        <activity
+            android:name="com.wiesfight.activities.TutorialActivity"
+            android:label="@string/title_activity_tutarial" >
         </activity>
     </application>
 

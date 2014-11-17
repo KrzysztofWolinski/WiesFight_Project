@@ -3,10 +3,16 @@ package com.wiesfight.activities;
 import java.util.Locale;
 
 import main.com.wiesfight.dto.User;
+import main.com.wiesfight.dto.enums.CharacterClass;
 import main.com.wiesfight.persistence.UserPersistence;
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,10 +20,15 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.wiesfight.R;
+import com.wiesfight.enums.Items;
 
 public class ShopActivity extends Activity {
 	private UserPersistence currentUserPer;
 	private User currentUser;
+	TextView coinsText;
+	TextView attackItemsText;
+	TextView miscItemsText;
+	TextView defenceItemsText;
 	
 	private final int ATTACK_ITEM_PRICE = 1;
 	private final int DEFENSE_ITEM_PRICE = 2;
@@ -34,59 +45,109 @@ public class ShopActivity extends Activity {
 			public void done(UserPersistence user, ParseException e) {
 				currentUserPer = user;
 		        currentUser = user.getUser();
+		        initializeFeedback();
 				refreshFeedback();
 			}
 		});
 	}
 	
-	public void buyAttackItem(View v) {
-		if (currentUser.getUserCoins() >= ATTACK_ITEM_PRICE) {
-			currentUser.setUserCoins(currentUser.getUserCoins() - ATTACK_ITEM_PRICE);
-			currentUser.addAttackItemCount();
+	protected void initializeFeedback() {
+		this.coinsText = (TextView) findViewById(R.id.txtCoins);
+		this.attackItemsText = (TextView) findViewById(R.id.txtAttackItem);
+		this.miscItemsText = (TextView) findViewById(R.id.txtMiscItem);
+		this.defenceItemsText = (TextView) findViewById(R.id.txtDefenceItem);
+		ImageView img = (ImageView) findViewById(R.id.imgAvatarShopBig);
+		CharacterClass charClass = this.currentUser.getUserClass();
+    	String className = charClass.toString();
+    	try {
+    		img.setImageResource(R.drawable.class.getField(className.toLowerCase(Locale.ENGLISH) + "_big").getInt(null));
+    	}
+    	catch(Exception e) {
+    		
+    	}
+    	Items item = Items.values()[charClass.getAttackItemID()];
+    	img = (ImageView) findViewById(R.id.imgAttackItem);
+    	img.setImageResource(item.getImageFile());
+    	img.setTag(item);
+    	item = Items.values()[charClass.getDefenceItemID()];
+    	img = (ImageView) findViewById(R.id.imgDefenceItem);
+    	img.setImageResource(item.getImageFile());
+    	img.setTag(item);
+    	item = Items.values()[charClass.getMiscItemID()];
+    	img = (ImageView) findViewById(R.id.imgMiscItem);
+    	img.setImageResource(item.getImageFile());
+    	img.setTag(item);
+	}
+	
+	@SuppressLint("InflateParams")
+	public void showDialog(View v) {
+		Items item = (Items) v.getTag();
+		final int viewId = v.getId();
+		LayoutInflater inflater = this.getLayoutInflater();
+	    View view = inflater.inflate(R.layout.dialog_yesno, null);
+	    final AlertDialog dialog = new AlertDialog.Builder(this)
+	    	.setView(view).create();
+	    Button btn1 = (Button) view.findViewById(R.id.btnYes);
+	    Button btn2 = (Button) view.findViewById(R.id.btnNo);
+	    TextView txt = (TextView) view.findViewById(R.id.txtMessage);
+	    txt.setTextAppearance(this, android.R.attr.textAppearanceSmall);
+	    txt.setText(String.format(getString(R.string.itemFormat), getString(item.getDescription()), 
+	    		item.getBonusType().getDescription(), item.getBonus(), item.getDuration()));
+	    btn1.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(viewId == R.id.imgAttackItem)
+					buyAttackItem();
+				else if(viewId == R.id.imgDefenceItem)
+					buyDefenceItem();
+				else if(viewId == R.id.imgMiscItem)
+					buyMiscItem();
+				dialog.dismiss();
+			}
+		});
+	    btn2.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+	    dialog.show();
+	}
+
+	private void buyAttackItem() {
+		if (this.currentUser.getUserCoins() >= ATTACK_ITEM_PRICE) {
+			this.currentUser.setUserCoins(currentUser.getUserCoins() - ATTACK_ITEM_PRICE);
+			this.currentUser.addAttackItemCount();
 			
 			refreshFeedback();
 		}
 	}
 	
-	public void buyDefenseItem(View v) {
-		if (currentUser.getUserCoins() >= DEFENSE_ITEM_PRICE) {
-			currentUser.setUserCoins(currentUser.getUserCoins() - DEFENSE_ITEM_PRICE);
-			currentUser.addDefenceItemCount();
+	private void buyDefenceItem() {
+		if (this.currentUser.getUserCoins() >= DEFENSE_ITEM_PRICE) {
+			this.currentUser.setUserCoins(currentUser.getUserCoins() - DEFENSE_ITEM_PRICE);
+			this.currentUser.addDefenceItemCount();
 			
 			refreshFeedback();
 		}
 	}
 	
-	public void buyMiscItem(View v) {
-		if (currentUser.getUserCoins() >= MISC_ITEM_PRICE) {
-			currentUser.setUserCoins(currentUser.getUserCoins() - MISC_ITEM_PRICE);
-			currentUser.addMiscItemCount();
+	private void buyMiscItem() {
+		if (this.currentUser.getUserCoins() >= MISC_ITEM_PRICE) {
+			this.currentUser.setUserCoins(currentUser.getUserCoins() - MISC_ITEM_PRICE);
+			this.currentUser.addMiscItemCount();
 			
-			refreshFeedback();
+			this.refreshFeedback();
 		}
 	}
 	
 	private void refreshFeedback() {
 		if (this.currentUser != null) {
-			TextView coinsText = (TextView) findViewById(R.id.coinsText);
-			TextView attackItemsText = (TextView) findViewById(R.id.attackItemsText);
-			TextView miscItemsText = (TextView) findViewById(R.id.miscItemsText);
-			TextView defenseItemsText = (TextView) findViewById(R.id.defenseItemsText);
-			
-			coinsText.setText(this.getCoinsString(this.currentUser.getUserCoins()));
-			attackItemsText.setText("Ilość: " + this.currentUser.getAttackItemCount());
-			miscItemsText.setText("Ilość: " + this.currentUser.getMiscItemCount());
-			defenseItemsText.setText("Ilość: " + this.currentUser.getDefenseItemCount());
-			
-			ImageView img = (ImageView) findViewById(R.id.imgAvatarShopBig);
-	    	String className = this.currentUser.getUserClass().toString();
-	    	try {
-	    		img.setImageResource(R.drawable.class.getField(className.toLowerCase(Locale.ENGLISH) + "_big").getInt(null));
-	    	}
-	    	catch(Exception e) {
-	    		
-	    	}
-	    	
+			String format = getString(R.string.count);
+			this.coinsText.setText(this.getCoinsString(this.currentUser.getUserCoins()));
+			this.attackItemsText.setText(String.format(format, this.currentUser.getAttackItemCount()));
+			this.miscItemsText.setText(String.format(format, this.currentUser.getMiscItemCount()));
+			this.defenceItemsText.setText(String.format(format, this.currentUser.getDefenseItemCount()));
 		}
 	}
 	

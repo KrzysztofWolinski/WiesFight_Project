@@ -1,0 +1,19 @@
+package main.com.wiesfight.dto.enums;
+
+public enum Bonuses {
+	ATTACKPOWER(""),
+	DEFENCE(""),
+	HEALTHPOINTS(""),
+	CRITICALCHANCE(""),
+	CRITICALPOWER("");
+	
+	private String description;
+	
+	private Bonuses(String description) {
+		this.description = description;
+	}
+	
+	public String getDescription() {
+		return this.description;
+	}
+}

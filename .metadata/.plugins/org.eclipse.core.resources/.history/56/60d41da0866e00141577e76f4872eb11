@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="35dp"
+        android:text="@string/back" />
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btnBack"
+        android:layout_alignBottom="@+id/btnBack"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="35dp"
+        android:text="@string/next" />
+
+    <ImageView
+        android:id="@+id/imgTutorial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnBack"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/blachara"
+        android:contentDescription="@string/desc" />
+
+    <TextView
+        android:id="@+id/txtTutorial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imgTutorial"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/imgTutorial"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>

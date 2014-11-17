@@ -11,8 +11,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:contentDescription="@string/desc"
-        android:scaleType="fitXY"
-        android:src="@drawable/informatyk" />
+        android:scaleType="fitXY" />
 
     <ImageView
         android:id="@+id/imgAvatarUser"
@@ -22,7 +21,6 @@
         android:layout_alignParentTop="true"
         android:adjustViewBounds="false"
         android:contentDescription="@string/desc"
-        android:scaleType="fitXY"
-        android:src="@drawable/informatyk" />
+        android:scaleType="fitXY" />
 
 </RelativeLayout>

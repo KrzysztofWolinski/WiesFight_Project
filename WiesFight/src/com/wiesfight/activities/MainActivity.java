@@ -87,6 +87,25 @@ public class MainActivity extends Activity {
     	startActivityForResult(intent, 1);
     }
     
+    public void showStats(View v) {
+    	LayoutInflater inflater = this.getLayoutInflater();
+	    View view = inflater.inflate(R.layout.dialog_ok, null);
+	    final AlertDialog dialog = new AlertDialog.Builder(this)
+	    	.setView(view).create();
+	    Button btn1 = (Button) view.findViewById(R.id.btnOk);
+	    TextView txt = (TextView) view.findViewById(R.id.txtMessageOk);
+	    String text = String.format(getString(R.string.statsFormat), this.currentUser.getUserCoins(),
+	    		this.currentUser.getUserLevel(), this.currentUser.getUserExperience());
+    	txt.setText(text);
+	    btn1.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+	    dialog.show();
+    }
+    
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {

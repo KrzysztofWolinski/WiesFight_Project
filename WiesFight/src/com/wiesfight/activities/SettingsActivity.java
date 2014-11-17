@@ -51,18 +51,8 @@ public class SettingsActivity extends Activity {
 	}
 	
 	public void showHowToPlay(View v) {
-		LayoutInflater inflater = this.getLayoutInflater();
-	    View view = inflater.inflate(R.layout.dialog_ok, null);
-	    final AlertDialog dialog = new AlertDialog.Builder(this)
-	    	.setView(view).create();
-	    Button btn1 = (Button) view.findViewById(R.id.btnOk);
-	    btn1.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				dialog.dismiss();
-			}
-		});
-	    dialog.show();
+		Intent intent = new Intent(this, TutorialActivity.class);
+    	startActivity(intent);
 	}
 	
 	public void deleteCharacter(View v) {
@@ -77,8 +67,8 @@ public class SettingsActivity extends Activity {
 	    btn1.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				dialog.dismiss();
 				deleteCharacter();
+				dialog.dismiss();
 			}
 		});
 	    btn2.setOnClickListener(new OnClickListener() {
