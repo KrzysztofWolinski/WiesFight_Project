@@ -17,12 +17,23 @@
 <fullyQualifiedTypeName name="android.content.Intent"/>
 <fullyQualifiedTypeName name="main.com.wiesfight.persistence.UserPersistence"/>
 <fullyQualifiedTypeName name="com.parse.ParseException"/>
-<fullyQualifiedTypeName name="main.com.wiesfight.dto.enums.CharacterClass"/>
 <fullyQualifiedTypeName name="main.com.wiesfight.objects.Fighter"/>
 <fullyQualifiedTypeName name="main.com.wiesfight.objects.IFighter"/>
 <fullyQualifiedTypeName name="main.com.wiesfight.objects.TrainingOpponent"/>
 <fullyQualifiedTypeName name="main.com.wiesfight.dto.User"/>
 <fullyQualifiedTypeName name="android.widget.ProgressBar"/>
-<fullyQualifiedTypeName name="android.R"/>
 <fullyQualifiedTypeName name="android.R.id"/>
+<fullyQualifiedTypeName name="main.com.wiesfight.dto.enums.Tutorial"/>
+<fullyQualifiedTypeName name="android.widget.Button"/>
+<fullyQualifiedTypeName name="android.widget.ImageView"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="android.view.View"/>
+<fullyQualifiedTypeName name="com.wiesfight.TutarialActivity"/>
+<fullyQualifiedTypeName name="android.R"/>
+<fullyQualifiedTypeName name="android.R.drawable"/>
+<fullyQualifiedTypeName name="main.com.wiesfight.dto.enums.CharacterClass"/>
+<fullyQualifiedTypeName name="com.wiesfight.enums.Items"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="com.wiesfight.R.string"/>
+<fullyQualifiedTypeName name="com.wiesfight.R.id"/>
 </qualifiedTypeNameHistroy>
