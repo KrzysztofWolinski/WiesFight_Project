@@ -38,6 +38,14 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
+            android:name=".activities.PreFightActivity"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name=".activities.TutorialActivity"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
             android:name=".activities.StartActivity"
             android:screenOrientation="landscape" >
             <intent-filter>
@@ -45,14 +53,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".activities.PreFightActivity"
-            android:label="@string/title_activity_pre_fight" >
-        </activity>
-        <activity
-            android:name="com.wiesfight.activities.TutorialActivity"
-            android:label="@string/title_activity_tutarial" >
         </activity>
     </application>
 
