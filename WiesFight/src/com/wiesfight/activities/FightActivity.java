@@ -50,13 +50,21 @@ public class FightActivity extends Activity {
 			// przeciwnik powinien przyjsc z poprzedniego widoku
 			this.opponent = new Fighter((User)getIntent().getSerializableExtra("opponent"));
 		}
-		ImageView img = (ImageView) findViewById(R.id.imgAvatarUser);
-    	String className = this.currentUser.getUserClass().toString();
+		
+		String userClassName = this.currentUser.getUserClass().toString();
+		String opponentClassName = this.opponent.getUserClass().toString();
+		
     	try {
-    		img.setImageResource(R.drawable.class.getField(className.toLowerCase(Locale.ENGLISH)).getInt(null));
+    		ImageView img = (ImageView) findViewById(R.id.imgAvatarUser);
+    		img.setImageResource(R.drawable.class.getField(userClassName.toLowerCase(Locale.ENGLISH)).getInt(null));
     		img = (ImageView) findViewById(R.id.imgAvatarOpponent);
-        	className = this.opponent.getUserClass().toString();
-    		img.setImageResource(R.drawable.class.getField(className.toLowerCase(Locale.ENGLISH)).getInt(null));
+    		img.setImageResource(R.drawable.class.getField(opponentClassName.toLowerCase(Locale.ENGLISH)).getInt(null));
+    		
+    		img = (ImageView) findViewById(R.id.userCharacter);
+    		img.setImageResource(R.drawable.class.getField(currentUser.getUserClass().toLowerCase(Locale.ENGLISH) + "_big").getInt(null));
+    		
+    		img = (ImageView) findViewById(R.id.opponentCharacter);
+    		img.setImageResource(R.drawable.class.getField(opponent.getUserClass().toLowerCase(Locale.ENGLISH) + "_big").getInt(null));
     	}
     	catch(Exception e) {
     		

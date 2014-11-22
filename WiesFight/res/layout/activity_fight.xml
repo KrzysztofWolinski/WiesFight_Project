@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     tools:context="${relativePackage}.${activityClass}" >
 
     <ImageView
@@ -22,5 +23,95 @@
         android:adjustViewBounds="false"
         android:contentDescription="@string/desc"
         android:scaleType="fitXY" />
+
+    <ProgressBar
+        android:id="@+id/userHpBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imgAvatarUser"
+        android:layout_toRightOf="@+id/imgAvatarUser"
+        android:max="100"
+        android:progress="100" />
+
+    <ProgressBar
+        android:id="@+id/opponentHpBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imgAvatarOpponent"
+        android:layout_toLeftOf="@+id/imgAvatarOpponent"
+        android:max="100"
+        android:progress="100" />
+
+    <ImageView
+        android:id="@+id/opponentCharacter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/opponentHpBar"
+        android:layout_alignTop="@+id/userCharacter"
+        android:src="@drawable/kloszard_big" />
+
+    <ImageButton
+        android:id="@+id/userAttackItem"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/imgAvatarUser"
+        android:layout_marginTop="16dp"
+        android:layout_toRightOf="@+id/imgAvatarUser"
+        android:src="@drawable/padlock" />
+
+    <ImageButton
+        android:id="@+id/userDefenseItem"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_alignTop="@+id/userAttackItem"
+        android:layout_toRightOf="@+id/userAttackItem"
+        android:src="@drawable/padlock" />
+
+    <ImageButton
+        android:id="@+id/userMiscItem"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_alignTop="@+id/userDefenseItem"
+        android:layout_toRightOf="@+id/userDefenseItem"
+        android:src="@drawable/padlock" />
+
+    <ImageView
+        android:id="@+id/opponentAttackItem"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignLeft="@+id/opponentHpBar"
+        android:layout_alignTop="@+id/userMiscItem"
+        android:src="@drawable/padlock" />
+
+    <ImageView
+        android:id="@+id/opponentDefenseItem"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@+id/opponentAttackItem"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/opponentAttackItem"
+        android:src="@drawable/padlock" />
+
+    <ImageView
+        android:id="@+id/opponentMiscItem"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@+id/opponentDefenseItem"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/opponentDefenseItem"
+        android:src="@drawable/padlock" />
+
+    <ImageView
+        android:id="@+id/userCharacter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/userAttackItem"
+        android:layout_marginTop="27dp"
+        android:layout_toRightOf="@+id/imgAvatarUser"
+        android:src="@drawable/moher_big" />
 
 </RelativeLayout>

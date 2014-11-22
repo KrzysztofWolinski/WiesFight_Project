@@ -24,11 +24,10 @@
         android:id="@+id/btnTraining"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/imgLogo"
-        android:layout_marginBottom="38dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:onClick="startTraining"
         android:text="@string/trening"
-        android:textColor="@android:color/white"
-        android:onClick="startTraining" />
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>
