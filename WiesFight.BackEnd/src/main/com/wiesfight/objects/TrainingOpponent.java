@@ -10,7 +10,7 @@ public class TrainingOpponent implements IFighter {
 	public TrainingOpponent() {
 		this.user = new User();
 		this.user.setUserClass(CharacterClass.TRENING);
-		this.user.setUserName("Rocky Pierdo≥a");
+		this.user.setUserName("Rocky Pierdo≈Ça");
 		this.health = this.user.getUserClass().getHealthPoints();
 	}
 
@@ -27,5 +27,11 @@ public class TrainingOpponent implements IFighter {
 	@Override
 	public int decreaseAndGetHealth(int minus) {
 		return this.health - minus;
+	}
+
+	@Override
+	public int getAttackStrength() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

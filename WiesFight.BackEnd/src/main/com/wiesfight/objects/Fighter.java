@@ -25,4 +25,10 @@ public class Fighter implements IFighter {
 	public int decreaseAndGetHealth(int minus) {
 		return this.health - minus;
 	}
+
+	@Override
+	public int getAttackStrength() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

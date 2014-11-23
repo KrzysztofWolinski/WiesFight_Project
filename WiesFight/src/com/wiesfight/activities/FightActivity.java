@@ -3,14 +3,11 @@ package com.wiesfight.activities;
 import java.util.Locale;
 
 import main.com.wiesfight.dto.User;
-import main.com.wiesfight.objects.*;
+import main.com.wiesfight.figth.Fight;
+import main.com.wiesfight.objects.Fighter;
+import main.com.wiesfight.objects.IFighter;
+import main.com.wiesfight.objects.TrainingOpponent;
 import main.com.wiesfight.persistence.UserPersistence;
-
-import com.parse.GetCallback;
-import com.parse.ParseQuery;
-import com.parse.ParseException;
-import com.wiesfight.R;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -20,12 +17,19 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.wiesfight.R;
 
 public class FightActivity extends Activity {
 	private Boolean training = false;
 	private IFighter currentUser;
 	private IFighter opponent;
+	private Fight fight;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,8 @@ public class FightActivity extends Activity {
 			// przeciwnik powinien przyjsc z poprzedniego widoku
 			this.opponent = new Fighter((User)getIntent().getSerializableExtra("opponent"));
 		}
+
+		this.fight = new Fight(this.currentUser, this.opponent);
 		
 		String userClassName = this.currentUser.getUserClass().toString();
 		String opponentClassName = this.opponent.getUserClass().toString();
@@ -96,5 +102,20 @@ public class FightActivity extends Activity {
 			}
 		});
 	    dialog.show();
+    }
+    
+    public void onPressAttackButton(View v) {
+    	// TODO
+    	fight.attack();
+    	
+    	updateBattlefield();
+    }
+    
+    private void updateBattlefield() {
+    	// Sprawdzić czy walka ciągle trwa i zaaktualizować feedback (HP, itemy itd.)
+    	ProgressBar hpBar = (ProgressBar) findViewById(R.id.userHpBar);
+    	hpBar.setProgress(currentUser.getHealth());
+    	hpBar = (ProgressBar) findViewById(R.id.opponentHpBar);
+    	hpBar.setProgress(opponent.getHealth());
     }
 }
