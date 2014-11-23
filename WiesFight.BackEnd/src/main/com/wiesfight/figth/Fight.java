@@ -49,4 +49,12 @@ public class Fight {
 	private void switchPlayers() {
 		this.isFighter1Active = !this.isFighter1Active;
 	}
+	
+	public IFighter getWinner() {
+		if (this.isFightFinished()) {
+			return this.getActiveFighter();
+		} else {
+			return null;
+		}		
+	}
 }

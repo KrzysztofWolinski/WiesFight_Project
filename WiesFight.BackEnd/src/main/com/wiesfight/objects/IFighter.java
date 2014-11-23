@@ -6,4 +6,5 @@ public interface IFighter {
 	int getAttackStrength();
 	int getMaxHealth();
 	void decreaseHealth(int minus);
+	String getName();
 }

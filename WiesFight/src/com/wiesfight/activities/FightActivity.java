@@ -125,7 +125,7 @@ public class FightActivity extends Activity {
     	    final AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();
     	    
     	    TextView txt = (TextView) view.findViewById(R.id.txtMessageOk);
-    	    txt.setText("Walka zostałą zakończona zwycięstwem jednego z graczy!");
+    	    txt.setText("Walka zostałą zakończona zwycięstwem gracza " + fight.getWinner().getName());
     	    
     	    Button btn = (Button) view.findViewById(R.id.btnOk);
     	    btn.setOnClickListener(new OnClickListener() {

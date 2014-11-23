@@ -40,4 +40,9 @@ public class TrainingOpponent implements IFighter {
 	public int getMaxHealth() {
 		return this.maxHealth; 
 	}
+
+	@Override
+	public String getName() {
+		return this.user.getUserName();
+	}
 }

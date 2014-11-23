@@ -37,4 +37,9 @@ public class Fighter implements IFighter {
 	public int getMaxHealth() {
 		return maxHealth;
 	}
+	
+	@Override
+	public String getName() {
+		return this.user.getUserName();
+	}
 }
