@@ -114,8 +114,28 @@ public class FightActivity extends Activity {
     private void updateBattlefield() {
     	// Sprawdzić czy walka ciągle trwa i zaaktualizować feedback (HP, itemy itd.)
     	ProgressBar hpBar = (ProgressBar) findViewById(R.id.userHpBar);
-    	hpBar.setProgress(currentUser.getHealth());
+    	hpBar.setProgress((currentUser.getHealth() / currentUser.getMaxHealth()) * 100);
+    	
     	hpBar = (ProgressBar) findViewById(R.id.opponentHpBar);
-    	hpBar.setProgress(opponent.getHealth());
+    	hpBar.setProgress((opponent.getHealth() / opponent.getMaxHealth()) * 100);
+    	
+    	if (fight.isFightFinished()) {
+    		LayoutInflater inflater = this.getLayoutInflater();
+    	    View view = inflater.inflate(R.layout.dialog_ok, null);
+    	    final AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();
+    	    
+    	    TextView txt = (TextView) view.findViewById(R.id.txtMessageOk);
+    	    txt.setText("Walka zostałą zakończona zwycięstwem jednego z graczy!");
+    	    
+    	    Button btn = (Button) view.findViewById(R.id.btnOk);
+    	    btn.setOnClickListener(new OnClickListener() {
+    			@Override
+    			public void onClick(View v) {
+    				dialog.dismiss();
+    				FightActivity.super.onBackPressed();
+    			}
+    		});
+    	    dialog.show();
+    	}
     }
 }

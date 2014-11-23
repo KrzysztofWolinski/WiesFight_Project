@@ -5,10 +5,12 @@ import main.com.wiesfight.dto.User;
 public class Fighter implements IFighter {
 	private User user;
 	private int health;
+	private int maxHealth;
 	
 	public Fighter(User u) {
 		this.user = u;
 		this.health = this.user.getUserClass().getHealthPoints();
+		this.maxHealth = this.health;
 	}
 
 	@Override
@@ -22,13 +24,17 @@ public class Fighter implements IFighter {
 	}
 
 	@Override
-	public int decreaseAndGetHealth(int minus) {
-		return this.health - minus;
+	public void decreaseHealth(int minus) {
+		this.health -= minus;
 	}
 
 	@Override
 	public int getAttackStrength() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.user.getUserClass().getAttackPower();
+	}
+
+	@Override
+	public int getMaxHealth() {
+		return maxHealth;
 	}
 }

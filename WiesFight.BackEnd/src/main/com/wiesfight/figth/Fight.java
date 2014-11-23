@@ -12,7 +12,7 @@ public class Fight {
 		this.fighter2 = fighter2;
 		
 		// Randomly decide which fighter should start
-		if (((int)(Math.random() % 2)) == 0) {
+		if (((int)((Math.random() * 10) % 2)) == 0) {
 			this.isFighter1Active = false;
 		} else {
 			this.isFighter1Active = true;
@@ -24,7 +24,7 @@ public class Fight {
 	public void attack() {
 		if (this.isFightFinished == false) {
 			int attackStrength = getActiveFighter().getAttackStrength();
-			getPassiveFighter().decreaseAndGetHealth(attackStrength);
+			getPassiveFighter().decreaseHealth(attackStrength);
 			
 			if ((this.fighter1.getHealth() <= 0) || (this.fighter2.getHealth() <= 0)) {
 				this.isFightFinished = true;
