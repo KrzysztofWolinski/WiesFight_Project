@@ -92,8 +92,7 @@
         android:background="@android:color/transparent"
         android:contentDescription="@string/desc"
         android:onClick="showDialog"
-        android:scaleType="fitXY"
-        android:src="@drawable/chodzik" />
+        android:scaleType="fitXY"/>
 
     <ImageButton
         android:id="@+id/imgAttackItem"
