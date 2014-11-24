@@ -61,6 +61,8 @@ public class FightActivity extends Activity {
 		String userClassName = this.currentUser.getUserClass().toString();
 		String opponentClassName = this.opponent.getUserClass().toString();
 		
+		updateBattlefield();
+		
     	try {
     		ImageView img = (ImageView) findViewById(R.id.imgAvatarUser);
     		img.setImageResource(R.drawable.class.getField(userClassName.toLowerCase(Locale.ENGLISH)).getInt(null));
@@ -156,10 +158,10 @@ public class FightActivity extends Activity {
     private void updateBattlefield() {
     	// Sprawdzić czy walka ciągle trwa i zaaktualizować feedback (HP, itemy itd.)
     	ProgressBar hpBar = (ProgressBar) findViewById(R.id.userHpBar);
-    	hpBar.setProgress((currentUser.getHealth() / currentUser.getMaxHealth()) * 100);
+    	hpBar.setProgress((int)((currentUser.getHealth() / currentUser.getMaxHealth()) * 100));
     	
     	hpBar = (ProgressBar) findViewById(R.id.opponentHpBar);
-    	hpBar.setProgress((opponent.getHealth() / opponent.getMaxHealth()) * 100);
+    	hpBar.setProgress((int)((opponent.getHealth() / opponent.getMaxHealth()) * 100));
     	
     	updateItemNotifications();
     	
@@ -184,6 +186,19 @@ public class FightActivity extends Activity {
     }
     
     private void updateItemNotifications() {
+    	TextView attackItemsText = (TextView) findViewById(R.id.userAttackItemCount);
+    	TextView defenceItemsText = (TextView) findViewById(R.id.userDefenseItemCount);
+    	TextView miscItemsText = (TextView) findViewById(R.id.userMiscItemCount);
+    	String format = getString(R.string.count);
     	
+    	attackItemsText.setText(String.format(format, this.currentUser.getAttackItemCount()));
+		miscItemsText.setText(String.format(format, this.currentUser.getMiscItemCount()));
+		defenceItemsText.setText(String.format(format, this.currentUser.getDefenseItemCount()));
+		
+		TextView attackItemsDurationText = (TextView) findViewById(R.id.userAttackItemDuration);
+    	TextView defenceItemsDurationText = (TextView) findViewById(R.id.userDefenseItemDuration);
+    	
+    	attackItemsDurationText.setText(String.valueOf(this.currentUser.getAttackItemDuration()));
+    	defenceItemsDurationText.setText(String.valueOf(this.currentUser.getDefenseItemDuration()));
     }
 }

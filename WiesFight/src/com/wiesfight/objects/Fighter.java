@@ -11,8 +11,8 @@ import com.wiesfight.figth.Bonus;
 
 public class Fighter implements IFighter {
 	private User user;
-	private int health;
-	private int maxHealth;
+	private double health;
+	private double maxHealth;
 	private Bonus activeAttackEffect = null;
 	private Bonus activeDefenseEffect = null;
 	
@@ -28,7 +28,7 @@ public class Fighter implements IFighter {
 	}
 
 	@Override
-	public int getHealth() {
+	public double getHealth() {
 		return this.health;
 	}
 
@@ -64,7 +64,7 @@ public class Fighter implements IFighter {
 	}
 
 	@Override
-	public int getMaxHealth() {
+	public double getMaxHealth() {
 		return maxHealth;
 	}
 	
@@ -101,7 +101,42 @@ public class Fighter implements IFighter {
 			Items item = Items.values()[this.user.getUserClass().getMiscItemID()];
 			Bonus healingEffect = new Bonus(item);
 			this.health += healingEffect.heal();
+			
+			this.user.setMiscItemCount(this.user.getMiscItemCount() - 1);
 			// TODO uogólnić, teraz będzie działać tylko dla leczenia
+		}
+	}
+
+	@Override
+	public int getAttackItemCount() {
+		return this.user.getAttackItemCount();
+	}
+
+	@Override
+	public int getDefenseItemCount() {
+		return this.user.getDefenseItemCount();
+	}
+
+	@Override
+	public int getMiscItemCount() {
+		return this.user.getMiscItemCount();
+	}
+
+	@Override
+	public int getAttackItemDuration() {
+		if (this.activeAttackEffect != null) {
+			return this.activeAttackEffect.getDuration();
+		} else {
+			return 0;
+		}
+	}
+
+	@Override
+	public int getDefenseItemDuration() {
+		if (this.activeDefenseEffect != null) {
+			return this.activeDefenseEffect.getDuration();
+		} else {
+			return 0;
 		}
 	}
 }

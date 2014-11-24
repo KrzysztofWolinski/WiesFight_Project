@@ -127,4 +127,49 @@
         android:layout_toLeftOf="@+id/opponentDefenseItem"
         android:src="@drawable/padlock" />
 
+    <TextView
+        android:id="@+id/userAttackItemCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/userAttackItem"
+        android:layout_below="@+id/userAttackItem"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/userMiscItemCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/userMiscItem"
+        android:layout_below="@+id/userMiscItem"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/userDefenseItemCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/userDefenseItem"
+        android:layout_below="@+id/userDefenseItem"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/userAttackItemDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/attackButton"
+        android:layout_alignLeft="@+id/userAttackItemCount"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/userDefenseItemDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/userAttackItemDuration"
+        android:layout_alignLeft="@+id/userDefenseItemCount"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
 </RelativeLayout>

@@ -5,8 +5,8 @@ import main.com.wiesfight.dto.enums.CharacterClass;
 
 public class TrainingOpponent implements IFighter {
 	private User user;
-	private int health;
-	private int maxHealth;
+	private double health;
+	private double maxHealth;
 	
 	public TrainingOpponent() {
 		this.user = new User();
@@ -22,7 +22,7 @@ public class TrainingOpponent implements IFighter {
 	}
 
 	@Override
-	public int getHealth() {
+	public double getHealth() {
 		return this.health;
 	}
 
@@ -37,7 +37,7 @@ public class TrainingOpponent implements IFighter {
 	}
 
 	@Override
-	public int getMaxHealth() {
+	public double getMaxHealth() {
 		return this.maxHealth; 
 	}
 
@@ -62,5 +62,32 @@ public class TrainingOpponent implements IFighter {
 	public void useMiscItem() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public int getAttackItemCount() {
+		return this.user.getAttackItemCount();
+	}
+
+	@Override
+	public int getDefenseItemCount() {
+		return this.user.getDefenseItemCount();
+	}
+
+	@Override
+	public int getMiscItemCount() {
+		return this.user.getMiscItemCount();
+	}
+
+	@Override
+	public int getAttackItemDuration() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getDefenseItemDuration() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

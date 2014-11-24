@@ -4,13 +4,20 @@ import main.com.wiesfight.dto.enums.CharacterClass;
 
 public interface IFighter {
 	CharacterClass getUserClass();
-	int getHealth();
+	public double getHealth();
 	int getAttackStrength();
-	int getMaxHealth();
+	public double getMaxHealth();
 	void decreaseHealth(int minus);
 	String getName();
 	
 	public void useAttackItem();
 	public void useDefenseItem();
 	public void useMiscItem();
+	
+	public int getAttackItemCount();
+	public int getDefenseItemCount();
+	public int getMiscItemCount();
+	
+	public int getAttackItemDuration();
+	public int getDefenseItemDuration();
 }

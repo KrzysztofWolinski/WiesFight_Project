@@ -46,4 +46,8 @@ public class Bonus {
 		}
 	}
 	
+	public int getDuration() {
+		return this.duration;
+	}
+	
 }
