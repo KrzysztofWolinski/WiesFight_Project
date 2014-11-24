@@ -1,11 +1,11 @@
-package com.wiesfight.enums;
+package com.wiesfight.figth;
 
 public enum Bonuses {
-	ATTACKPOWER("Si≥a ataku"),
+	ATTACKPOWER("Si≈Ça ataku"),
 	DEFENCE("Obrona"),
-	HEALTHPOINTS("Punkty øycia"),
+	HEALTHPOINTS("Punkty ≈ºycia"),
 	CRITICALCHANCE("Szansa trafienia krytycznego"),
-	CRITICALPOWER("Si≥a trafienia krytycznego");
+	CRITICALPOWER("Si≈Ça trafienia krytycznego");
 	
 	private String description;
 	

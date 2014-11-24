@@ -3,10 +3,6 @@ package com.wiesfight.activities;
 import java.util.Locale;
 
 import main.com.wiesfight.dto.User;
-import main.com.wiesfight.figth.Fight;
-import main.com.wiesfight.objects.Fighter;
-import main.com.wiesfight.objects.IFighter;
-import main.com.wiesfight.objects.TrainingOpponent;
 import main.com.wiesfight.persistence.UserPersistence;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -24,6 +20,11 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.wiesfight.R;
+import com.wiesfight.enums.Items;
+import com.wiesfight.figth.Fight;
+import com.wiesfight.objects.Fighter;
+import com.wiesfight.objects.IFighter;
+import com.wiesfight.objects.TrainingOpponent;
 
 public class FightActivity extends Activity {
 	private Boolean training = false;
@@ -67,10 +68,36 @@ public class FightActivity extends Activity {
     		img.setImageResource(R.drawable.class.getField(opponentClassName.toLowerCase(Locale.ENGLISH)).getInt(null));
     		
     		img = (ImageView) findViewById(R.id.userCharacter);
-    		img.setImageResource(R.drawable.class.getField(currentUser.getUserClass().toLowerCase(Locale.ENGLISH) + "_big").getInt(null));
+    		img.setImageResource(R.drawable.class.getField(currentUser.getUserClass().toString().toLowerCase(Locale.ENGLISH) + "_big").getInt(null));
     		
     		img = (ImageView) findViewById(R.id.opponentCharacter);
-    		img.setImageResource(R.drawable.class.getField(opponent.getUserClass().toLowerCase(Locale.ENGLISH) + "_big").getInt(null));
+    		img.setImageResource(R.drawable.class.getField(opponent.getUserClass().toString().toLowerCase(Locale.ENGLISH) + "_big").getInt(null));
+    		
+    		// User items
+    		Items item = Items.values()[currentUser.getUserClass().getAttackItemID()];
+        	img = (ImageView) findViewById(R.id.userAttackItem);
+        	img.setImageResource(item.getImageFile());
+        	
+        	item = Items.values()[currentUser.getUserClass().getDefenceItemID()];
+        	img = (ImageView) findViewById(R.id.userDefenseItem);
+        	img.setImageResource(item.getImageFile());
+        	
+        	item = Items.values()[currentUser.getUserClass().getMiscItemID()];
+        	img = (ImageView) findViewById(R.id.userMiscItem);
+        	img.setImageResource(item.getImageFile());
+        	
+        	// Opponent items
+        	item = Items.values()[opponent.getUserClass().getAttackItemID()];
+        	img = (ImageView) findViewById(R.id.opponentAttackItem);
+        	img.setImageResource(item.getImageFile());
+        	
+        	item = Items.values()[opponent.getUserClass().getDefenceItemID()];
+        	img = (ImageView) findViewById(R.id.opponentDefenseItem);
+        	img.setImageResource(item.getImageFile());
+        	
+        	item = Items.values()[opponent.getUserClass().getMiscItemID()];
+        	img = (ImageView) findViewById(R.id.opponentMiscItem);
+        	img.setImageResource(item.getImageFile());
     	}
     	catch(Exception e) {
     		
@@ -111,6 +138,21 @@ public class FightActivity extends Activity {
     	updateBattlefield();
     }
     
+    public void onPressAttackItemButton(View v) {
+    	this.currentUser.useAttackItem();
+    	this.updateBattlefield();
+    }
+    
+    public void onPressDefenseItemButton(View v) {
+    	this.currentUser.useDefenseItem();
+    	this.updateBattlefield();
+    }
+
+    public void onPressMiscItemButton(View v) {
+    	this.currentUser.useMiscItem();
+    	this.updateBattlefield();
+    }
+    
     private void updateBattlefield() {
     	// Sprawdzić czy walka ciągle trwa i zaaktualizować feedback (HP, itemy itd.)
     	ProgressBar hpBar = (ProgressBar) findViewById(R.id.userHpBar);
@@ -118,6 +160,8 @@ public class FightActivity extends Activity {
     	
     	hpBar = (ProgressBar) findViewById(R.id.opponentHpBar);
     	hpBar.setProgress((opponent.getHealth() / opponent.getMaxHealth()) * 100);
+    	
+    	updateItemNotifications();
     	
     	if (fight.isFightFinished()) {
     		LayoutInflater inflater = this.getLayoutInflater();
@@ -137,5 +181,9 @@ public class FightActivity extends Activity {
     		});
     	    dialog.show();
     	}
+    }
+    
+    private void updateItemNotifications() {
+    	
     }
 }

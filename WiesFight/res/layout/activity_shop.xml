@@ -79,8 +79,7 @@
         android:layout_alignTop="@+id/imgLogo"
         android:layout_marginTop="14dp"
         android:contentDescription="@string/desc"
-        android:scaleType="fitXY"
-        android:src="@drawable/kasa" />
+        android:scaleType="fitXY"/>
 
     <ImageButton
         android:id="@+id/imgDefenceItem"
@@ -104,8 +103,7 @@
         android:background="@android:color/transparent"
         android:contentDescription="@string/desc"
         android:onClick="showDialog"
-        android:scaleType="fitXY"
-        android:src="@drawable/torba" />
+        android:scaleType="fitXY"/>
 
     <ImageButton
         android:id="@+id/imgMiscItem"
@@ -117,7 +115,6 @@
         android:background="@android:color/transparent"
         android:contentDescription="@string/desc"
         android:onClick="showDialog"
-        android:scaleType="fitXY"
-        android:src="@drawable/woda" />
+        android:scaleType="fitXY"/>
 
 </RelativeLayout>

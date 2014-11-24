@@ -1,6 +1,6 @@
-package main.com.wiesfight.figth;
+package com.wiesfight.figth;
 
-import main.com.wiesfight.objects.IFighter;
+import com.wiesfight.objects.IFighter;
 
 public class Fight {
 

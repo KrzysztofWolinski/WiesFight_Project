@@ -1,4 +1,4 @@
-package main.com.wiesfight.objects;
+package com.wiesfight.objects;
 
 import main.com.wiesfight.dto.User;
 import main.com.wiesfight.dto.enums.CharacterClass;
@@ -17,8 +17,8 @@ public class TrainingOpponent implements IFighter {
 	}
 
 	@Override
-	public String getUserClass() {
-		return this.user.getUserClass().toString();
+	public CharacterClass getUserClass() {
+		return this.user.getUserClass();
 	}
 
 	@Override
@@ -44,5 +44,23 @@ public class TrainingOpponent implements IFighter {
 	@Override
 	public String getName() {
 		return this.user.getUserName();
+	}
+
+	@Override
+	public void useAttackItem() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void useDefenseItem() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void useMiscItem() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -54,55 +54,32 @@
 
     <ImageButton
         android:id="@+id/userAttackItem"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_below="@+id/imgAvatarUser"
         android:layout_marginTop="16dp"
         android:layout_toRightOf="@+id/imgAvatarUser"
+        android:onClick="onPressAttackItemButton"
         android:src="@drawable/padlock" />
 
     <ImageButton
         android:id="@+id/userDefenseItem"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="5dp"
         android:layout_alignTop="@+id/userAttackItem"
         android:layout_toRightOf="@+id/userAttackItem"
+        android:onClick="onPressDefenseItemButton"
         android:src="@drawable/padlock" />
 
     <ImageButton
         android:id="@+id/userMiscItem"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="5dp"
         android:layout_alignTop="@+id/userDefenseItem"
         android:layout_toRightOf="@+id/userDefenseItem"
-        android:src="@drawable/padlock" />
-
-    <ImageView
-        android:id="@+id/opponentAttackItem"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_alignLeft="@+id/opponentHpBar"
-        android:layout_alignTop="@+id/userMiscItem"
-        android:src="@drawable/padlock" />
-
-    <ImageView
-        android:id="@+id/opponentDefenseItem"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_alignTop="@+id/opponentAttackItem"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@+id/opponentAttackItem"
-        android:src="@drawable/padlock" />
-
-    <ImageView
-        android:id="@+id/opponentMiscItem"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_alignTop="@+id/opponentDefenseItem"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@+id/opponentDefenseItem"
+        android:onClick="onPressMiscItemButton"
         android:src="@drawable/padlock" />
 
     <ImageView
@@ -110,7 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/userAttackItem"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="29dp"
         android:layout_toRightOf="@+id/imgAvatarUser"
         android:src="@drawable/moher_big" />
 
@@ -123,5 +100,31 @@
         android:layout_marginTop="29dp"
         android:onClick="onPressAttackButton"
         android:text="Atakuj" />
+
+    <ImageView
+        android:id="@+id/opponentMiscItem"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignRight="@+id/opponentHpBar"
+        android:layout_alignTop="@+id/opponentDefenseItem"
+        android:src="@drawable/padlock" />
+
+    <ImageView
+        android:id="@+id/opponentDefenseItem"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="5dp"
+        android:layout_above="@+id/userCharacter"
+        android:layout_toLeftOf="@+id/opponentMiscItem"
+        android:src="@drawable/padlock" />
+
+    <ImageView
+        android:id="@+id/opponentAttackItem"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="5dp"
+        android:layout_above="@+id/userCharacter"
+        android:layout_toLeftOf="@+id/opponentDefenseItem"
+        android:src="@drawable/padlock" />
 
 </RelativeLayout>
