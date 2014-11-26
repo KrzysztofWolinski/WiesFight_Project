@@ -70,10 +70,10 @@ public class FightActivity extends Activity {
     		img.setImageResource(R.drawable.class.getField(opponentClassName.toLowerCase(Locale.ENGLISH)).getInt(null));
     		
     		img = (ImageView) findViewById(R.id.userCharacter);
-    		img.setImageResource(R.drawable.class.getField(currentUser.getUserClass().toString().toLowerCase(Locale.ENGLISH) + "_big").getInt(null));
+    		img.setImageResource(R.drawable.class.getField(currentUser.getUserClass().toString().toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
     		
     		img = (ImageView) findViewById(R.id.opponentCharacter);
-    		img.setImageResource(R.drawable.class.getField(opponent.getUserClass().toString().toLowerCase(Locale.ENGLISH) + "_big").getInt(null));
+    		img.setImageResource(R.drawable.class.getField(opponent.getUserClass().toString().toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
     		
     		// User items
     		Items item = Items.values()[currentUser.getUserClass().getAttackItemID()];
