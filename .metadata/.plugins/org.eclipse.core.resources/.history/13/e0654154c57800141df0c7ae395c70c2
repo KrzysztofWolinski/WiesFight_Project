@@ -35,14 +35,14 @@
     <string name="prawy">prawy</string>
     <string name="ramka">ramka</string>
     <string name="desc">obrazek</string>
-    <string name="count">Cena: %1$s\nIlość: %2$s</string>
+    <string name="count">Ilość: %s</string>
     <string name="progress">Proszę chwilę poczekać</string>
-    <string name="addingError">Nazwa uzytkownika za krotka lub zajeta</string>
     <string name="tutorialMain">Kliknij avatar swojej postaci w menu głównym, aby podejrzeć jej statystyki.\nW widoku ustawień możesz wyłączyć dźwięk, usunąć postać i wyjść z gry.\nW widoku sklepu możesz nabyć przedmioty, które pomogą Ci w walce.\nW widoku walki możesz poszukać przeciwnika do walki albo odbyć trening.</string>
     <string name="tutorialShop">Każda klasa może kupić 3 przedmioty:\nwzmacniający atak, wzmacniający obronę, wzmacniający jedną z cech w zależności od klasy.\nPrzedmioty można nabyć za monety i mogą być użyte podczas walki aby wzmocnić daną cechę.</string>
     <string name="charFormat">Siła ataku: %1$s\nPunkty życia: %2$s\nObrona: %3$s%%\nSzansa trafienia: %4$s%%\nSzansa na trafienie krytyczne: %5$s%%\nSiła trafienia krytycznego: %6$s%%</string>
     <string name="statsFormat">Monety: %1$s\nPoziom: %2$s\nPunkty doświadczenia: %3$s</string>
     <string name="itemFormat">Czy chcesz kupić?\n%1$s\n%2$s +%3$s\nCzas trwania: %4$s rundy</string>
+    <string name="instruction">tutaj instrukcja jak grać</string>
     <string name="noInternetConnection">Połącz się z internetem i spróbuj ponownie.</string>
     <string name="confirmExit">Czy na pewno chcesz wyjść z gry?</string>
     <string name="confirmDelete">Czy na pewno chcesz usunąć postać? Nie będzie już możliwości jej przywrócenia</string>

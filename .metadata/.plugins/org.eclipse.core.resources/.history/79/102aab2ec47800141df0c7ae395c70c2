@@ -13,7 +13,6 @@ import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -89,14 +88,15 @@ public class LoginActivity extends Activity {
     }
     
     private void showToast() {
-		Toast toast = Toast.makeText(this, getString(R.string.addingError), Toast.LENGTH_SHORT);
+		CharSequence text = "Nazwa uzytkownika za krotka lub zajeta";
+		int duration = Toast.LENGTH_SHORT;
+
+		Toast toast = Toast.makeText(this, text, duration);
 		toast.show();
 	}
 
 	private void addUser(String username) {
-		this.progressDialog = new ProgressDialog(this, AlertDialog.THEME_HOLO_DARK);
-		this.progressDialog.setMessage(getString(R.string.progress));
-		this.progressDialog.show();
+		this.progressDialog = ProgressDialog.show(this, "Czekaj!", "Proszê chwilê poczekaæ");
     	this.currentUser = new User();
 		this.currentUser.setUserClass(CharacterClass.values()[this.currentClass]);
 		this.currentUser.setUserName(username);

@@ -84,7 +84,7 @@ public class SettingsActivity extends Activity {
 
 	private void deleteCharacter() {
 		this.progressDialog = new ProgressDialog(this, AlertDialog.THEME_HOLO_DARK);
-		this.progressDialog.setMessage(getString(R.string.progress));
+		this.progressDialog.setMessage("Proszê chwilê poczekaæ");
 		this.progressDialog.show();
 		ParseQuery<UserPersistence> query = ParseQuery.getQuery(UserPersistence.class);
 		query.fromPin("currentUser");

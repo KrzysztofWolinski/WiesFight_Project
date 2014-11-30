@@ -36,4 +36,7 @@
 <fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="com.wiesfight.R.string"/>
 <fullyQualifiedTypeName name="com.wiesfight.R.id"/>
+<fullyQualifiedTypeName name="android.app.ProgressDialog"/>
+<fullyQualifiedTypeName name="android.app.AlertDialog"/>
+<fullyQualifiedTypeName name="android.opengl.Visibility"/>
 </qualifiedTypeNameHistroy>

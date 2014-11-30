@@ -1,7 +1,0 @@
-package com.wiesfight.application;
-
-import android.app.Application;
-
-public class WiesFightApplication extends Application {
-
-}

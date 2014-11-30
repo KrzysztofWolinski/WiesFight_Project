@@ -45,9 +45,7 @@ public class MainActivity extends Activity {
     }
     
     private void setControls() {
-    	TextView txt = (TextView) findViewById(R.id.lblCoins);
-    	//txt.setText(this.getCoinsString(this.currentUser.getUserCoins()));
-    	txt = (TextView) findViewById(R.id.lblUsername);
+    	TextView txt = (TextView) findViewById(R.id.lblUsername);
     	txt.setText(this.currentUser.getUserName());
     	txt = (TextView) findViewById(R.id.lblLevel);
     	txt.setText("Poziom " + this.currentUser.getUserLevel());
@@ -59,17 +57,6 @@ public class MainActivity extends Activity {
     	catch(Exception e) {
     		
     	}
-    }
-    
-    private String getCoinsString(int coins) {
-    	String coinString = "monet";
-    	int units = coins % 10;
-    	int dozens = (coins % 100) / 10;
-    	if(coins == 1)
-    		coinString = "moneta";
-    	else if((units == 2 || units == 3 || units == 4) && dozens != 1)
-    		coinString = "monety";
-		return coins + " " + coinString;
     }
     
     public void goToFight(View v) {

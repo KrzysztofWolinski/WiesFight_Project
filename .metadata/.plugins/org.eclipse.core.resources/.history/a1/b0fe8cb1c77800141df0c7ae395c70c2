@@ -89,7 +89,6 @@ public class ShopActivity extends Activity {
 	    	.setView(view).create();
 	    Button btn1 = (Button) view.findViewById(R.id.btnYes);
 	    Button btn2 = (Button) view.findViewById(R.id.btnNo);
-	    btn1.setVisibility(this.canAfford(viewId));
 	    TextView txt = (TextView) view.findViewById(R.id.txtMessage);
 	    txt.setTextAppearance(this, android.R.attr.textAppearanceSmall);
 	    txt.setText(String.format(getString(R.string.itemFormat), getString(item.getDescription()), 
@@ -113,16 +112,6 @@ public class ShopActivity extends Activity {
 			}
 		});
 	    dialog.show();
-	}
-	
-	private int canAfford(int viewId) {
-		if(this.currentUser.getUserCoins() < ATTACK_ITEM_PRICE) {
-	    	return View.INVISIBLE;
-	    }
-	    else if(this.currentUser.getUserCoins() < MISC_ITEM_PRICE && viewId == R.id.imgMiscItem) {
-	    	return View.INVISIBLE;
-	    }
-		return View.VISIBLE;
 	}
 
 	private void buyAttackItem() {
@@ -157,8 +146,8 @@ public class ShopActivity extends Activity {
 			String format = getString(R.string.count);
 			this.coinsText.setText(this.getCoinsString(this.currentUser.getUserCoins()));
 			this.attackItemsText.setText(String.format(format, ATTACK_ITEM_PRICE, this.currentUser.getAttackItemCount()));
-			this.miscItemsText.setText(String.format(format, MISC_ITEM_PRICE, this.currentUser.getMiscItemCount()));
-			this.defenceItemsText.setText(String.format(format, DEFENSE_ITEM_PRICE, this.currentUser.getDefenseItemCount()));
+			this.miscItemsText.setText(String.format(format, DEFENSE_ITEM_PRICE, this.currentUser.getMiscItemCount()));
+			this.defenceItemsText.setText(String.format(format, MISC_ITEM_PRICE, this.currentUser.getDefenseItemCount()));
 		}
 	}
 	

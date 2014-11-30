@@ -35,7 +35,7 @@
     <string name="prawy">prawy</string>
     <string name="ramka">ramka</string>
     <string name="desc">obrazek</string>
-    <string name="count">Cena: %1$s\nIlość: %2$s</string>
+    <string name="count">Ilość: %s</string>
     <string name="progress">Proszę chwilę poczekać</string>
     <string name="addingError">Nazwa uzytkownika za krotka lub zajeta</string>
     <string name="tutorialMain">Kliknij avatar swojej postaci w menu głównym, aby podejrzeć jej statystyki.\nW widoku ustawień możesz wyłączyć dźwięk, usunąć postać i wyjść z gry.\nW widoku sklepu możesz nabyć przedmioty, które pomogą Ci w walce.\nW widoku walki możesz poszukać przeciwnika do walki albo odbyć trening.</string>

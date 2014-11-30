@@ -80,7 +80,7 @@
         android:id="@+id/layoutAvatar"
 	    android:layout_width="136dp"
 	    android:layout_height="136dp"
-        android:layout_marginTop="35dp" >
+        android:layout_marginTop="55dp" >
 	
 	    <ImageView
 	        android:id="@+id/imgAvatarMain"
