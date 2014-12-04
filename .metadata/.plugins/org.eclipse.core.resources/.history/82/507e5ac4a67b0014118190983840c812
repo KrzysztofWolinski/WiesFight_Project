@@ -1,0 +1,7 @@
+package com.wiesfight.dialogs;
+
+import android.app.DialogFragment;
+
+public class InfoDialog extends DialogFragment {
+
+}

@@ -5,6 +5,7 @@ import main.com.wiesfight.dto.enums.CharacterClass;
 import main.com.wiesfight.persistence.enums.UserParametersEnum;
 
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 
 @ParseClassName("Users")
@@ -20,7 +21,7 @@ public class UserPersistence extends ParseObject {
 		this.put("Installation", installation);
 	}
 		
-	public void saveUserToDB() {
+	public Boolean saveUserToDB() {
 		this.put(UserParametersEnum.USER_NAME.getParameterName(), this.user.getUserName());
 		this.put(UserParametersEnum.USER_CLASS.getParameterName(), this.user.getUserClass().ordinal());
 		this.put(UserParametersEnum.LEVEL.getParameterName(), this.user.getUserLevel());
@@ -30,7 +31,12 @@ public class UserPersistence extends ParseObject {
 		this.put(UserParametersEnum.DEFENSE_ITEMS_COUNT.getParameterName(), this.user.getDefenseItemCount());
 		this.put(UserParametersEnum.MISC_ITEMS_COUNT.getParameterName(), this.user.getMiscItemCount());
 		
-		this.saveInBackground();
+		try {
+			this.save();
+			return true;
+		} catch (ParseException e) {
+			return false;
+		}
 	}
 	
 	public User loadUserFromDB() {

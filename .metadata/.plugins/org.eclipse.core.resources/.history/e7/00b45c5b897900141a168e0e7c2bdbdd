@@ -1,0 +1,91 @@
+package com.wiesfight.activities;
+
+import main.com.wiesfight.dto.User;
+import main.com.wiesfight.persistence.UserPersistence;
+
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.shephertz.app42.gaming.multiplayer.client.WarpClient;
+import com.shephertz.app42.gaming.multiplayer.client.events.ConnectEvent;
+import com.shephertz.app42.gaming.multiplayer.client.listener.ConnectionRequestListener;
+import com.wiesfight.R;
+import com.wiesfight.managers.DialogManager;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
+public class PreFightActivity extends Activity implements ConnectionRequestListener {
+	private WarpClient theClient;
+    private boolean isConnected = false;
+	private User currentUser;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_pre_fight);
+		this.getUser();
+	}
+	
+	private void getUser() {
+		ParseQuery<UserPersistence> query = ParseQuery.getQuery(UserPersistence.class);
+		query.fromPin("currentUser");
+		query.getFirstInBackground(new GetCallback<UserPersistence>() {
+			public void done(UserPersistence user, ParseException e) {
+		        currentUser = user.getUser();
+		        checkCoinsAmount();
+			}
+		});
+	}
+	
+	private void checkCoinsAmount() {
+		if(this.currentUser.getUserCoins() < 5) {
+			DialogManager.showInfoDialog(this, getString(R.string.notEnoughCoins));
+		}
+		else {
+			this.tryConnect();
+		}
+	}
+	
+	private void tryConnect() {
+		try {  
+            this.theClient = WarpClient.getInstance();  
+        } catch (Exception ex) {  
+            DialogManager.showInfoDialog(this, R.string.connectionError);  
+        }  
+	}
+
+	public void startTraining(View v) {
+		Intent intent = new Intent(this, FightActivity.class);
+		intent.putExtra("training", true);
+    	startActivity(intent);
+	}
+	
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		theClient.removeConnectionRequestListener(this);
+		if(theClient != null && isConnected){
+			theClient.disconnect();
+		}
+	}
+
+	@Override
+	public void onConnectDone(ConnectEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onDisconnectDone(ConnectEvent arg0) {
+		this.isConnected = false;
+	}
+
+	@Override
+	public void onInitUDPDone(byte arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+}

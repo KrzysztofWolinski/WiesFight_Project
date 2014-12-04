@@ -7,17 +7,22 @@ import main.com.wiesfight.dto.*;
 import main.com.wiesfight.persistence.UserPersistence;
 
 import com.wiesfight.R;
+import com.wiesfight.managers.DialogManager;
 import com.wiesfight.managers.PreferencesManager;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -57,10 +62,6 @@ public class LoginActivity extends Activity {
 	}
 
 	private void goToMainActivity() {
-		if(this.progressDialog != null){
-			this.progressDialog.dismiss();
-			this.progressDialog = null;
-		}
     	Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     	startActivity(intent);
@@ -105,7 +106,12 @@ public class LoginActivity extends Activity {
 		user.pinInBackground("currentUser", new SaveCallback() {
 			@Override
 			public void done(ParseException e) {
-	    		goToMainActivity();
+				hideProgressDialog();
+				if(e == null)
+					goToMainActivity();
+				else {
+					DialogManager.showInfoDialog(LoginActivity.this, getString(R.string.connectionError));
+				}
 			}
 		});
     }
@@ -122,5 +128,30 @@ public class LoginActivity extends Activity {
     	catch(ParseException e) {
     		return true;
     	}
+	}
+
+	private void hideProgressDialog() {
+		if(this.progressDialog != null){
+			this.progressDialog.dismiss();
+			this.progressDialog = null;
+		}
+	}
+    
+    @SuppressLint("InflateParams")
+	private void showInfoDialog() {
+		LayoutInflater inflater = this.getLayoutInflater();
+	    View view = inflater.inflate(R.layout.dialog_ok, null);
+	    final AlertDialog dialog = new AlertDialog.Builder(this)
+	    	.setView(view).create();
+	    Button btn1 = (Button) view.findViewById(R.id.btnOk);
+	    TextView txt = (TextView) view.findViewById(R.id.txtMessageOk);
+	    txt.setText(getString(R.string.connectionError));
+	    btn1.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+	    dialog.show();
 	}
 }

@@ -28,7 +28,7 @@
         android:layout_alignBottom="@+id/btnSettings"
         android:layout_alignLeft="@+id/btnShop"
         android:layout_alignRight="@+id/btnShop"
-        android:layout_alignTop="@+id/btnFight"
+        android:layout_alignTop="@+id/btnFindOponent"
         android:layout_marginBottom="-15dp"
         android:layout_marginLeft="-10dp"
         android:layout_marginRight="-10dp"
@@ -41,8 +41,8 @@
         android:id="@+id/btnShop"
         android:layout_width="150dp"
         android:layout_height="30dp"
-        android:layout_alignLeft="@+id/btnFight"
-        android:layout_below="@+id/btnFight"
+        android:layout_alignLeft="@+id/btnFindOponent"
+        android:layout_below="@+id/btnFindOponent"
         android:layout_marginTop="15dp"
         android:onClick="goToShop"
         android:background="@drawable/sklep" />
@@ -58,7 +58,7 @@
         android:background="@drawable/ustawienia" />
 
     <Button
-        android:id="@+id/btnFight"
+        android:id="@+id/btnFindOponent"
         android:layout_width="150dp"
         android:layout_height="30dp"
         android:layout_alignRight="@+id/imgLogo"

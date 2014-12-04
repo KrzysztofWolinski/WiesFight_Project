@@ -35,6 +35,7 @@
     <string name="prawy">prawy</string>
     <string name="ramka">ramka</string>
     <string name="desc">obrazek</string>
+    <string name="fight">Walka</string>
     <string name="count">Cena: %1$s\nIlość: %2$s</string>
     <string name="progress">Proszę chwilę poczekać</string>
     <string name="addingError">Nazwa uzytkownika za krotka lub zajeta</string>
@@ -44,6 +45,8 @@
     <string name="statsFormat">Monety: %1$s\nPoziom: %2$s\nPunkty doświadczenia: %3$s</string>
     <string name="itemFormat">Czy chcesz kupić?\n%1$s\n%2$s +%3$s\nCzas trwania: %4$s rundy</string>
     <string name="noInternetConnection">Połącz się z internetem i spróbuj ponownie.</string>
+    <string name="connectionError">Błąd połączenia z serwerem. Spróbuj ponownie.</string>
+    <string name="notEnoughCoins">Potrzebujesz 5 monet, żeby rozpocząć walkę. Możesz tylko potrenować.</string>
     <string name="confirmExit">Czy na pewno chcesz wyjść z gry?</string>
     <string name="confirmDelete">Czy na pewno chcesz usunąć postać? Nie będzie już możliwości jej przywrócenia</string>
     <string name="confirmLeaveFight">Jeżeli opuścisz walkę, przegrasz. Czy na pewno chcesz to zrobić?</string>

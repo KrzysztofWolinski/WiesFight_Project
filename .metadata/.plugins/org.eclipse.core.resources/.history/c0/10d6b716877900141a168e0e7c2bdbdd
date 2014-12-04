@@ -1,0 +1,5 @@
+package com.wiesfight.managers;
+
+public class DialogManager {
+
+}

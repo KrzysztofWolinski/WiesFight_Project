@@ -30,4 +30,14 @@
         android:text="@string/trening"
         android:textColor="@android:color/white" />
 
+    <Button
+        android:id="@+id/btnFindOponent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnTraining"
+        android:layout_centerHorizontal="true"
+        android:onClick="findOponent"
+        android:text="@string/fight"
+        android:textColor="@android:color/white" />
+
 </RelativeLayout>

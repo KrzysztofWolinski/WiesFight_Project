@@ -8,5 +8,6 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="libs/gson-2.3.jar"/>
+	<classpathentry kind="lib" path="libs/App42MultiPlayerGamingSDK.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
