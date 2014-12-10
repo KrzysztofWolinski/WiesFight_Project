@@ -8,7 +8,10 @@ public enum UserParametersEnum {
 	ATTACK_ITEMS_COUNT("AttackItemsCount"),
 	DEFENSE_ITEMS_COUNT("DefenceItemsCount"),
 	MISC_ITEMS_COUNT("MiscItemsCount"),
-	USER_CLASS("Class");
+	USER_CLASS("Class"),
+	FIGHTS("Fights"),
+	WINS("Wins"),
+	LAST_BONUS_DATE("LastBonusDate");
 	
 	private final String parameterName;
 

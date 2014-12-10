@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,7 @@ public class ShopActivity extends Activity {
 	TextView miscItemsText;
 	TextView defenceItemsText;
 	ProgressDialog progressDialog;
+	Boolean changes = false;
 	
 	private final int ATTACK_ITEM_PRICE = 2;
 	private final int DEFENSE_ITEM_PRICE = 2;
@@ -56,14 +58,24 @@ public class ShopActivity extends Activity {
 	
 	protected void initializeFeedback() {
 		this.coinsText = (TextView) findViewById(R.id.txtCoins);
+		this.coinsText.setTextColor(Color.YELLOW);
 		this.attackItemsText = (TextView) findViewById(R.id.txtAttackItem);
 		this.miscItemsText = (TextView) findViewById(R.id.txtMiscItem);
 		this.defenceItemsText = (TextView) findViewById(R.id.txtDefenceItem);
+		TextView txt = (TextView) findViewById(R.id.txtDefenceItemPrice);
+		txt.setTextColor(Color.YELLOW);
+		txt.setText(this.getCoinsString(DEFENSE_ITEM_PRICE));
+		txt = (TextView) findViewById(R.id.txtAttackItemPrice);
+		txt.setTextColor(Color.YELLOW);
+		txt.setText(this.getCoinsString(ATTACK_ITEM_PRICE));
+		txt = (TextView) findViewById(R.id.txtMiscItemPrice);
+		txt.setTextColor(Color.YELLOW);
+		txt.setText(this.getCoinsString(MISC_ITEM_PRICE));
 		ImageView img = (ImageView) findViewById(R.id.imgAvatarShopBig);
 		CharacterClass charClass = this.currentUser.getUserClass();
     	String className = charClass.toString();
     	try {
-    		img.setImageResource(R.drawable.class.getField(className.toLowerCase(Locale.ENGLISH) + "_big").getInt(null));
+    		img.setImageResource(R.drawable.class.getField(className.toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
     	}
     	catch(Exception e) {
     		
@@ -100,6 +112,7 @@ public class ShopActivity extends Activity {
 	    btn1.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				changes = true;
 				if(viewId == R.id.imgAttackItem)
 					buyAttackItem();
 				else if(viewId == R.id.imgDefenceItem)
@@ -157,11 +170,10 @@ public class ShopActivity extends Activity {
 	
 	private void refreshFeedback() {
 		if (this.currentUser != null) {
-			String format = getString(R.string.count);
 			this.coinsText.setText(this.getCoinsString(this.currentUser.getUserCoins()));
-			this.attackItemsText.setText(String.format(format, ATTACK_ITEM_PRICE, this.currentUser.getAttackItemCount()));
-			this.miscItemsText.setText(String.format(format, MISC_ITEM_PRICE, this.currentUser.getMiscItemCount()));
-			this.defenceItemsText.setText(String.format(format, DEFENSE_ITEM_PRICE, this.currentUser.getDefenseItemCount()));
+			this.attackItemsText.setText(this.currentUser.getAttackItemCount()+"");
+			this.miscItemsText.setText(this.currentUser.getMiscItemCount()+"");
+			this.defenceItemsText.setText(this.currentUser.getDefenseItemCount()+"");
 		}
 	}
 	
@@ -178,18 +190,24 @@ public class ShopActivity extends Activity {
     
     @Override
     public void onBackPressed() {
-    	this.progressDialog = new ProgressDialog(this, AlertDialog.THEME_HOLO_DARK);
-    	this.progressDialog.setMessage(getString(R.string.progress));
-    	this.progressDialog.show();
-    	this.currentUserPer.setUser(this.currentUser);
-		if(this.currentUserPer.saveUserToDB()) {
-			this.progressDialog.dismiss();
-			setResult(RESULT_OK);
+    	if(!this.changes) {
+			setResult(RESULT_CANCELED);
 			finish();
-		}
-		else {
-			this.progressDialog.dismiss();
-			DialogManager.showInfoDialog(this, getString(R.string.connectionError));
-		}
+    	}
+    	else {
+	    	this.progressDialog = new ProgressDialog(this, AlertDialog.THEME_HOLO_DARK);
+	    	this.progressDialog.setMessage(getString(R.string.progress));
+	    	this.progressDialog.show();
+	    	this.currentUserPer.setUser(this.currentUser);
+			if(this.currentUserPer.saveUserToDB()) {
+				this.progressDialog.dismiss();
+				setResult(RESULT_OK);
+				finish();
+			}
+			else {
+				this.progressDialog.dismiss();
+				DialogManager.showInfoDialog(this, getString(R.string.connectionError));
+			}
+    	}
     }
 }

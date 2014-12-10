@@ -1,0 +1,152 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/logo" />
+
+    <ImageButton
+        android:id="@+id/imgDefenceItem"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:layout_toLeftOf="@+id/imgMiscItem"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/desc"
+        android:onClick="showDialog"
+        android:scaleType="fitXY"/>
+
+    <ImageButton
+        android:id="@+id/imgAttackItem"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignTop="@+id/imgDefenceItem"
+        android:layout_marginRight="15dp"
+        android:layout_toLeftOf="@+id/txtDefenceItem"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/desc"
+        android:onClick="showDialog"
+        android:scaleType="fitXY"/>
+
+    <ImageButton
+        android:id="@+id/imgMiscItem"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignRight="@+id/imgLogo"
+        android:layout_marginRight="15dp"
+        android:layout_alignTop="@+id/imgDefenceItem"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/desc"
+        android:onClick="showDialog"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:id="@+id/txtAttackItemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imgAttackItem"
+        android:layout_alignRight="@+id/imgAttackItem"
+        android:layout_alignBottom="@+id/imgAttackItem"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+    <TextView
+        android:id="@+id/txtDefenceItemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imgDefenceItem"
+        android:layout_alignRight="@+id/imgDefenceItem"
+        android:layout_alignBottom="@+id/imgDefenceItem"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+    <TextView
+        android:id="@+id/txtMiscItemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imgMiscItem"
+        android:layout_alignRight="@+id/imgMiscItem"
+        android:layout_alignBottom="@+id/imgMiscItem"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+    <TextView
+        android:id="@+id/txtDefenceItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imgDefenceItem"
+        android:layout_alignLeft="@+id/imgDefenceItem"
+        android:layout_marginLeft="2dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white" />
+    
+    <TextView
+        android:id="@+id/txtMiscItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imgMiscItem"
+        android:layout_alignTop="@+id/imgMiscItem"
+        android:layout_marginLeft="2dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/txtAttackItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imgAttackItem"
+        android:layout_alignTop="@+id/imgAttackItem"
+        android:layout_marginLeft="2dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white" />
+
+    <ImageView
+        android:id="@+id/imgAvatarShopBig"
+        android:layout_width="130dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="56dp"
+        android:contentDescription="@string/desc"
+        android:scaleType="center"
+        android:src="@drawable/blachara_big" />
+
+    <TextView
+        android:id="@+id/txtCoins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imgCoins"
+        android:layout_alignLeft="@+id/imgCoins"
+        android:layout_alignTop="@+id/imgCoins"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="3dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/holo_orange_light" />
+
+    <ImageView
+        android:id="@+id/imgCoins"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/imgAvatarShopBig"
+        android:layout_alignTop="@+id/imgLogo"
+        android:layout_marginTop="14dp"
+        android:contentDescription="@string/desc"
+        android:scaleType="fitXY"
+        android:src="@drawable/kasa" />
+
+</RelativeLayout>

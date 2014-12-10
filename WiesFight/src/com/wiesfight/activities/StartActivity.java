@@ -1,5 +1,9 @@
 package com.wiesfight.activities;
 
+import java.util.Calendar;
+import java.util.Date;
+
+import main.com.wiesfight.dto.User;
 import main.com.wiesfight.persistence.UserPersistence;
 
 import com.parse.ParseException;
@@ -26,6 +30,7 @@ public class StartActivity extends Activity {
 	private Boolean userExists = false;
 	private Boolean isConnected = false;
 	private Boolean methodCalled = false;
+	private Boolean addBonus = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +107,7 @@ public class StartActivity extends Activity {
     		UserPersistence user = query.getFirst();
     		if(user != null) {
 	    		user.loadUserFromDB();
+	    		this.checkBonus(user);
 	    		user.pin("currentUser");
     		}
     		return user != null;
@@ -111,8 +117,35 @@ public class StartActivity extends Activity {
     	}
 	}
     
-    private void goToMainActivity() {
+    private void checkBonus(UserPersistence user) {
+		User u = user.loadUserFromDB();
+		Date currentDate = new Date();
+		if(u.getLastBonusDate() == null || this.giveBonus(currentDate, u.getLastBonusDate())) {
+			this.addBonus = true;
+			u.setLastBonusDate(currentDate);
+			u.addBonusCoins();
+			user.setUser(u);
+			user.saveUserToDB();
+		}
+	}
+    
+    private Boolean giveBonus(Date current, Date last) {
+    	Calendar currentCal = Calendar.getInstance();
+    	currentCal.setTime(current);
+    	Calendar lastCal = Calendar.getInstance();
+    	lastCal.setTime(last);
+    	if(currentCal.get(Calendar.YEAR) > lastCal.get(Calendar.YEAR))
+    		return true;
+    	if(currentCal.get(Calendar.MONTH) > lastCal.get(Calendar.MONTH))
+    		return true;
+    	if(currentCal.get(Calendar.DAY_OF_MONTH) > lastCal.get(Calendar.DAY_OF_MONTH))
+    		return true;
+    	return false;
+    }
+
+	private void goToMainActivity() {
     	Intent intent = new Intent(this, MainActivity.class);
+    	intent.putExtra("bonus", addBonus);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     	startActivity(intent);
     	finish();

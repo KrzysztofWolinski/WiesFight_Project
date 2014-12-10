@@ -108,15 +108,6 @@
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@android:color/white" />
-    
-
-    <TextView
-        android:id="@+id/lblLevel"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@android:color/white" />
     </LinearLayout>
 
 </RelativeLayout>

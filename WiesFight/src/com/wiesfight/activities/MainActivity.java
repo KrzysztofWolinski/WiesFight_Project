@@ -48,8 +48,6 @@ public class MainActivity extends Activity {
     private void setControls() {
     	TextView txt = (TextView) findViewById(R.id.lblUsername);
     	txt.setText(this.currentUser.getUserName());
-    	txt = (TextView) findViewById(R.id.lblLevel);
-    	txt.setText("Poziom " + this.currentUser.getUserLevel());
     	ImageView img = (ImageView) findViewById(R.id.imgAvatarMain);
     	String className = this.currentUser.getUserClass().toString();
     	try {
@@ -57,6 +55,10 @@ public class MainActivity extends Activity {
     	}
     	catch(Exception e) {
     		
+    	}
+    	if(getIntent().getBooleanExtra("bonus", false)) {
+        	getIntent().removeExtra("bonus");
+    		DialogManager.showInfoDialog(this, getString(R.string.bonusMessage));
     	}
     }
     
@@ -76,8 +78,11 @@ public class MainActivity extends Activity {
     }
     
     public void showStats(View v) {
+    	int wins = this.currentUser.getWins(), fights = this.currentUser.getFights();
 	    String text = String.format(getString(R.string.statsFormat), this.currentUser.getUserCoins(),
-	    		this.currentUser.getUserLevel(), this.currentUser.getUserExperience());
+	    		this.currentUser.getUserLevel(), this.currentUser.getUserExperience(),
+	    		wins, fights,
+	    		fights == 0 ? 0 : (int) (((float) wins / (float) fights) * 100));
     	DialogManager.showInfoDialog(this, text);
     }
     

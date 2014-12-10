@@ -30,6 +30,9 @@ public class UserPersistence extends ParseObject {
 		this.put(UserParametersEnum.ATTACK_ITEMS_COUNT.getParameterName(), this.user.getAttackItemCount());
 		this.put(UserParametersEnum.DEFENSE_ITEMS_COUNT.getParameterName(), this.user.getDefenseItemCount());
 		this.put(UserParametersEnum.MISC_ITEMS_COUNT.getParameterName(), this.user.getMiscItemCount());
+		this.put(UserParametersEnum.LAST_BONUS_DATE.getParameterName(), this.user.getLastBonusDate());
+		this.put(UserParametersEnum.FIGHTS.getParameterName(), this.user.getFights());
+		this.put(UserParametersEnum.WINS.getParameterName(), this.user.getWins());
 		
 		try {
 			this.save();
@@ -49,6 +52,9 @@ public class UserPersistence extends ParseObject {
 		this.user.setAttackItemCount(this.getInt(UserParametersEnum.ATTACK_ITEMS_COUNT.getParameterName()));
 		this.user.setDefenceItemCount(this.getInt(UserParametersEnum.DEFENSE_ITEMS_COUNT.getParameterName()));
 		this.user.setMiscItemCount(this.getInt(UserParametersEnum.MISC_ITEMS_COUNT.getParameterName()));
+		this.user.setFights(this.getInt(UserParametersEnum.FIGHTS.getParameterName()));
+		this.user.setWins(this.getInt(UserParametersEnum.WINS.getParameterName()));
+		this.user.setLastBonusDate(this.getDate(UserParametersEnum.LAST_BONUS_DATE.getParameterName()));
 		
 		return user;
 	}
