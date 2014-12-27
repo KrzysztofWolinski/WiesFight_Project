@@ -9,9 +9,9 @@ public enum Items {
 	FLANELA(R.drawable.informatyk_defense, R.string.koszula, Bonuses.DEFENCE, 1.2, 3),
 	KAWA(R.drawable.informatyk_misc, R.string.kawa, Bonuses.CRITICALPOWER, 1.2, 3),
 	
-	TULIPAN(R.drawable.kloszard_attack, R.string.tulipan, Bonuses.ATTACKPOWER, 1.2, 3),
-	POKRYWA(R.drawable.kloszard_defense, R.string.tarcza, Bonuses.DEFENCE, 1.2, 3),
-	WINO(R.drawable.kloszard_misc, R.string.wino, Bonuses.DEFENCE, 1.2, 3),
+	TULIPAN(R.drawable.kloszard_attack, R.string.tulipan, Bonuses.ATTACKPOWER, 8, 3),
+	POKRYWA(R.drawable.kloszard_defense, R.string.tarcza, Bonuses.DEFENCE, 4, 3),
+	WINO(R.drawable.kloszard_misc, R.string.wino, Bonuses.HEALTHPOINTS, 10, 3),
 	
 	BASEBALL(R.drawable.kibic_attack, R.string.kij, Bonuses.ATTACKPOWER, 1.2, 3),
 	SZALIK(R.drawable.kibic_defense, R.string.szalik, Bonuses.DEFENCE, 1.2, 3),

@@ -2,7 +2,7 @@ package main.com.wiesfight.dto.enums;
 
 public enum CharacterClass {
 	INFORMATYK(20, 25, 0.1, 0.9, 0.15, 1.1, 0, 1, 2),
-	KLOSZARD(5, 80, 0.1, 0.9, 0.15, 1.1, 3, 4, 5),
+	KLOSZARD(5, 50, 0.1, 0.9, 0.15, 1.1, 3, 4, 5),
 	KIBIC(15, 50, 0.1, 0.9, 0.15, 1.1, 6, 7, 8),
 	MOHER(4, 40, 0.1, 0.9, 0.15, 1.1, 9, 10, 11),
 	BLACHARA(8, 50, 0.1, 0.9, 0.15, 1.1, 12, 13, 14),
