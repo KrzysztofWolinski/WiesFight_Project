@@ -157,11 +157,7 @@ public class FightActivity extends Activity {
     
     private void updateBattlefield() {
     	// Sprawdzić czy walka ciągle trwa i zaaktualizować feedback (HP, itemy itd.)
-    	ProgressBar hpBar = (ProgressBar) findViewById(R.id.userHpBar);
-    	hpBar.setProgress((int)((currentUser.getHealth() / currentUser.getMaxHealth()) * 100));
-    	
-    	hpBar = (ProgressBar) findViewById(R.id.opponentHpBar);
-    	hpBar.setProgress((int)((opponent.getHealth() / opponent.getMaxHealth()) * 100));
+    	updateHpBars();
     	
     	updateItemNotifications();
     	
@@ -183,6 +179,14 @@ public class FightActivity extends Activity {
     		});
     	    dialog.show();
     	}
+    }
+    
+    private void updateHpBars() {
+    	ProgressBar hpBar = (ProgressBar) findViewById(R.id.userHpBar);
+    	hpBar.setProgress((int)((currentUser.getHealth() / currentUser.getMaxHealth()) * 100));
+    	
+    	hpBar = (ProgressBar) findViewById(R.id.opponentHpBar);
+    	hpBar.setProgress((int)((opponent.getHealth() / opponent.getMaxHealth()) * 100));
     }
     
     private void updateItemNotifications() {

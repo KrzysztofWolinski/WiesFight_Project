@@ -168,4 +168,12 @@
         android:layout_alignTop="@+id/userHpBar"
         android:layout_toRightOf="@+id/opponentMiscItem" />
 
+    <ImageView
+        android:id="@+id/userHpBar2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/userAttackItem"
+        android:layout_below="@+id/userHpBar"
+        android:src="@drawable/hp_bar" />
+
 </RelativeLayout>
