@@ -150,30 +150,20 @@
         android:layout_toLeftOf="@+id/opponentDefenseItem"
         android:src="@drawable/padlock" />
 
-    <ProgressBar
+    <View
         android:id="@+id/userHpBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/userAttackItemDuration"
-        android:layout_below="@+id/userAttackItemDuration" />
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_below="@+id/userAttackItemDuration"
+        android:background="#11FF00"/>
 
-    <ProgressBar
+    <View
         android:id="@+id/opponentHpBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:background="#11FF00"
+        android:layout_below="@+id/userDefenseItemDuration"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/userHpBar"
-        android:layout_toRightOf="@+id/opponentMiscItem" />
-
-    <ImageView
-        android:id="@+id/userHpBar2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/userAttackItem"
-        android:layout_below="@+id/userHpBar"
-        android:src="@drawable/hp_bar" />
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

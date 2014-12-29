@@ -165,10 +165,10 @@ public class FightActivity extends Activity {
     		LayoutInflater inflater = this.getLayoutInflater();
     	    View view = inflater.inflate(R.layout.dialog_ok, null);
     	    final AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();
-    	    
+
     	    TextView txt = (TextView) view.findViewById(R.id.txtMessageOk);
     	    txt.setText("Walka zostałą zakończona zwycięstwem gracza " + fight.getWinner().getName());
-    	    
+
     	    Button btn = (Button) view.findViewById(R.id.btnOk);
     	    btn.setOnClickListener(new OnClickListener() {
     			@Override
@@ -180,15 +180,21 @@ public class FightActivity extends Activity {
     	    dialog.show();
     	}
     }
-    
+
     private void updateHpBars() {
-    	ProgressBar hpBar = (ProgressBar) findViewById(R.id.userHpBar);
-    	hpBar.setProgress((int)((currentUser.getHealth() / currentUser.getMaxHealth()) * 100));
-    	
-    	hpBar = (ProgressBar) findViewById(R.id.opponentHpBar);
-    	hpBar.setProgress((int)((opponent.getHealth() / opponent.getMaxHealth()) * 100));
+        // User
+        View hpBar = (View) findViewById(R.id.userHpBar);
+        float scale = (float)((currentUser.getHealth() / currentUser.getMaxHealth()));
+        hpBar.setScaleX(scale);
+        hpBar.setTranslationX((scale / 2) * hpBar.getWidth() - (hpBar.getWidth() / 2));
+
+        // Opponent
+        hpBar = (View) findViewById(R.id.opponentHpBar);
+        scale = (float)((opponent.getHealth() / opponent.getMaxHealth()));
+        hpBar.setScaleX(scale);
+        hpBar.setTranslationX( - ((scale / 2) * hpBar.getWidth() - (hpBar.getWidth() / 2)));
     }
-    
+
     private void updateItemNotifications() {
     	TextView attackItemsText = (TextView) findViewById(R.id.userAttackItemCount);
     	TextView defenceItemsText = (TextView) findViewById(R.id.userDefenseItemCount);
