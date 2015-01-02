@@ -15,7 +15,7 @@ public enum Items {
 	
 	BASEBALL(R.drawable.kibic_attack, R.string.kij, Bonuses.ATTACKPOWER, 1.2, 3),
 	SZALIK(R.drawable.kibic_defense, R.string.szalik, Bonuses.DEFENCE, 1.2, 3),
-	ENERGETYK(R.drawable.kibic_misc, R.string.red, Bonuses.ATTACKPOWER, 1.1, 3),
+	ENERGETYK(R.drawable.kibic_misc, R.string.red, Bonuses.CRITICALPOWER, 1.1, 3),
 	
 	TOREBKA(R.drawable.moher_attack, R.string.torba, Bonuses.ATTACKPOWER, 1.2, 3),
 	CHODZIK(R.drawable.moher_defense, R.string.chodzik, Bonuses.DEFENCE, 1.2, 3),

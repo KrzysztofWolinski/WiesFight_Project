@@ -8,16 +8,16 @@ import main.com.wiesfight.dto.enums.CharacterClass;
 
 import com.wiesfight.enums.Items;
 import com.wiesfight.figth.Bonus;
+import com.wiesfight.figth.Bonuses;
 
 public class Fighter implements IFighter {
 	private User user;
 	private double health;
 	private double maxHealth;
-	private Bonus activeAttackEffect = null;
-	private Bonus activeDefenseEffect = null;
-	
-	public Fighter(User u) {
-		this.user = u;
+	private Bonus bonus = new Bonus();
+
+	public Fighter(User user) {
+		this.user = user;
 		this.health = this.user.getUserClass().getHealthPoints();
 		this.maxHealth = this.health;
 	}
@@ -34,16 +34,10 @@ public class Fighter implements IFighter {
 
 	@Override
 	public void decreaseHealth(int minus) {
-		if (this.activeDefenseEffect != null) {
-			minus -= activeDefenseEffect.getDefenseModificator();
-			if (minus < 0) {
-				minus = 0;
-			}
-			
-			if (!this.activeDefenseEffect.isActive()) {
-				this.activeDefenseEffect = null;
-			}
-		}
+        minus -= bonus.applyBonusEffect(Bonuses.DEFENCE);
+        if (minus < 0) {
+            minus = 0;
+        }
 		
 		this.health -= minus;
 	}
@@ -52,15 +46,14 @@ public class Fighter implements IFighter {
 	public int getAttackStrength() {
 		double attackStrength = this.user.getUserClass().getAttackPower();
 		
-		if (this.activeAttackEffect != null) {
-			attackStrength += this.activeAttackEffect.getAttackModificator();
-		
-			if (!this.activeAttackEffect.isActive()) {
-				this.activeAttackEffect = null;
-			}
-		}
-		
-		return (int) attackStrength;	// TODO zmienić wszystko na double
+		attackStrength += this.bonus.applyBonusEffect(Bonuses.ATTACKPOWER);
+
+        // TODO losowanie czy były obrażenia krytyczne czy nie
+        //if (this.bonus.applyBonusEffect(Bonuses.CRITICALCHANCE)) {
+        //    attackStrength += this.bonus.applyBonusEffect(Bonuses.CRITICALPOWER);
+        //}
+
+        return (int) attackStrength;	// TODO zmienić wszystko na double
 	}
 
 	@Override
@@ -75,9 +68,9 @@ public class Fighter implements IFighter {
 
 	@Override
 	public void useAttackItem() {
-		if ((this.user.getAttackItemCount() > 0) && (this.activeAttackEffect == null)) {
+		if ((this.user.getAttackItemCount() > 0) && (this.bonus.isSpecificBonusTypeEffectActive(Bonuses.ATTACKPOWER) == false)) {
 			Items item = Items.values()[this.user.getUserClass().getAttackItemID()];
-			this.activeAttackEffect = new Bonus(item);
+			this.bonus.addItem(item);
 			this.user.setAttackItemCount(this.user.getAttackItemCount() - 1);
 			
 			// TODO animacja albo coś
@@ -86,9 +79,9 @@ public class Fighter implements IFighter {
 
 	@Override
 	public void useDefenseItem() {
-		if ((this.user.getDefenseItemCount() > 0) && (this.activeDefenseEffect == null)) {
+		if ((this.user.getDefenseItemCount() > 0) && (this.bonus.isSpecificBonusTypeEffectActive(Bonuses.DEFENCE) == false)) {
 			Items item = Items.values()[this.user.getUserClass().getDefenceItemID()];
-			this.activeDefenseEffect = new Bonus(item);
+            this.bonus.addItem(item);
 			this.user.setDefenceItemCount(this.user.getDefenseItemCount() - 1);
 			
 			// TODO animacja albo coś
@@ -98,12 +91,17 @@ public class Fighter implements IFighter {
 	@Override
 	public void useMiscItem() {
 		if (this.user.getMiscItemCount() > 0) {
-			Items item = Items.values()[this.user.getUserClass().getMiscItemID()];
-			Bonus healingEffect = new Bonus(item);
-			this.health += healingEffect.heal();
-			
+            Items item = Items.values()[this.user.getUserClass().getMiscItemID()];
+
+            if (item.getBonusType().equals(Bonuses.HEALTHPOINTS)) {
+                this.health += item.getBonus();
+            } else {
+                this.bonus.addItem(item);
+            }
+
 			this.user.setMiscItemCount(this.user.getMiscItemCount() - 1);
-			// TODO uogólnić, teraz będzie działać tylko dla leczenia
+
+			// TODO animacja czy coś
 		}
 	}
 
@@ -124,19 +122,11 @@ public class Fighter implements IFighter {
 
 	@Override
 	public int getAttackItemDuration() {
-		if (this.activeAttackEffect != null) {
-			return this.activeAttackEffect.getDuration();
-		} else {
-			return 0;
-		}
+		return bonus.getDuration(Bonuses.ATTACKPOWER);
 	}
 
 	@Override
 	public int getDefenseItemDuration() {
-		if (this.activeDefenseEffect != null) {
-			return this.activeDefenseEffect.getDuration();
-		} else {
-			return 0;
-		}
+		return bonus.getDuration(Bonuses.DEFENCE);
 	}
 }
