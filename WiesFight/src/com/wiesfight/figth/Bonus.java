@@ -43,6 +43,12 @@ public class Bonus {
         return false;
     }
 
+    public void decrementDuration() {
+        for (ItemWithDuration item : items) {
+            item.decrementDuration();
+        }
+    }
+
     private void removeInactiveItems() {
         ArrayList<ItemWithDuration> temporaryList = new ArrayList<ItemWithDuration>();
 

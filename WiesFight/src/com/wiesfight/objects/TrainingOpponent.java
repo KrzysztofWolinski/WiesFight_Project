@@ -31,7 +31,12 @@ public class TrainingOpponent implements IFighter {
 		this.health -= minus;
 	}
 
-	@Override
+    @Override
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    @Override
 	public int getAttackStrength() {
 		return this.user.getUserClass().getAttackPower();
 	}

@@ -8,6 +8,7 @@ public interface IFighter {
 	int getAttackStrength();
 	public double getMaxHealth();
 	void decreaseHealth(int minus);
+    public void setHealth(int health);
 	String getName();
 	
 	public void useAttackItem();

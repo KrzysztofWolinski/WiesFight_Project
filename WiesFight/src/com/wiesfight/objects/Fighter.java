@@ -42,6 +42,11 @@ public class Fighter implements IFighter {
 		this.health -= minus;
 	}
 
+    @Override
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
 	@Override
 	public int getAttackStrength() {
 		double attackStrength = this.user.getUserClass().getAttackPower();

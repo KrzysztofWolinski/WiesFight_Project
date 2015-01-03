@@ -1,15 +1,17 @@
 package com.wiesfight.figth;
 
 import com.wiesfight.objects.IFighter;
+import com.wiesfight.objects.TrainingOpponent;
 
 public class Fight {
 
-	IFighter fighter1, fighter2;
+	IFighter player, opponent;
 	boolean isFighter1Active, isFightFinished;
+    IFightMessanger fightMessanger;
 	
-	public Fight(IFighter fighter1, IFighter fighter2) {
-		this.fighter1 = fighter1;
-		this.fighter2 = fighter2;
+	public Fight(IFighter player, IFighter opponent) {
+		this.player = player;
+		this.opponent = opponent;
 		
 		// Randomly decide which fighter should start
 		if (((int)((Math.random() * 10) % 2)) == 0) {
@@ -19,17 +21,27 @@ public class Fight {
 		}
 		
 		this.isFightFinished = false;
+
+        if (opponent.getClass().equals(TrainingOpponent.class)) {
+            fightMessanger = new FightMessangerTraining(this, opponent);
+        } else {
+            fightMessanger = new FightMessanger(this);
+        }
 	}
 
 	public void attack() {
 		if (this.isFightFinished == false) {
-			int attackStrength = getActiveFighter().getAttackStrength();
-			getPassiveFighter().decreaseHealth(attackStrength);
-			
-			if ((this.fighter1.getHealth() <= 0) || (this.fighter2.getHealth() <= 0)) {
+
+            PlayerActions actions = new PlayerActions();
+            int attackStrength = getActiveFighter().getAttackStrength();
+			//getPassiveFighter().decreaseHealth(attackStrength);
+            actions.setAttackStrength(attackStrength);
+
+            fightMessanger.sendData(actions);
+            deactivatePlayer();
+
+			if ((this.player.getHealth() <= 0) || (this.opponent.getHealth() <= 0)) {
 				this.isFightFinished = true;
-			} else {
-				this.switchPlayers();
 			}
 		}
 	}
@@ -39,22 +51,35 @@ public class Fight {
 	}
 	
 	private IFighter getActiveFighter() {
-		return this.isFighter1Active ? this.fighter1 : this.fighter2; 
+		return this.isFighter1Active ? this.player : this.opponent;
 	}
-	
-	private IFighter getPassiveFighter() {
-		return this.isFighter1Active ?  this.fighter2 : this.fighter1; 
-	} 
-	
-	private void switchPlayers() {
-		this.isFighter1Active = !this.isFighter1Active;
-	}
-	
+
 	public IFighter getWinner() {
 		if (this.isFightFinished()) {
-			return this.getActiveFighter();
-		} else {
-			return null;
-		}		
+			if (this.player.getHealth() <= 0) {
+                return this.opponent;
+            } else if (this.opponent.getHealth() <= 0) {
+                return this.player;
+            }
+		}
+        return null;
 	}
+
+    protected void deactivatePlayer() {
+        this.isFighter1Active = false;
+    }
+
+    protected void activatePlayer() {
+        this.isFighter1Active = true;
+    }
+
+    protected void receivePlayerActions(PlayerActions actions) {
+        // TODO dodać wykrywanie czy walka ciągle trwa (refactor)
+
+        player.decreaseHealth(actions.getAttackStrength());
+
+        opponent.setHealth((int) actions.getHealth());
+
+        activatePlayer();
+    }
 }
