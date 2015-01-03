@@ -38,6 +38,7 @@ public class Fight {
             actions.setAttackStrength(attackStrength);
 
             fightMessanger.sendData(actions);
+            this.player.endTurn();
             deactivatePlayer();
 
 			if ((this.player.getHealth() <= 0) || (this.opponent.getHealth() <= 0)) {

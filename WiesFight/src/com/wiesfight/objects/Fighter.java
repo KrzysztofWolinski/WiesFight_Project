@@ -134,4 +134,9 @@ public class Fighter implements IFighter {
 	public int getDefenseItemDuration() {
 		return bonus.getDuration(Bonuses.DEFENCE);
 	}
+
+    @Override
+    public void endTurn() {
+        this.bonus.decrementDuration();
+    }
 }

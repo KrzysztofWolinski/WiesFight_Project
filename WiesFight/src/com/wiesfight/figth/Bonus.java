@@ -70,10 +70,6 @@ public class Bonus {
             this.duration = item.getDuration();
         }
 
-        Items getItem() {
-            return item;
-        }
-
         Bonuses getBonusType() {
             return item.getBonusType();
         }

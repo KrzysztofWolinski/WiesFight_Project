@@ -21,4 +21,6 @@ public interface IFighter {
 	
 	public int getAttackItemDuration();
 	public int getDefenseItemDuration();
+
+    public void endTurn();
 }

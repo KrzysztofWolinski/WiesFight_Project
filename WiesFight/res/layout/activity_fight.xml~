@@ -99,6 +99,14 @@
         android:layout_toRightOf="@+id/imgAvatarUser"
         android:src="@drawable/moher_big" />
 
+    <Button
+        android:id="@+id/attackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:onClick="onPressAttackButton"
+        android:text="Atakuj" />
+
     <TextView
         android:id="@+id/userAttackItemDuration"
         android:layout_width="wrap_content"
