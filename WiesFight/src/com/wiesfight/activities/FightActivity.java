@@ -184,12 +184,20 @@ public class FightActivity extends Activity {
     private void updateHpBars() {
         // User
         View hpBar = (View) findViewById(R.id.userHpBar);
+        TextView hpText = (TextView) findViewById(R.id.userHpText);
+
+        hpText.setText(String.valueOf(currentUser.getHealth()));
+
         float scale = (float)((currentUser.getHealth() / currentUser.getMaxHealth()));
         hpBar.setScaleX(scale);
         hpBar.setTranslationX((scale / 2) * hpBar.getWidth() - (hpBar.getWidth() / 2));
 
         // Opponent
         hpBar = (View) findViewById(R.id.opponentHpBar);
+        hpText = (TextView) findViewById(R.id.opponentHpText);
+
+        hpText.setText(String.valueOf(opponent.getHealth()));
+
         scale = (float)((opponent.getHealth() / opponent.getMaxHealth()));
         hpBar.setScaleX(scale);
         hpBar.setTranslationX( - ((scale / 2) * hpBar.getWidth() - (hpBar.getWidth() / 2)));

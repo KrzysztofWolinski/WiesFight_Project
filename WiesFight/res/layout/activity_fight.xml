@@ -159,4 +159,22 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
+    <TextView
+        android:id="@+id/userHpText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/userHpBar"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/opponentHpText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/opponentHpBar"
+        android:layout_alignParentRight="true"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
 </RelativeLayout>

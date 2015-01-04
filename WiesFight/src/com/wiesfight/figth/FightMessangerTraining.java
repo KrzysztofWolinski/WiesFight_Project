@@ -19,7 +19,11 @@ public class FightMessangerTraining implements IFightMessanger {
         trainingFighter.decreaseHealth(actions.getAttackStrength());
 
         PlayerActions response = new PlayerActions();
-        response.setAttackStrength(trainingFighter.getAttackStrength());
+
+        if (trainingFighter.getHealth() >= 0.0) {
+            response.setAttackStrength(trainingFighter.getAttackStrength());
+        }
+
         response.setHealth(trainingFighter.getHealth());
 
         callback.receivePlayerActions(response);

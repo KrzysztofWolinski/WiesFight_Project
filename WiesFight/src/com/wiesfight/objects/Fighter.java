@@ -49,14 +49,22 @@ public class Fighter implements IFighter {
 
 	@Override
 	public int getAttackStrength() {
-		double attackStrength = this.user.getUserClass().getAttackPower();
-		
-		attackStrength += this.bonus.applyBonusEffect(Bonuses.ATTACKPOWER);
+        double attackChance = this.getUserClass().getAccuracy() - Math.random();
+        double attackStrength = 0.0;
 
-        // TODO losowanie czy były obrażenia krytyczne czy nie
-        //if (this.bonus.applyBonusEffect(Bonuses.CRITICALCHANCE)) {
-        //    attackStrength += this.bonus.applyBonusEffect(Bonuses.CRITICALPOWER);
-        //}
+        if (attackChance > 0.0) {
+            attackStrength = this.user.getUserClass().getAttackPower();
+
+            attackStrength += this.bonus.applyBonusEffect(Bonuses.ATTACKPOWER);
+
+            // TODO losowanie czy były obrażenia krytyczne czy nie
+            double criticalChance = this.getUserClass().getCriticalChance() + this.bonus.applyBonusEffect(Bonuses.CRITICALCHANCE) - Math.random();
+            boolean isCriticalAttack = (criticalChance >= 0.0) ? true : false;
+
+            if (isCriticalAttack) {
+                attackStrength += this.bonus.applyBonusEffect(Bonuses.CRITICALPOWER);
+            }
+        }
 
         return (int) attackStrength;	// TODO zmienić wszystko na double
 	}
