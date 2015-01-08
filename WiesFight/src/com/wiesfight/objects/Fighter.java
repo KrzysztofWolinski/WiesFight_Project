@@ -1,5 +1,7 @@
 package com.wiesfight.objects;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import main.com.wiesfight.dto.enums.CharacterClass;
 import com.wiesfight.enums.Items;
 import com.wiesfight.figth.Bonus;
 import com.wiesfight.figth.Bonuses;
+import com.wiesfight.figth.PlayerActions;
 
 public class Fighter implements IFighter {
 	private User user;
@@ -48,11 +51,16 @@ public class Fighter implements IFighter {
     }
 
 	@Override
-	public int getAttackStrength() {
-        double attackChance = this.getUserClass().getAccuracy() - Math.random();
+	public PlayerActions getAttackStrength() {
+        PlayerActions actions = new PlayerActions();
+
+        int attackChance = (int) ((this.getUserClass().getAccuracy() * 100) - (Math.random() * 100));
+
+        Log.i("[attackChance]", String.valueOf(attackChance));
+
         double attackStrength = 0.0;
 
-        if (attackChance > 0.0) {
+        if (attackChance > 0) {
             attackStrength = this.user.getUserClass().getAttackPower();
 
             attackStrength += this.bonus.applyBonusEffect(Bonuses.ATTACKPOWER);
@@ -60,13 +68,18 @@ public class Fighter implements IFighter {
             // TODO losowanie czy były obrażenia krytyczne czy nie
             double criticalChance = this.getUserClass().getCriticalChance() + this.bonus.applyBonusEffect(Bonuses.CRITICALCHANCE) - Math.random();
             boolean isCriticalAttack = (criticalChance >= 0.0) ? true : false;
+            actions.setIsCriticalAttack(isCriticalAttack);
+
+            Log.i("[critical]", String.valueOf(criticalChance));
 
             if (isCriticalAttack) {
                 attackStrength += this.bonus.applyBonusEffect(Bonuses.CRITICALPOWER);
             }
         }
 
-        return (int) attackStrength;	// TODO zmienić wszystko na double
+        actions.setAttackStrength((int) attackStrength);
+
+        return actions;
 	}
 
 	@Override

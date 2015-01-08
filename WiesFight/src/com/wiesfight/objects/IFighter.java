@@ -1,11 +1,13 @@
 package com.wiesfight.objects;
 
+import com.wiesfight.figth.PlayerActions;
+
 import main.com.wiesfight.dto.enums.CharacterClass;
 
 public interface IFighter {
 	CharacterClass getUserClass();
 	public double getHealth();
-	int getAttackStrength();
+	PlayerActions getAttackStrength();
 	public double getMaxHealth();
 	void decreaseHealth(int minus);
     public void setHealth(int health);

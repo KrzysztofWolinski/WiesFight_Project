@@ -1,5 +1,7 @@
 package com.wiesfight.objects;
 
+import com.wiesfight.figth.PlayerActions;
+
 import main.com.wiesfight.dto.User;
 import main.com.wiesfight.dto.enums.CharacterClass;
 
@@ -37,8 +39,12 @@ public class TrainingOpponent implements IFighter {
     }
 
     @Override
-	public int getAttackStrength() {
-		return this.user.getUserClass().getAttackPower();
+	public PlayerActions getAttackStrength() {
+		PlayerActions actions = new PlayerActions();
+
+        actions.setAttackStrength(this.user.getUserClass().getAttackPower());
+
+        return actions;
 	}
 
 	@Override

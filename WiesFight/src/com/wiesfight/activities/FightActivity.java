@@ -56,7 +56,7 @@ public class FightActivity extends Activity {
 			this.opponent = new Fighter((User)getIntent().getSerializableExtra("opponent"));
 		}
 
-		this.fight = new Fight(this.currentUser, this.opponent);
+		this.fight = new Fight(this.currentUser, this.opponent, this);
 		
 		String userClassName = this.currentUser.getUserClass().toString();
 		String opponentClassName = this.opponent.getUserClass().toString();
@@ -218,5 +218,45 @@ public class FightActivity extends Activity {
     	
     	attackItemsDurationText.setText(String.valueOf(this.currentUser.getAttackItemDuration()));
     	defenceItemsDurationText.setText(String.valueOf(this.currentUser.getDefenseItemDuration()));
+    }
+
+    public void animatePlayerCriticalAttack(boolean isCriticalStrike) {
+        TextView criticalText = (TextView) findViewById(R.id.userCriticalAttack);
+
+        if (isCriticalStrike == true) {
+            criticalText.setText("Critical!");
+        } else {
+            criticalText.setText("");
+        }
+    }
+
+    public void animateOpponentCriticalAttack(boolean isCriticalStrike) {
+        TextView criticalText = (TextView) findViewById(R.id.opponentCriticalAttack);
+
+        if (isCriticalStrike == true) {
+            criticalText.setText("Critical!");
+        } else {
+            criticalText.setText("");
+        }
+    }
+
+    public void showDialog(String text) {
+        LayoutInflater inflater = this.getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_ok, null);
+        final AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(view).create();
+        Button btn1 = (Button) view.findViewById(R.id.btnOk);
+
+        TextView txt = (TextView) view.findViewById(R.id.txtMessage);
+
+        txt.setText(text);
+
+        btn1.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }
