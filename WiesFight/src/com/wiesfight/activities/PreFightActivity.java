@@ -88,34 +88,25 @@ public class PreFightActivity extends Activity implements ConnectionRequestListe
     	startActivity(intent);
 	}
 
-	private void joinRoom(String roomId) {
+	private void joinRoom(String roomId, boolean newRoom) {
 		if(roomId != null && roomId.length() > 0) {
-			this.goToGameScreen(roomId);
+			this.goToGameScreen(roomId, newRoom);
 		} else {
 			this.error();
 		}
 	}
 	
-	private void goToGameScreen(String roomId) {
+	private void goToGameScreen(String roomId, boolean newRoom) {
 		this.hideProgressDialog();
 		Intent intent = new Intent(this, FightActivity.class);
 		intent.putExtra("roomId", roomId);
+		intent.putExtra("newRoom", newRoom);
 		startActivity(intent);
 	}
 	
 	private void error() {
 		this.hideProgressDialog();
 		DialogManager.showInfoDialog(this, getString(R.string.connectionError));
-	}
-
-	@Override
-	public void onBackPressed() {
-		super.onBackPressed();
-		if(this.theClient != null && this.isConnected){
-			this.theClient.removeZoneRequestListener(this);
-			this.theClient.removeConnectionRequestListener(this);
-			this.theClient.disconnect();
-		}
 	}
 
 	@Override
@@ -130,23 +121,43 @@ public class PreFightActivity extends Activity implements ConnectionRequestListe
 	}
 
 	@Override
-	public void onDisconnectDone(ConnectEvent arg0) {
-		this.isConnected = false;
-	}
-
-	@Override
-	public void onInitUDPDone(byte arg0) {
-		
+	public void onGetMatchedRoomsDone(MatchedRoomsEvent event) {
+		RoomData[] roomDataList = event.getRoomsData();
+		if(roomDataList != null && roomDataList.length > 0) {
+			this.joinRoom(roomDataList[0].getId(), false);
+		} else {
+			this.theClient.createRoom(this.currentUser.getUserName(), this.currentUser.getUserName(), 2, null);
+		}
 	}
 
 	@Override
 	public void onCreateRoomDone(RoomEvent event) {
     	if(event.getResult() == WarpResponseResultCode.SUCCESS){
 			String roomId = event.getData().getId();
-			this.joinRoom(roomId);
+			this.joinRoom(roomId, true);
 		} else {
 			this.error();
 		}
+	}
+
+	@Override
+	public void onDisconnectDone(ConnectEvent arg0) {
+		this.isConnected = false;
+	}
+
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		if(this.theClient != null && this.isConnected){
+			this.theClient.removeZoneRequestListener(this);
+			this.theClient.removeConnectionRequestListener(this);
+			this.theClient.disconnect();
+		}
+	}
+
+	@Override
+	public void onInitUDPDone(byte arg0) {
+		
 	}
 
 	@Override
@@ -161,16 +172,6 @@ public class PreFightActivity extends Activity implements ConnectionRequestListe
 	@Override
 	public void onGetLiveUserInfoDone(LiveUserInfoEvent arg0) {
 		
-	}
-
-	@Override
-	public void onGetMatchedRoomsDone(MatchedRoomsEvent event) {
-		RoomData[] roomDataList = event.getRoomsData();
-		if(roomDataList != null && roomDataList.length > 0) {
-			this.joinRoom(roomDataList[0].getId());
-		} else {
-			this.theClient.createRoom(this.currentUser.getUserName(), this.currentUser.getUserName(), 2, null);
-		}
 	}
 
 	@Override

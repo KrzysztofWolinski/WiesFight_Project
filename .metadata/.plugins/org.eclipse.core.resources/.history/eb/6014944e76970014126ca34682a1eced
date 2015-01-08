@@ -316,19 +316,14 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
     
     private void findOpponent(String username) {
-    	if(findUser(username)) {
-    		runOnUiThread(new Runnable() {
-    			@Override
-		    	public void run() {
-					hideProgressDialog();
-					addOpponent();
-					fight = new Fight(currentUser, opponent, FightActivity.this);
-					updateBattlefield();
-    		     }
-    		});
+    	if(this.findUser(username)) {
+			this.hideProgressDialog();
+			this.addOpponent();
+			this.fight = new Fight(this.currentUser, this.opponent, this);
+			updateBattlefield();
 		}
 		else {
-			error();
+			this.error();
 		}
     }
     

@@ -30,7 +30,8 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/userCharacter"
         android:layout_toLeftOf="@+id/imgAvatarOpponent"
-        android:onClick="onPressAttackButton" />
+        android:onClick="onPressAttackButton"
+        android:src="@drawable/kloszard_big" />
 
     <ImageButton
         android:id="@+id/userDefenseItem"

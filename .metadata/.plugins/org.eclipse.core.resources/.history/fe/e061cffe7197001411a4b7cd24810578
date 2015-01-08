@@ -36,7 +36,6 @@ import com.wiesfight.R.string;
 import com.wiesfight.enums.Items;
 import com.wiesfight.figth.Fight;
 import com.wiesfight.managers.DialogManager;
-import com.wiesfight.managers.PreferencesManager;
 import com.wiesfight.objects.Fighter;
 import com.wiesfight.objects.IFighter;
 import com.wiesfight.objects.TrainingOpponent;
@@ -67,10 +66,10 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 	}
 	
 	protected void initializeRoom() {
-		this.addPlayer();
+		this.addPlayer(this.currentUser);
 		if(this.training) {
 			this.opponent = new TrainingOpponent();
-			this.addOpponent();
+			this.addPlayer(this.opponent);
 			this.fight = new Fight(this.currentUser, this.opponent, this);
 			updateBattlefield();
 		}
@@ -104,53 +103,27 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 		}
 	}
 	
-	protected void addPlayer() {
-		String userClassName = currentUser.getUserClass().toString();
+	protected void addPlayer(IFighter fighter) {
+		String userClassName = fighter.getUserClass().toString();
 		
     	try {
     		ImageView img = (ImageView) findViewById(R.id.imgAvatarUser);
     		img.setImageResource(R.drawable.class.getField(userClassName.toLowerCase(Locale.ENGLISH)).getInt(null));
     		
     		img = (ImageView) findViewById(R.id.userCharacter);
-    		img.setImageResource(R.drawable.class.getField(currentUser.getUserClass().toString().toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
+    		img.setImageResource(R.drawable.class.getField(fighter.getUserClass().toString().toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
     		
-    		Items item = Items.values()[currentUser.getUserClass().getAttackItemID()];
+    		// User items
+    		Items item = Items.values()[fighter.getUserClass().getAttackItemID()];
         	img = (ImageView) findViewById(R.id.userAttackItem);
         	img.setImageResource(item.getImageFile());
         	
-        	item = Items.values()[currentUser.getUserClass().getDefenceItemID()];
+        	item = Items.values()[fighter.getUserClass().getDefenceItemID()];
         	img = (ImageView) findViewById(R.id.userDefenseItem);
         	img.setImageResource(item.getImageFile());
         	
-        	item = Items.values()[currentUser.getUserClass().getMiscItemID()];
+        	item = Items.values()[fighter.getUserClass().getMiscItemID()];
         	img = (ImageView) findViewById(R.id.userMiscItem);
-        	img.setImageResource(item.getImageFile());
-    	}
-    	catch(Exception e) {
-    		
-    	}
-	}
-	
-	protected void addOpponent() {
-		String opponentClassName = opponent.getUserClass().toString();
-		
-    	try {
-    		ImageView img = (ImageView) findViewById(R.id.imgAvatarOpponent);
-    		img.setImageResource(R.drawable.class.getField(opponentClassName.toLowerCase(Locale.ENGLISH)).getInt(null));
-    		
-    		img = (ImageView) findViewById(R.id.opponentCharacter);
-    		img.setImageResource(R.drawable.class.getField(opponent.getUserClass().toString().toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
-        	
-    		Items item = Items.values()[opponent.getUserClass().getAttackItemID()];
-        	img = (ImageView) findViewById(R.id.opponentAttackItem);
-        	img.setImageResource(item.getImageFile());
-        	
-        	item = Items.values()[opponent.getUserClass().getDefenceItemID()];
-        	img = (ImageView) findViewById(R.id.opponentDefenseItem);
-        	img.setImageResource(item.getImageFile());
-        	
-        	item = Items.values()[opponent.getUserClass().getMiscItemID()];
-        	img = (ImageView) findViewById(R.id.opponentMiscItem);
         	img.setImageResource(item.getImageFile());
     	}
     	catch(Exception e) {
@@ -173,9 +146,6 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 			@Override
 			public void onClick(View v) {
 				dialog.dismiss();
-				if(isOwner) {
-					theClient.deleteRoom(roomId);
-				}
 				FightActivity.super.onBackPressed();
 			}
 		});
@@ -314,55 +284,6 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
         });
         dialog.show();
     }
-    
-    private void findOpponent(String username) {
-    	if(findUser(username)) {
-    		runOnUiThread(new Runnable() {
-    			@Override
-		    	public void run() {
-					hideProgressDialog();
-					addOpponent();
-					fight = new Fight(currentUser, opponent, FightActivity.this);
-					updateBattlefield();
-    		     }
-    		});
-		}
-		else {
-			error();
-		}
-    }
-    
-    private boolean findUser(String username) {
-    	ParseQuery<UserPersistence> query = ParseQuery.getQuery(UserPersistence.class);
-    	query.whereEqualTo("Username", username);
-    	try {
-    		UserPersistence user = query.getFirst();
-    		if(user != null) {
-	    		this.opponent = new Fighter(user.loadUserFromDB());
-    		}
-    		return user != null;
-    	}
-    	catch(ParseException e) {
-    		return false;
-    	}
-	}
-
-	@Override
-	public void onJoinRoomDone(RoomEvent event) {
-		if(event.getResult() != 0 ) {
-			this.error();
-			return;
-		}
-		if(!this.isOwner) {
-			String roomOwner = event.getData().getRoomOwner();
-			this.findOpponent(roomOwner);
-		}
-	}
-
-	@Override
-	public void onUserJoinedRoom(RoomData data, String name) {
-		this.findOpponent(name);
-	}
 
 	@Override
 	public void onChatReceived(ChatEvent arg0) {
@@ -438,6 +359,12 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 	}
 
 	@Override
+	public void onUserJoinedRoom(RoomData arg0, String arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public void onUserLeftLobby(LobbyData arg0, String arg1) {
 		// TODO Auto-generated method stub
 		
@@ -465,6 +392,17 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 	public void onGetLiveRoomInfoDone(LiveRoomInfoEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void onJoinRoomDone(RoomEvent arg0) {
+		if(arg0.getResult() != 0 ) {
+			this.error();
+			return;
+		}
+		if(!this.isOwner) {
+			String roomOwner = arg0.getData().getRoomOwner();
+		}
 	}
 
 	@Override

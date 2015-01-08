@@ -50,11 +50,13 @@
 <fullyQualifiedTypeName name="main.com.wiesfight.persistence.enums.UserParametersEnum"/>
 <fullyQualifiedTypeName name="main.com.wiesfight.dto.User"/>
 <fullyQualifiedTypeName name="com.wiesfight.managers.DialogManager"/>
-<fullyQualifiedTypeName name="com.wiesfight.R.string"/>
 <fullyQualifiedTypeName name="org.joda.time.LocalDate"/>
 <fullyQualifiedTypeName name="org.joda.time.DateTime"/>
 <fullyQualifiedTypeName name="org.joda.time.DateTimeZone"/>
 <fullyQualifiedTypeName name="java.util.Calendar"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="android.graphics.Color"/>
+<fullyQualifiedTypeName name="com.shephertz.app42.gaming.multiplayer.client.listener.RoomRequestListener"/>
+<fullyQualifiedTypeName name="com.shephertz.app42.gaming.multiplayer.client.listener.NotifyListener"/>
+<fullyQualifiedTypeName name="com.wiesfight.R.string"/>
 </qualifiedTypeNameHistroy>

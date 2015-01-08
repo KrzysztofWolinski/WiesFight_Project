@@ -1,6 +1,5 @@
 package com.wiesfight.activities;
 
-import java.util.HashMap;
 import java.util.Locale;
 
 import main.com.wiesfight.dto.User;
@@ -8,7 +7,6 @@ import main.com.wiesfight.persistence.UserPersistence;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,35 +19,18 @@ import android.widget.TextView;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
-import com.shephertz.app42.gaming.multiplayer.client.WarpClient;
-import com.shephertz.app42.gaming.multiplayer.client.events.ChatEvent;
-import com.shephertz.app42.gaming.multiplayer.client.events.LiveRoomInfoEvent;
-import com.shephertz.app42.gaming.multiplayer.client.events.LobbyData;
-import com.shephertz.app42.gaming.multiplayer.client.events.MoveEvent;
-import com.shephertz.app42.gaming.multiplayer.client.events.RoomData;
-import com.shephertz.app42.gaming.multiplayer.client.events.RoomEvent;
-import com.shephertz.app42.gaming.multiplayer.client.events.UpdateEvent;
-import com.shephertz.app42.gaming.multiplayer.client.listener.NotifyListener;
-import com.shephertz.app42.gaming.multiplayer.client.listener.RoomRequestListener;
 import com.wiesfight.R;
-import com.wiesfight.R.string;
 import com.wiesfight.enums.Items;
 import com.wiesfight.figth.Fight;
-import com.wiesfight.managers.DialogManager;
-import com.wiesfight.managers.PreferencesManager;
 import com.wiesfight.objects.Fighter;
 import com.wiesfight.objects.IFighter;
 import com.wiesfight.objects.TrainingOpponent;
 
-public class FightActivity extends Activity implements RoomRequestListener, NotifyListener {
+public class FightActivity extends Activity {
 	private Boolean training = false;
 	private IFighter currentUser;
 	private IFighter opponent;
 	private Fight fight;
-    private ProgressDialog progressDialog;
-	private WarpClient theClient;
-	private boolean isOwner = false;
-	private String roomId = "";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,59 +42,40 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 		query.getFirstInBackground(new GetCallback<UserPersistence>() {
 			public void done(UserPersistence user, ParseException e) {
 				currentUser = new Fighter(user.getUser());
-				initializeRoom();
+				initializeView();
 			}
 		});
 	}
 	
-	protected void initializeRoom() {
-		this.addPlayer();
+	protected void initializeView() {
 		if(this.training) {
 			this.opponent = new TrainingOpponent();
-			this.addOpponent();
-			this.fight = new Fight(this.currentUser, this.opponent, this);
-			updateBattlefield();
 		}
 		else {
-			this.roomId = getIntent().getStringExtra("roomId");
-			this.isOwner = getIntent().getBooleanExtra("newRoom", false);
-			try {
-				this.progressDialog = new ProgressDialog(this, AlertDialog.THEME_HOLO_DARK);
-				this.progressDialog.setMessage(getString(isOwner ? R.string.waitOpponent : R.string.progress));
-				this.progressDialog.show();
-	            this.theClient = WarpClient.getInstance();
-	            this.theClient.addRoomRequestListener(this);
-	            this.theClient.addNotificationListener(this);
-	            this.theClient.joinRoom(this.roomId);
-	        } catch (Exception ex) {
-				this.error();
-	        }
-			
+			// przeciwnik powinien przyjsc z poprzedniego widoku
+			this.opponent = new Fighter((User)getIntent().getSerializableExtra("opponent"));
 		}
-	}
-	
-	private void error() {
-		this.hideProgressDialog();
-		DialogManager.showInfoDialog(this, getString(R.string.connectionError));
-	}
 
-	private void hideProgressDialog() {
-		if(this.progressDialog != null){
-			this.progressDialog.dismiss();
-			this.progressDialog = null;
-		}
-	}
-	
-	protected void addPlayer() {
-		String userClassName = currentUser.getUserClass().toString();
+		this.fight = new Fight(this.currentUser, this.opponent, this);
+		
+		String userClassName = this.currentUser.getUserClass().toString();
+		String opponentClassName = this.opponent.getUserClass().toString();
+		
+		updateBattlefield();
 		
     	try {
     		ImageView img = (ImageView) findViewById(R.id.imgAvatarUser);
     		img.setImageResource(R.drawable.class.getField(userClassName.toLowerCase(Locale.ENGLISH)).getInt(null));
+    		img = (ImageView) findViewById(R.id.imgAvatarOpponent);
+    		img.setImageResource(R.drawable.class.getField(opponentClassName.toLowerCase(Locale.ENGLISH)).getInt(null));
     		
     		img = (ImageView) findViewById(R.id.userCharacter);
     		img.setImageResource(R.drawable.class.getField(currentUser.getUserClass().toString().toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
     		
+    		img = (ImageView) findViewById(R.id.opponentCharacter);
+    		img.setImageResource(R.drawable.class.getField(opponent.getUserClass().toString().toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
+    		
+    		// User items
     		Items item = Items.values()[currentUser.getUserClass().getAttackItemID()];
         	img = (ImageView) findViewById(R.id.userAttackItem);
         	img.setImageResource(item.getImageFile());
@@ -125,23 +87,9 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
         	item = Items.values()[currentUser.getUserClass().getMiscItemID()];
         	img = (ImageView) findViewById(R.id.userMiscItem);
         	img.setImageResource(item.getImageFile());
-    	}
-    	catch(Exception e) {
-    		
-    	}
-	}
-	
-	protected void addOpponent() {
-		String opponentClassName = opponent.getUserClass().toString();
-		
-    	try {
-    		ImageView img = (ImageView) findViewById(R.id.imgAvatarOpponent);
-    		img.setImageResource(R.drawable.class.getField(opponentClassName.toLowerCase(Locale.ENGLISH)).getInt(null));
-    		
-    		img = (ImageView) findViewById(R.id.opponentCharacter);
-    		img.setImageResource(R.drawable.class.getField(opponent.getUserClass().toString().toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
         	
-    		Items item = Items.values()[opponent.getUserClass().getAttackItemID()];
+        	// Opponent items
+        	item = Items.values()[opponent.getUserClass().getAttackItemID()];
         	img = (ImageView) findViewById(R.id.opponentAttackItem);
         	img.setImageResource(item.getImageFile());
         	
@@ -173,9 +121,6 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 			@Override
 			public void onClick(View v) {
 				dialog.dismiss();
-				if(isOwner) {
-					theClient.deleteRoom(roomId);
-				}
 				FightActivity.super.onBackPressed();
 			}
 		});
@@ -222,7 +167,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     	    final AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();
 
     	    TextView txt = (TextView) view.findViewById(R.id.txtMessageOk);
-    	    txt.setText(String.format(getString(R.string.fightWon), fight.getWinner().getName()));
+    	    txt.setText("Walka zostałą zakończona zwycięstwem gracza " + fight.getWinner().getName());
 
     	    Button btn = (Button) view.findViewById(R.id.btnOk);
     	    btn.setOnClickListener(new OnClickListener() {
@@ -314,198 +259,4 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
         });
         dialog.show();
     }
-    
-    private void findOpponent(String username) {
-    	if(findUser(username)) {
-    		runOnUiThread(new Runnable() {
-    			@Override
-		    	public void run() {
-					hideProgressDialog();
-					addOpponent();
-					fight = new Fight(currentUser, opponent, FightActivity.this);
-					updateBattlefield();
-    		     }
-    		});
-		}
-		else {
-			error();
-		}
-    }
-    
-    private boolean findUser(String username) {
-    	ParseQuery<UserPersistence> query = ParseQuery.getQuery(UserPersistence.class);
-    	query.whereEqualTo("Username", username);
-    	try {
-    		UserPersistence user = query.getFirst();
-    		if(user != null) {
-	    		this.opponent = new Fighter(user.loadUserFromDB());
-    		}
-    		return user != null;
-    	}
-    	catch(ParseException e) {
-    		return false;
-    	}
-	}
-
-	@Override
-	public void onJoinRoomDone(RoomEvent event) {
-		if(event.getResult() != 0 ) {
-			this.error();
-			return;
-		}
-		if(!this.isOwner) {
-			String roomOwner = event.getData().getRoomOwner();
-			this.findOpponent(roomOwner);
-		}
-	}
-
-	@Override
-	public void onUserJoinedRoom(RoomData data, String name) {
-		this.findOpponent(name);
-	}
-
-	@Override
-	public void onChatReceived(ChatEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onGameStarted(String arg0, String arg1, String arg2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onGameStopped(String arg0, String arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onMoveCompleted(MoveEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onNextTurnRequest(String arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onPrivateChatReceived(String arg0, String arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onPrivateUpdateReceived(String arg0, byte[] arg1, boolean arg2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onRoomCreated(RoomData arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onRoomDestroyed(RoomData arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onUpdatePeersReceived(UpdateEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onUserChangeRoomProperty(RoomData arg0, String arg1,
-			HashMap<String, Object> arg2, HashMap<String, String> arg3) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onUserJoinedLobby(LobbyData arg0, String arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onUserLeftLobby(LobbyData arg0, String arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onUserLeftRoom(RoomData arg0, String arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onUserPaused(String arg0, boolean arg1, String arg2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onUserResumed(String arg0, boolean arg1, String arg2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onGetLiveRoomInfoDone(LiveRoomInfoEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onLeaveRoomDone(RoomEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onLockPropertiesDone(byte arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onSetCustomRoomDataDone(LiveRoomInfoEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onSubscribeRoomDone(RoomEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onUnSubscribeRoomDone(RoomEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onUnlockPropertiesDone(byte arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onUpdatePropertyDone(LiveRoomInfoEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 }
