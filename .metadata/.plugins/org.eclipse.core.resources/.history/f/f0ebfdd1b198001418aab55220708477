@@ -52,7 +52,6 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 	private boolean isOwner = false;
 	private boolean opponentLeft = false;
 	private String roomId = "";
-	private String opponentName = "";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -106,23 +105,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 			@Override
 	    	public void run() {
 				hideProgressDialog();
-				LayoutInflater inflater = FightActivity.this.getLayoutInflater();
-			    View view = inflater.inflate(R.layout.dialog_ok, null);
-			    final AlertDialog dialog = new AlertDialog.Builder(FightActivity.this)
-			    	.setView(view).create();
-			    Button btn1 = (Button) view.findViewById(R.id.btnOk);
-			    TextView txt = (TextView) view.findViewById(R.id.txtMessageOk);
-			    txt.setText(getString(R.string.connectionError));
-			    btn1.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						dialog.dismiss();
-						FightActivity.this.finish();
-					}
-				});
-			    if (!FightActivity.this.isFinishing()) {
-			    	dialog.show();
-			    }
+				DialogManager.showInfoDialog(FightActivity.this, getString(R.string.connectionError));
 			}
 		});
 	}
@@ -192,7 +175,6 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 	@Override
     public void onBackPressed() {
     	if(this.opponent == null) {
-			this.handleLeave();
 			super.onBackPressed();
     	}
     	else {
@@ -237,7 +219,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 	public void onPressAttackButton(View v) {
     	// TODO
     	fight.attack();
-    	//this.theClient.sendChat("wiadomoœæ");
+    	
     	updateBattlefield();
     }
     
@@ -268,7 +250,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     	    final AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();
 
     	    TextView txt = (TextView) view.findViewById(R.id.txtMessageOk);
-    	    txt.setText(String.format(getString(R.string.fightWon), fight.getWinner(this.opponentLeft).getName()));
+    	    txt.setText(String.format(getString(R.string.fightWon), fight.getWinner().getName()));
 
     	    Button btn = (Button) view.findViewById(R.id.btnOk);
     	    btn.setOnClickListener(new OnClickListener() {
@@ -276,7 +258,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     			public void onClick(View v) {
     				dialog.dismiss();
     				handleLeave();
-    				FightActivity.this.finish();
+    				FightActivity.super.onBackPressed();
     			}
     		});
     	    dialog.show();
@@ -341,11 +323,6 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
             criticalText.setText("");
         }
     }
-
-	private void handleMessage(String message) {
-		// TODO obs³uzyc otrzymana wiadomosc
-		
-	}
     
     private void findOpponent(String username) {
     	if(findUser(username)) {
@@ -406,27 +383,16 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 	}
 
 	@Override
-	public void onChatReceived(final ChatEvent event) {
-		String sender = event.getSender();
-		if(sender == this.opponentName) {
-    		runOnUiThread(new Runnable() {
-    			@Override
-		    	public void run() {
-    				handleMessage(event.getMessage());
-    			}
-    		});
-		}
+	public void onChatReceived(ChatEvent event) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onUserLeftRoom(RoomData data, String name) {
-		runOnUiThread(new Runnable() {
-			@Override
-	    	public void run() {
-				opponentLeft = true;
-				updateBattlefield();
-			}
-		});
+		
+		this.opponentLeft = true;
+		this.updateBattlefield();
 	}
 
 	@Override

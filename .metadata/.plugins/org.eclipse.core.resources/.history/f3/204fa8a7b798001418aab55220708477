@@ -52,7 +52,6 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 	private boolean isOwner = false;
 	private boolean opponentLeft = false;
 	private String roomId = "";
-	private String opponentName = "";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -236,9 +235,9 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 
 	public void onPressAttackButton(View v) {
     	// TODO
-    	fight.attack();
-    	//this.theClient.sendChat("wiadomoœæ");
-    	updateBattlefield();
+    	//fight.attack();
+    	this.theClient.sendChat("wiadomoœæ");
+    	//updateBattlefield();
     }
     
     public void onPressAttackItemButton(View v) {
@@ -341,11 +340,6 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
             criticalText.setText("");
         }
     }
-
-	private void handleMessage(String message) {
-		// TODO obs³uzyc otrzymana wiadomosc
-		
-	}
     
     private void findOpponent(String username) {
     	if(findUser(username)) {
@@ -406,16 +400,10 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 	}
 
 	@Override
-	public void onChatReceived(final ChatEvent event) {
+	public void onChatReceived(ChatEvent event) {
+		// TODO Auto-generated method stub
+		String message = event.getMessage();
 		String sender = event.getSender();
-		if(sender == this.opponentName) {
-    		runOnUiThread(new Runnable() {
-    			@Override
-		    	public void run() {
-    				handleMessage(event.getMessage());
-    			}
-    		});
-		}
 	}
 
 	@Override
