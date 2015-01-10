@@ -431,86 +431,128 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 
 	@Override
 	public void onRoomDestroyed(RoomData data) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onGameStarted(String arg0, String arg1, String arg2) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onGameStopped(String arg0, String arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onMoveCompleted(MoveEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onNextTurnRequest(String arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onPrivateChatReceived(String arg0, String arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onPrivateUpdateReceived(String arg0, byte[] arg1, boolean arg2) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onRoomCreated(RoomData arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onUpdatePeersReceived(UpdateEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onUserChangeRoomProperty(RoomData arg0, String arg1,
 			HashMap<String, Object> arg2, HashMap<String, String> arg3) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onUserJoinedLobby(LobbyData arg0, String arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onUserLeftLobby(LobbyData arg0, String arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onUserPaused(String arg0, boolean arg1, String arg2) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onUserResumed(String arg0, boolean arg1, String arg2) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onGetLiveRoomInfoDone(LiveRoomInfoEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onLeaveRoomDone(RoomEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onLockPropertiesDone(byte arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onSetCustomRoomDataDone(LiveRoomInfoEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onUnSubscribeRoomDone(RoomEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onUnlockPropertiesDone(byte arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onUpdatePropertyDone(LiveRoomInfoEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
