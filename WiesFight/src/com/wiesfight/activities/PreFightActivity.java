@@ -66,10 +66,15 @@ public class PreFightActivity extends Activity implements ConnectionRequestListe
 			this.progressDialog = new ProgressDialog(this, AlertDialog.THEME_HOLO_DARK);
 			this.progressDialog.setMessage(getString(R.string.progress));
 			this.progressDialog.show();
-            this.theClient = WarpClient.getInstance();
-            this.theClient.addConnectionRequestListener(this);
-			this.theClient.addZoneRequestListener(this);
-            this.theClient.connectWithUserName(this.currentUser.getUserName());
+			if(!this.isConnected) {
+	            this.theClient = WarpClient.getInstance();
+	            this.theClient.addConnectionRequestListener(this);
+				this.theClient.addZoneRequestListener(this);
+	            this.theClient.connectWithUserName(this.currentUser.getUserName());
+			}
+			else {
+				this.theClient.getRoomInRange(1, 1);
+			}
         } catch (Exception ex) {
 			this.error();
         }

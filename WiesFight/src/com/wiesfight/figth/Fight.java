@@ -56,7 +56,10 @@ public class Fight {
 		return this.isFighter1Active ? this.player : this.opponent;
 	}
 
-	public IFighter getWinner() {
+	public IFighter getWinner(boolean opponentLeft) {
+		if(opponentLeft) {
+			return this.player;
+		}
 		if (this.isFightFinished()) {
 			if (this.player.getHealth() <= 0) {
                 return this.opponent;

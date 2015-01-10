@@ -27,7 +27,9 @@ public class DialogManager {
 				dialog.dismiss();
 			}
 		});
-	    dialog.show();
+	    if (!ctx.isFinishing()) {
+	    	dialog.show();
+	    }
 	}
 	
 	public static Boolean showConfirmDialog(Activity ctx, String text) {
