@@ -85,7 +85,7 @@ public class Fight {
         this.isFighter1Active = true;
     }
 
-    protected void receivePlayerActions(PlayerAction actions) {
+    protected void applyOpponentAction(PlayerAction action) {
         // TODO  (refactor)
 
         new CountDownTimer(550, 550) {
@@ -115,7 +115,11 @@ public class Fight {
             }
         }.start();
 
-        opponent.setHealth((int) actions.getHealth());
-        player.decreaseHealth(actions.getAttackStrength());
+        opponent.setHealth((int) action.getHealth());
+        player.decreaseHealth(action.getAttackStrength());
+    }
+
+    public void applyCurrentAction() {
+
     }
 }
