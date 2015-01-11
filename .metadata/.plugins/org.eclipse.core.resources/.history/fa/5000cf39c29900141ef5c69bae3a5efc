@@ -271,8 +271,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     	    final AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();
 
     	    TextView txt = (TextView) view.findViewById(R.id.txtMessageOk);
-    	    txt.setText(String.format(getString(R.string.fightWon), opponentLeft ? getString(R.string.opponentLeft) : ""
-    	    	,fight.getWinner(this.opponentLeft).getName()));
+    	    txt.setText(String.format(getString(R.string.fightWon), fight.getWinner(this.opponentLeft).getName()));
 
     	    Button btn = (Button) view.findViewById(R.id.btnOk);
     	    btn.setOnClickListener(new OnClickListener() {
@@ -327,7 +326,18 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
 
     @Override
-    public void animatePlayerAttacking(boolean isCriticalStrike) {
+    public void animatePlayerCriticalStrike(boolean isCriticalStrike) {
+        TextView criticalText = (TextView) findViewById(R.id.userCriticalAttack);
+
+        if (isCriticalStrike == true) {
+            criticalText.setText("Critical!");
+        } else {
+            criticalText.setText("");
+        }
+    }
+
+    @Override
+    public void animatePlayerAttacking() {
         try {
             String playerClassName = this.currentUser.getUserClass().toString();
             ImageView img = (ImageView) findViewById(R.id.userCharacter);
@@ -377,7 +387,18 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
 
     @Override
-    public void animateOpponentAttacking(boolean isCriticalStrike) {
+    public void animateOpponentCriticalStrike(boolean isCriticalStrike) {
+        TextView criticalText = (TextView) findViewById(R.id.opponentCriticalAttack);
+
+        if (isCriticalStrike == true) {
+            criticalText.setText("Critical!");
+        } else {
+            criticalText.setText("");
+        }
+    }
+
+    @Override
+    public void animateOpponentAttacking() {
         try {
             String playerClassName = this.opponent.getUserClass().toString();
             ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
