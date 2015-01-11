@@ -18,9 +18,9 @@ public class FightMessanger implements IFightMessanger, NotifyListener, ChatRequ
 	private WarpClient theClient;
 	private String opponentName;
 
-    public FightMessanger(Fight callback) {
+    public FightMessanger(Fight callback, String opponentName) {
         this.callback = callback;
-        this.opponentName = this.callback.opponent.getName();
+        this.opponentName = opponentName;
         initializeConnection();
     }
 

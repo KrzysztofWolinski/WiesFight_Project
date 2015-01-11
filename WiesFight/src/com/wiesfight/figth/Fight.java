@@ -25,7 +25,7 @@ public class Fight {
         if (opponent.getClass().equals(TrainingOpponent.class)) {
             fightMessanger = new FightMessangerTraining(this, opponent);
         } else {
-            fightMessanger = new FightMessanger(this);
+            fightMessanger = new FightMessanger(this, opponent.getName());
         }
 
         // Randomly decide which fighter should start
@@ -39,7 +39,6 @@ public class Fight {
 
 	public void attack() {
 		if ((this.isFightFinished == false) && (isFighter1Active == true)) {
-
             // Wyliczanie obrażeń
             PlayerAction actions = this.player.getAttackStrength();
             actions = opponent.evaluateDamage(actions);
@@ -51,10 +50,6 @@ public class Fight {
             fightMessanger.sendData(actions);
             this.player.endTurn();
             deactivatePlayer();
-
-			if ((this.player.getHealth() <= 0) || (this.opponent.getHealth() <= 0)) {
-				this.isFightFinished = true;
-			}
 		}
 	}
 	
@@ -85,11 +80,36 @@ public class Fight {
     }
 
     protected void applyOpponentAction(PlayerAction action) {
-        // TODO  (refactor)
-
         switch (action.getActionType()) {
             case ATTACK : {
+                callback.animateOpponentAttacking(action.isCriticalAttack());
+                callback.animatePlayerGettingHit();
 
+                player.decreaseHealth((int) action.getDamage());
+                break;
+            }
+            case USED_ATTACK_ITEM: {
+                // TODO dodać odpowiednią animację
+                break;
+            }
+            case USED_DEFENSE_ITEM: {
+                // TODO dodać odpowiednią animację
+                break;
+            }
+            case USED_MISC_ITEM: {
+                // TODO dodać odpowiednią animację
+                break;
+            }
+        }
+
+        checkIfFightIsFinished();
+    }
+
+    public void applyCurrentAction() {
+        switch (currentAction.getActionType()) {
+            case ATTACK : {
+                opponent.decreaseHealth((int) currentAction.getDamage());
+                callback.animateOpponentGettingHit();
                 break;
             }
             case USED_ATTACK_ITEM: {
@@ -105,26 +125,13 @@ public class Fight {
                 break;
             }
         }
+
+        checkIfFightIsFinished();
     }
 
-    public void applyCurrentAction() {
-        switch (currentAction.getActionType()) {
-            case ATTACK : {
-
-                break;
-            }
-            case USED_ATTACK_ITEM: {
-
-                break;
-            }
-            case USED_DEFENSE_ITEM: {
-
-                break;
-            }
-            case USED_MISC_ITEM: {
-
-                break;
-            }
+    private void checkIfFightIsFinished() {
+        if ((this.player.getHealth() <= 0) || (this.opponent.getHealth() <= 0)) {
+            this.isFightFinished = true;
         }
     }
 }
