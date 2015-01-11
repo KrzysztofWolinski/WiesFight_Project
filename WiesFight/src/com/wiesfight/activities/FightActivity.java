@@ -347,102 +347,122 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 
     @Override
     public void animatePlayerAttacking(boolean isCriticalStrike) {
-        try {
-            String playerClassName = this.currentUser.getUserClass().toString();
-            ImageView img = (ImageView) findViewById(R.id.userCharacter);
-            img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_attacking").getInt(null));
-
-            new CountDownTimer(500, 100) {
-                public void onTick(long millisUntilFinished) {
-                }
-
-                public void onFinish() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
                     String playerClassName = currentUser.getUserClass().toString();
                     ImageView img = (ImageView) findViewById(R.id.userCharacter);
-                    try {
-                        img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
-                    } catch (Exception e) {
+                    img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_attacking").getInt(null));
 
-                    }
+                    new CountDownTimer(500, 100) {
+                        public void onTick(long millisUntilFinished) {
+                        }
+
+                        public void onFinish() {
+                            String playerClassName = currentUser.getUserClass().toString();
+                            ImageView img = (ImageView) findViewById(R.id.userCharacter);
+                            try {
+                                img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
+                            } catch (Exception e) {
+
+                            }
+                        }
+                    }.start();
+                } catch (Exception e) {
                 }
-            }.start();
-        } catch(Exception e) {
-        }
+            }
+        });
     }
 
     @Override
     public void animatePlayerGettingHit() {
-        try {
-            String playerClassName = this.currentUser.getUserClass().toString();
-            ImageView img = (ImageView) findViewById(R.id.userCharacter);
-            img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_getting_hit").getInt(null));
-
-            new CountDownTimer(500, 100) {
-                public void onTick(long millisUntilFinished) {
-                }
-
-                public void onFinish() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
                     String playerClassName = currentUser.getUserClass().toString();
                     ImageView img = (ImageView) findViewById(R.id.userCharacter);
-                    try {
-                        img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
-                    } catch (Exception e) {
+                    img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_getting_hit").getInt(null));
 
-                    }
+                    new CountDownTimer(500, 100) {
+                        public void onTick(long millisUntilFinished) {
+                        }
+
+                        public void onFinish() {
+                            String playerClassName = currentUser.getUserClass().toString();
+                            ImageView img = (ImageView) findViewById(R.id.userCharacter);
+                            try {
+                                img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
+                            } catch (Exception e) {
+
+                            }
+                        }
+                    }.start();
+                } catch (Exception e) {
                 }
-            }.start();
-        } catch(Exception e) {
-        }
+            }
+        });
     }
 
     @Override
     public void animateOpponentAttacking(boolean isCriticalStrike) {
-        try {
-            String playerClassName = this.opponent.getUserClass().toString();
-            ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
-            img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_attacking").getInt(null));
-
-            new CountDownTimer(500, 100) {
-                public void onTick(long millisUntilFinished) {
-                }
-
-                public void onFinish() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
                     String playerClassName = opponent.getUserClass().toString();
                     ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
-                    try {
-                        img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
-                    } catch (Exception e) {
+                    img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_attacking").getInt(null));
 
-                    }
+                    new CountDownTimer(500, 100) {
+                        public void onTick(long millisUntilFinished) {
+                        }
+
+                        public void onFinish() {
+                            String playerClassName = opponent.getUserClass().toString();
+                            ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
+                            try {
+                                img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
+                            } catch (Exception e) {
+
+                            }
+                        }
+                    }.start();
+                } catch (Exception e) {
                 }
-            }.start();
-        } catch(Exception e) {
-        }
+            }
+        });
     }
 
     @Override
     public void animateOpponentGettingHit() {
-        try {
-            String playerClassName = this.opponent.getUserClass().toString();
-            ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
-            img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_getting_hit").getInt(null));
-
-            new CountDownTimer(500, 100) {
-                public void onTick(long millisUntilFinished) {
-                }
-
-                public void onFinish() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
                     String playerClassName = opponent.getUserClass().toString();
                     ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
-                    try {
-                        img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
-                    } catch (Exception e) {
+                    img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_getting_hit").getInt(null));
 
-                    }
+                    new CountDownTimer(500, 100) {
+                        public void onTick(long millisUntilFinished) {
+                        }
+
+                        public void onFinish() {
+                            String playerClassName = opponent.getUserClass().toString();
+                            ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
+                            try {
+                                img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
+                            } catch (Exception e) {
+
+                            }
+                        }
+                    }.start();
+                } catch (Exception e) {
                 }
-            }.start();
-        } catch(Exception e) {
-        }
+            }
+        });
     }
     
     private void findOpponent(String username) {

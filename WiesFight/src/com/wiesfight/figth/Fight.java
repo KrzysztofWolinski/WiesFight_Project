@@ -154,7 +154,6 @@ public class Fight {
     public void useItem(PlayerActions type) {
         PlayerAction action = new PlayerAction(type);
         fightMessanger.sendData(action);
-
     }
 
     private void checkIfFightIsFinished() {
