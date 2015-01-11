@@ -42,12 +42,17 @@ public class TrainingOpponent implements IFighter {
 	public PlayerAction getAttackStrength() {
 		PlayerAction actions = new PlayerAction();
 
-        actions.setAttackStrength(this.user.getUserClass().getAttackPower());
+        actions.setDamage(this.user.getUserClass().getAttackPower());
 
         return actions;
 	}
 
-	@Override
+    @Override
+    public PlayerAction evaluateDamage(PlayerAction action) {
+        return action;
+    }
+
+    @Override
 	public double getMaxHealth() {
 		return this.maxHealth; 
 	}

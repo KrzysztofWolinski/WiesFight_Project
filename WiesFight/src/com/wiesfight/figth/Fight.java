@@ -39,8 +39,10 @@ public class Fight {
 		if ((this.isFightFinished == false) && (isFighter1Active == true)) {
 
             PlayerAction actions = getActiveFighter().getAttackStrength();
-            callback.animatePlayerCriticalStrike(actions.isCriticalAttack());
 
+            // TODO wyliczyć faktyczne obrażenia
+
+            callback.animatePlayerCriticalStrike(actions.isCriticalAttack());
             callback.animatePlayerAttacking();
 
             fightMessanger.sendData(actions);

@@ -34,11 +34,6 @@ public class Fighter implements IFighter {
 
 	@Override
 	public void decreaseHealth(int minus) {
-        minus -= bonus.applyBonusEffect(Bonuses.DEFENCE);
-        if (minus < 0) {
-            minus = 0;
-        }
-		
 		this.health -= minus;
 	}
 
@@ -49,7 +44,7 @@ public class Fighter implements IFighter {
 
 	@Override
 	public PlayerAction getAttackStrength() {
-        PlayerAction actions = new PlayerAction();
+        PlayerAction action = new PlayerAction();
 
         int attackChance = (int) ((this.getUserClass().getAccuracy() * 100) - (Math.random() * 100));
 
@@ -62,10 +57,10 @@ public class Fighter implements IFighter {
 
             attackStrength += this.bonus.applyBonusEffect(Bonuses.ATTACKPOWER);
 
-            // TODO losowanie czy były obrażenia krytyczne czy nie
+            // TODO losowanie czy były obrażenia krytyczne czy nie - sprawdzić czy na pewno działa
             double criticalChance = this.getUserClass().getCriticalChance() + this.bonus.applyBonusEffect(Bonuses.CRITICALCHANCE) - Math.random();
             boolean isCriticalAttack = (criticalChance >= 0.0) ? true : false;
-            actions.setIsCriticalAttack(isCriticalAttack);
+            action.setIsCriticalAttack(isCriticalAttack);
 
             Log.i("[critical]", String.valueOf(criticalChance));
 
@@ -74,12 +69,24 @@ public class Fighter implements IFighter {
             }
         }
 
-        actions.setAttackStrength((int) attackStrength);
+        action.setDamage(attackStrength);
 
-        return actions;
+        return action;
 	}
 
-	@Override
+    @Override
+    public PlayerAction evaluateDamage(PlayerAction action) {
+        double damage = action.getDamage();
+        damage -= bonus.applyBonusEffect(Bonuses.DEFENCE);
+        if (damage < 0) {
+            damage = 0;
+        }
+
+        action.setDamage(damage);
+        return action;
+    }
+
+    @Override
 	public double getMaxHealth() {
 		return maxHealth;
 	}
@@ -95,8 +102,6 @@ public class Fighter implements IFighter {
 			Items item = Items.values()[this.user.getUserClass().getAttackItemID()];
 			this.bonus.addItem(item);
 			this.user.setAttackItemCount(this.user.getAttackItemCount() - 1);
-			
-			// TODO animacja albo coś
 		}
 	}
 
@@ -106,8 +111,6 @@ public class Fighter implements IFighter {
 			Items item = Items.values()[this.user.getUserClass().getDefenceItemID()];
             this.bonus.addItem(item);
 			this.user.setDefenceItemCount(this.user.getDefenseItemCount() - 1);
-			
-			// TODO animacja albo coś
 		}
 	}
 
@@ -123,8 +126,6 @@ public class Fighter implements IFighter {
             }
 
 			this.user.setMiscItemCount(this.user.getMiscItemCount() - 1);
-
-			// TODO animacja czy coś
 		}
 	}
 

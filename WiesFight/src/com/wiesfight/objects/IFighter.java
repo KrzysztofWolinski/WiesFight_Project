@@ -6,8 +6,11 @@ import main.com.wiesfight.dto.enums.CharacterClass;
 
 public interface IFighter {
 	CharacterClass getUserClass();
-	public double getHealth();
-	PlayerAction getAttackStrength();
+
+    PlayerAction getAttackStrength();
+    PlayerAction evaluateDamage(PlayerAction action);
+
+    public double getHealth();
 	public double getMaxHealth();
 	void decreaseHealth(int minus);
     public void setHealth(int health);
