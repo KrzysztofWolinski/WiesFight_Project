@@ -12,7 +12,7 @@ public class Fight {
 	private IFighter player, opponent;
 	private boolean isFighter1Active, isFightFinished;
     private IFightMessanger fightMessanger;
-    private Animator callback;
+    private FightActivity callback;
     private PlayerAction currentAction;
 
 	public Fight(IFighter player, IFighter opponent, FightActivity callback, boolean isStarting) {
@@ -115,6 +115,7 @@ public class Fight {
 
         checkIfFightIsFinished();
         activatePlayer();
+        this.callback.updateBattlefield();
     }
 
     public void applyCurrentAction() {
@@ -140,6 +141,7 @@ public class Fight {
 
         checkIfFightIsFinished();
         this.currentAction = null;
+        this.callback.updateBattlefield();
     }
 
     private void checkIfFightIsFinished() {

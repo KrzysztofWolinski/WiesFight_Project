@@ -77,7 +77,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 		if(this.training) {
 			this.opponent = new TrainingOpponent();
 			this.addOpponent();
-			this.fight = new Fight(this.currentUser, this.opponent, this);
+			this.fight = new Fight(this.currentUser, this.opponent, this, true);
 			updateBattlefield();
 		}
 		else {
@@ -238,10 +238,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 	}
 
 	public void onPressAttackButton(View v) {
-    	// TODO
     	fight.attack();
-    	//this.theClient.sendChat("wiadomość");
-    	updateBattlefield();
     }
     
     public void onPressAttackItemButton(View v) {
@@ -259,7 +256,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     	this.updateBattlefield();
     }
     
-    private void updateBattlefield() {
+    public void updateBattlefield() {
     	// Sprawdzić czy walka ciągle trwa i zaaktualizować feedback (HP, itemy itd.)
     	updateHpBars();
     	
@@ -438,7 +435,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 		    	public void run() {
 					hideProgressDialog();
 					addOpponent();
-					fight = new Fight(currentUser, opponent, FightActivity.this);
+					fight = new Fight(currentUser, opponent, FightActivity.this, isOwner);
 					updateBattlefield();
     		     }
     		});
