@@ -33,6 +33,7 @@ import com.shephertz.app42.gaming.multiplayer.client.listener.NotifyListener;
 import com.shephertz.app42.gaming.multiplayer.client.listener.RoomRequestListener;
 import com.wiesfight.R;
 import com.wiesfight.enums.Items;
+import com.wiesfight.enums.PlayerActions;
 import com.wiesfight.figth.Animator;
 import com.wiesfight.figth.Fight;
 import com.wiesfight.objects.Fighter;
@@ -236,18 +237,24 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
     
     public void onPressAttackItemButton(View v) {
-    	this.currentUser.useAttackItem();
-    	this.updateBattlefield();
+    	if (this.currentUser.useAttackItem()) {
+            this.fight.useItem(PlayerActions.USED_ATTACK_ITEM);
+            this.updateBattlefield();
+        }
     }
     
     public void onPressDefenseItemButton(View v) {
-    	this.currentUser.useDefenseItem();
-    	this.updateBattlefield();
+    	if (this.currentUser.useDefenseItem()) {
+            this.fight.useItem(PlayerActions.USED_DEFENSE_ITEM);
+            this.updateBattlefield();
+        }
     }
 
     public void onPressMiscItemButton(View v) {
-    	this.currentUser.useMiscItem();
-    	this.updateBattlefield();
+    	if (this.currentUser.useMiscItem()) {
+            this.fight.useItem(PlayerActions.USED_MISC_ITEM);
+            this.updateBattlefield();
+        }
     }
     
     public void updateBattlefield() {

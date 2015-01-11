@@ -7,6 +7,8 @@ import com.wiesfight.enums.PlayerActions;
 import com.wiesfight.objects.IFighter;
 import com.wiesfight.objects.TrainingOpponent;
 
+import main.com.wiesfight.dto.enums.CharacterClass;
+
 public class Fight {
 
 	private IFighter player, opponent;
@@ -100,14 +102,17 @@ public class Fight {
                 break;
             }
             case USED_ATTACK_ITEM: {
+                this.opponent.useAttackItem();
                 // TODO dodać odpowiednią animację
                 break;
             }
             case USED_DEFENSE_ITEM: {
+                this.opponent.useDefenseItem();
                 // TODO dodać odpowiednią animację
                 break;
             }
             case USED_MISC_ITEM: {
+                this.opponent.useMiscItem();
                 // TODO dodać odpowiednią animację
                 break;
             }
@@ -142,6 +147,12 @@ public class Fight {
         checkIfFightIsFinished();
         this.currentAction = null;
         this.callback.updateBattlefield();
+    }
+
+    public void useItem(PlayerActions type) {
+        PlayerAction action = new PlayerAction(type);
+        fightMessanger.sendData(action);
+
     }
 
     private void checkIfFightIsFinished() {
