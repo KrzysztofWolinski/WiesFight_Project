@@ -40,14 +40,15 @@ public class Fight {
 	public void attack() {
 		if ((this.isFightFinished == false) && (isFighter1Active == true)) {
             // Wyliczanie obrażeń
-            PlayerAction actions = this.player.getAttackStrength();
-            actions = opponent.evaluateDamage(actions);
+            this.currentAction = this.player.getAttackStrength();
+            this.currentAction.setActionType(PlayerActions.ATTACK);
+            this.currentAction = opponent.evaluateDamage(this.currentAction);
 
             // Animacja
-            callback.animatePlayerAttacking(actions.isCriticalAttack());
+            callback.animatePlayerAttacking(this.currentAction.isCriticalAttack());
 
             // Zakończenie tury
-            fightMessanger.sendData(actions);
+            fightMessanger.sendData(this.currentAction);
             this.player.endTurn();
             deactivatePlayer();
 		}
@@ -127,6 +128,7 @@ public class Fight {
         }
 
         checkIfFightIsFinished();
+        this.currentAction = null;
     }
 
     private void checkIfFightIsFinished() {

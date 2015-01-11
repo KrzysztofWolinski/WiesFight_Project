@@ -10,6 +10,14 @@ public class PlayerAction {
     private double damage;
     private boolean isCriticalAttack;
 
+    public PlayerAction() {
+
+    }
+
+    public PlayerAction(PlayerActions type) {
+        this.actionType = type;
+    }
+
     public PlayerActions getActionType() {
         return actionType;
     }
