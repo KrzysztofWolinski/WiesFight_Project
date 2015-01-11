@@ -101,7 +101,6 @@ public class Fighter implements IFighter {
 		if ((this.user.getAttackItemCount() > 0) && (this.bonus.isSpecificBonusTypeEffectActive(Bonuses.ATTACKPOWER) == false)) {
 			Items item = Items.values()[this.user.getUserClass().getAttackItemID()];
 			this.bonus.addItem(item);
-			this.user.setAttackItemCount(this.user.getAttackItemCount() - 1);
             return true;
 		}
         return false;
@@ -112,7 +111,6 @@ public class Fighter implements IFighter {
 		if ((this.user.getDefenseItemCount() > 0) && (this.bonus.isSpecificBonusTypeEffectActive(Bonuses.DEFENCE) == false)) {
 			Items item = Items.values()[this.user.getUserClass().getDefenceItemID()];
             this.bonus.addItem(item);
-			this.user.setDefenceItemCount(this.user.getDefenseItemCount() - 1);
             return true;
 		}
         return false;
@@ -128,8 +126,6 @@ public class Fighter implements IFighter {
             } else {
                 this.bonus.addItem(item);
             }
-
-			this.user.setMiscItemCount(this.user.getMiscItemCount() - 1);
 
             return true;
 		}

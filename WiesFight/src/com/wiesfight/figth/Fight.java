@@ -96,7 +96,16 @@ public class Fight {
         switch (action.getActionType()) {
             case ATTACK : {
                 callback.animateOpponentAttacking(action.isCriticalAttack());
-                callback.animatePlayerGettingHit();
+
+                new CountDownTimer(500, 500) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {}
+
+                    @Override
+                    public void onFinish() {
+                        callback.animatePlayerGettingHit();
+                    }
+                };
 
                 player.decreaseHealth((int) action.getDamage());
                 break;
