@@ -43,7 +43,7 @@ import com.wiesfight.objects.Fighter;
 import com.wiesfight.objects.IFighter;
 import com.wiesfight.objects.TrainingOpponent;
 
-public class FightActivity extends Activity implements RoomRequestListener, NotifyListener {
+public class FightActivity extends Activity implements RoomRequestListener, NotifyListener, ChatRequestListener {
 	private boolean training = false;
 	private IFighter currentUser;
 	private IFighter opponent;
@@ -94,6 +94,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 	            this.theClient = WarpClient.getInstance();
 	            this.theClient.addRoomRequestListener(this);
 	            this.theClient.addNotificationListener(this);
+	            this.theClient.addChatRequestListener(this);
 	            this.theClient.joinRoom(this.roomId);
 	        } catch (Exception ex) {
 				this.error();
@@ -342,6 +343,11 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
             criticalText.setText("");
         }
     }
+
+	private void handleMessage(String message) {
+		// TODO obs³uzyc otrzymana wiadomosc
+		
+	}
     
     private void findOpponent(String username) {
     	if(findUser(username)) {
@@ -423,6 +429,13 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 				updateBattlefield();
 			}
 		});
+	}
+
+	@Override
+	public void onSendChatDone(byte result) {
+		if(result != 0) {
+			// TODO b³ad wyslania wiadomosci, mozna poprosic o sprobowanie ponownie
+		}
 	}
 
 	@Override
@@ -508,5 +521,9 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 
 	@Override
 	public void onUpdatePropertyDone(LiveRoomInfoEvent arg0) {
+	}
+
+	@Override
+	public void onSendPrivateChatDone(byte arg0) {
 	}
 }

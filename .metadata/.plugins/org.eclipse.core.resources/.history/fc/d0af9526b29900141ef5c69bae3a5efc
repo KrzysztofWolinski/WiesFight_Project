@@ -30,7 +30,6 @@ import com.shephertz.app42.gaming.multiplayer.client.events.MoveEvent;
 import com.shephertz.app42.gaming.multiplayer.client.events.RoomData;
 import com.shephertz.app42.gaming.multiplayer.client.events.RoomEvent;
 import com.shephertz.app42.gaming.multiplayer.client.events.UpdateEvent;
-import com.shephertz.app42.gaming.multiplayer.client.listener.ChatRequestListener;
 import com.shephertz.app42.gaming.multiplayer.client.listener.NotifyListener;
 import com.shephertz.app42.gaming.multiplayer.client.listener.RoomRequestListener;
 import com.wiesfight.R;
@@ -342,6 +341,11 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
             criticalText.setText("");
         }
     }
+
+	private void handleMessage(String message) {
+		// TODO obs³uzyc otrzymana wiadomosc
+		
+	}
     
     private void findOpponent(String username) {
     	if(findUser(username)) {
@@ -403,15 +407,15 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 
 	@Override
 	public void onChatReceived(final ChatEvent event) {
-//		String sender = event.getSender();
-//		if(sender == this.opponentName) {
-//    		runOnUiThread(new Runnable() {
-//    			@Override
-//		    	public void run() {
-//    				handleMessage(event.getMessage());
-//    			}
-//    		});
-//		}
+		String sender = event.getSender();
+		if(sender == this.opponentName) {
+    		runOnUiThread(new Runnable() {
+    			@Override
+		    	public void run() {
+    				handleMessage(event.getMessage());
+    			}
+    		});
+		}
 	}
 
 	@Override

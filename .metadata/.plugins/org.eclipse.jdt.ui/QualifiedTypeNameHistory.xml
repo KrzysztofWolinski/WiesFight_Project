@@ -59,4 +59,5 @@
 <fullyQualifiedTypeName name="com.shephertz.app42.gaming.multiplayer.client.listener.RoomRequestListener"/>
 <fullyQualifiedTypeName name="com.shephertz.app42.gaming.multiplayer.client.listener.NotifyListener"/>
 <fullyQualifiedTypeName name="com.wiesfight.R.string"/>
+<fullyQualifiedTypeName name="android.content.DialogInterface.OnDismissListener"/>
 </qualifiedTypeNameHistroy>

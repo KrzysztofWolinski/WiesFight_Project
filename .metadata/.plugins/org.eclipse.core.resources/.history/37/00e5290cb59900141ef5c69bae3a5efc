@@ -1,8 +1,5 @@
 package com.wiesfight.figth;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 public class PlayerActions {
 
     private int attackStrength;
@@ -31,12 +28,6 @@ public class PlayerActions {
 
     public boolean isCriticalAttack() {
         return this.isCriticalAttack;
-    }
-    
-    public String toString() {
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-        return gson.toJson(this);
     }
 
     // TODO dodać potrzebne pola + gettery i settery
