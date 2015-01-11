@@ -279,7 +279,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     	}
     	LayoutInflater inflater = getLayoutInflater();
 	    View view = inflater.inflate(R.layout.dialog_ok, null);
-	    final AlertDialog dialog = new AlertDialog.Builder(FightActivity.this).setView(view).create();
+	    final AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();
 
 	    TextView txt = (TextView) view.findViewById(R.id.txtMessageOk);
 	    txt.setText(String.format(getString(R.string.fightWon), opponentLeft ? getString(R.string.opponentLeft) : ""
