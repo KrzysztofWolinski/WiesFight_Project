@@ -1,5 +1,7 @@
 package com.wiesfight.figth;
 
+import android.os.CountDownTimer;
+
 import com.wiesfight.activities.FightActivity;
 import com.wiesfight.objects.IFighter;
 import com.wiesfight.objects.TrainingOpponent;
@@ -9,7 +11,7 @@ public class Fight {
 	IFighter player, opponent;
 	boolean isFighter1Active, isFightFinished;
     IFightMessanger fightMessanger;
-    FightActivity callback;
+    Animator callback;
 
 	public Fight(IFighter player, IFighter opponent, FightActivity callback) {
 		this.player = player;
@@ -36,7 +38,9 @@ public class Fight {
 		if (this.isFightFinished == false) {
 
             PlayerActions actions = getActiveFighter().getAttackStrength();
-            callback.animatePlayerCriticalAttack(actions.isCriticalAttack());
+            callback.animatePlayerCriticalStrike(actions.isCriticalAttack());
+
+            callback.animatePlayerAttacking();
 
             fightMessanger.sendData(actions);
             this.player.endTurn();
@@ -81,9 +85,36 @@ public class Fight {
     protected void receivePlayerActions(PlayerActions actions) {
         // TODO dodać wykrywanie czy walka ciągle trwa (refactor)
 
-        player.decreaseHealth(actions.getAttackStrength());
+        new CountDownTimer(550, 550) {
+            public void onTick(long millisUntilFinished) {
+            }
+
+            public void onFinish() {
+                callback.animateOpponentGettingHit();
+
+                new CountDownTimer(550, 550) {
+                    public void onTick(long millisUntilFinished) {
+                    }
+
+                    public void onFinish() {
+                        callback.animateOpponentAttacking();
+                        new CountDownTimer(550, 550) {
+                            public void onTick(long millisUntilFinished) {
+                            }
+
+                            public void onFinish() {
+                                callback.animatePlayerGettingHit();
+                            }
+                        }.start();
+                    }
+                }.start();
+            }
+        }.start();
 
         opponent.setHealth((int) actions.getHealth());
+        player.decreaseHealth(actions.getAttackStrength());
+
+
 
         activatePlayer();
     }

@@ -11,6 +11,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,6 +36,7 @@ import com.shephertz.app42.gaming.multiplayer.client.listener.RoomRequestListene
 import com.wiesfight.R;
 import com.wiesfight.R.string;
 import com.wiesfight.enums.Items;
+import com.wiesfight.figth.Animator;
 import com.wiesfight.figth.Fight;
 import com.wiesfight.managers.DialogManager;
 import com.wiesfight.managers.PreferencesManager;
@@ -42,7 +44,7 @@ import com.wiesfight.objects.Fighter;
 import com.wiesfight.objects.IFighter;
 import com.wiesfight.objects.TrainingOpponent;
 
-public class FightActivity extends Activity implements RoomRequestListener, NotifyListener {
+public class FightActivity extends Activity implements RoomRequestListener, NotifyListener, Animator {
 	private boolean training = false;
 	private IFighter currentUser;
 	private IFighter opponent;
@@ -237,7 +239,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 	public void onPressAttackButton(View v) {
     	// TODO
     	fight.attack();
-    	//this.theClient.sendChat("wiadomoœæ");
+    	//this.theClient.sendChat("wiadomoï¿½ï¿½");
     	updateBattlefield();
     }
     
@@ -322,7 +324,8 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     	defenceItemsDurationText.setText(String.valueOf(this.currentUser.getDefenseItemDuration()));
     }
 
-    public void animatePlayerCriticalAttack(boolean isCriticalStrike) {
+    @Override
+    public void animatePlayerCriticalStrike(boolean isCriticalStrike) {
         TextView criticalText = (TextView) findViewById(R.id.userCriticalAttack);
 
         if (isCriticalStrike == true) {
@@ -332,7 +335,58 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
         }
     }
 
-    public void animateOpponentCriticalAttack(boolean isCriticalStrike) {
+    @Override
+    public void animatePlayerAttacking() {
+        try {
+            String playerClassName = this.currentUser.getUserClass().toString();
+            ImageView img = (ImageView) findViewById(R.id.userCharacter);
+            img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_attacking").getInt(null));
+
+            new CountDownTimer(500, 100) {
+                public void onTick(long millisUntilFinished) {
+                }
+
+                public void onFinish() {
+                    String playerClassName = currentUser.getUserClass().toString();
+                    ImageView img = (ImageView) findViewById(R.id.userCharacter);
+                    try {
+                        img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
+                    } catch (Exception e) {
+
+                    }
+                }
+            }.start();
+        } catch(Exception e) {
+        }
+    }
+
+    @Override
+    public void animatePlayerGettingHit() {
+        try {
+            String playerClassName = this.currentUser.getUserClass().toString();
+            ImageView img = (ImageView) findViewById(R.id.userCharacter);
+            img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_getting_hit").getInt(null));
+
+            new CountDownTimer(500, 100) {
+                public void onTick(long millisUntilFinished) {
+                }
+
+                public void onFinish() {
+                    String playerClassName = currentUser.getUserClass().toString();
+                    ImageView img = (ImageView) findViewById(R.id.userCharacter);
+                    try {
+                        img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
+                    } catch (Exception e) {
+
+                    }
+                }
+            }.start();
+        } catch(Exception e) {
+        }
+    }
+
+    @Override
+    public void animateOpponentCriticalStrike(boolean isCriticalStrike) {
         TextView criticalText = (TextView) findViewById(R.id.opponentCriticalAttack);
 
         if (isCriticalStrike == true) {
@@ -342,8 +396,58 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
         }
     }
 
-	private void handleMessage(String message) {
-		// TODO obs³uzyc otrzymana wiadomosc
+    @Override
+    public void animateOpponentAttacking() {
+        try {
+            String playerClassName = this.opponent.getUserClass().toString();
+            ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
+            img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_attacking").getInt(null));
+
+            new CountDownTimer(500, 100) {
+                public void onTick(long millisUntilFinished) {
+                }
+
+                public void onFinish() {
+                    String playerClassName = opponent.getUserClass().toString();
+                    ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
+                    try {
+                        img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
+                    } catch (Exception e) {
+
+                    }
+                }
+            }.start();
+        } catch(Exception e) {
+        }
+    }
+
+    @Override
+    public void animateOpponentGettingHit() {
+        try {
+            String playerClassName = this.opponent.getUserClass().toString();
+            ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
+            img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_getting_hit").getInt(null));
+
+            new CountDownTimer(500, 100) {
+                public void onTick(long millisUntilFinished) {
+                }
+
+                public void onFinish() {
+                    String playerClassName = opponent.getUserClass().toString();
+                    ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
+                    try {
+                        img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
+                    } catch (Exception e) {
+
+                    }
+                }
+            }.start();
+        } catch(Exception e) {
+        }
+    }
+
+    private void handleMessage(String message) {
+		// TODO obsï¿½uzyc otrzymana wiadomosc
 		
 	}
     
