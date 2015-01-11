@@ -124,29 +124,31 @@ public class Fight {
     }
 
     public void applyCurrentAction() {
-        switch (currentAction.getActionType()) {
-            case ATTACK : {
-                opponent.decreaseHealth((int) currentAction.getDamage());
-                callback.animateOpponentGettingHit();
-                break;
-            }
-            case USED_ATTACK_ITEM: {
+        if (currentAction != null) {
+            switch (currentAction.getActionType()) {
+                case ATTACK: {
+                    opponent.decreaseHealth((int) currentAction.getDamage());
+                    callback.animateOpponentGettingHit();
+                    break;
+                }
+                case USED_ATTACK_ITEM: {
 
-                break;
-            }
-            case USED_DEFENSE_ITEM: {
+                    break;
+                }
+                case USED_DEFENSE_ITEM: {
 
-                break;
-            }
-            case USED_MISC_ITEM: {
+                    break;
+                }
+                case USED_MISC_ITEM: {
 
-                break;
+                    break;
+                }
             }
+
+            checkIfFightIsFinished();
+            this.currentAction = null;
+            this.callback.updateBattlefield();
         }
-
-        checkIfFightIsFinished();
-        this.currentAction = null;
-        this.callback.updateBattlefield();
     }
 
     public void useItem(PlayerActions type) {
