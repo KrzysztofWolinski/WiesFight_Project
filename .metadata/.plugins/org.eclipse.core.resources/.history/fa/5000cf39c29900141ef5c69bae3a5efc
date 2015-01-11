@@ -271,8 +271,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     	    final AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();
 
     	    TextView txt = (TextView) view.findViewById(R.id.txtMessageOk);
-    	    txt.setText(String.format(getString(R.string.fightWon), opponentLeft ? getString(R.string.opponentLeft) : ""
-    	    	,fight.getWinner(this.opponentLeft).getName()));
+    	    txt.setText(String.format(getString(R.string.fightWon), fight.getWinner(this.opponentLeft).getName()));
 
     	    Button btn = (Button) view.findViewById(R.id.btnOk);
     	    btn.setOnClickListener(new OnClickListener() {

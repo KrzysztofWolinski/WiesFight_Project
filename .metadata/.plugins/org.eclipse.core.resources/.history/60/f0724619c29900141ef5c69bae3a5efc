@@ -39,8 +39,7 @@
     <string name="count">Posiadasz: %1$s</string>
     <string name="progress">Proszę chwilę poczekać</string>
     <string name="waitOpponent">Poczekaj na przeciwnika</string>
-    <string name="opponentLeft">Przeciwnik opuścił walkę\n</string>
-    <string name="fightWon">%1$sWalka została zakończona zwycięstwem gracza %2$s</string>
+    <string name="fightWon">Walka została zakończona zwycięstwem gracza %1$s</string>
     <string name="addingError">Nazwa uzytkownika za krotka lub zajeta</string>
     <string name="bonusMessage">Dostałeś 5 monet w ramach codziennego bonusu!</string>
     <string name="tutorialMain">Kliknij avatar swojej postaci w menu głównym, aby podejrzeć jej statystyki.\nW widoku ustawień możesz wyłączyć dźwięk, usunąć postać i wyjść z gry.\nW widoku sklepu możesz nabyć przedmioty, które pomogą Ci w walce.\nW widoku walki możesz poszukać przeciwnika do walki albo odbyć trening.</string>
