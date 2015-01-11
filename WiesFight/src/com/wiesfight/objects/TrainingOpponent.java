@@ -63,21 +63,21 @@ public class TrainingOpponent implements IFighter {
 	}
 
 	@Override
-	public void useAttackItem() {
+	public boolean useAttackItem() {
 		// TODO Auto-generated method stub
-		
+		return true;
 	}
 
 	@Override
-	public void useDefenseItem() {
+	public boolean useDefenseItem() {
 		// TODO Auto-generated method stub
-		
+        return true;
 	}
 
 	@Override
-	public void useMiscItem() {
+	public boolean useMiscItem() {
 		// TODO Auto-generated method stub
-		
+        return true;
 	}
 	
 	@Override
