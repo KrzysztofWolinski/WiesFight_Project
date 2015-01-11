@@ -1,6 +1,5 @@
 package com.wiesfight.figth;
 
-import com.wiesfight.enums.PlayerActions;
 import com.wiesfight.objects.IFighter;
 
 public class FightMessangerTraining implements IFightMessanger {
@@ -15,8 +14,7 @@ public class FightMessangerTraining implements IFightMessanger {
 
     public void sendData(PlayerAction actions) {
         // TODO uzupełnić o przesyłanie wszystkiego co potrzebne, nie tylko siły ataku
-    	if(actions.getActionType() != PlayerActions.ATTACK)
-    		return;
+
         trainingFighter.decreaseHealth((int) actions.getDamage());
 
         PlayerAction response = new PlayerAction();
@@ -25,6 +23,6 @@ public class FightMessangerTraining implements IFightMessanger {
             response.setDamage(trainingFighter.getAttackStrength().getDamage());
         }
 
-        callback.applyOpponentAction(response);
+        callback.receivePlayerActions(response);
     }
 }
