@@ -53,7 +53,7 @@ public class FightMessanger implements IFightMessanger, NotifyListener, ChatRequ
 	@Override
 	public void onChatReceived(ChatEvent event) {
 		String sender = event.getSender();
-		if(sender == this.opponentName) {
+		if(sender.equals(this.opponentName)) {
     		this.onDataReceived(event.getMessage());
 		}
 	}

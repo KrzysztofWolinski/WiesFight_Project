@@ -37,6 +37,7 @@ import com.shephertz.app42.gaming.multiplayer.client.listener.RoomRequestListene
 import com.wiesfight.R;
 import com.wiesfight.R.string;
 import com.wiesfight.enums.Items;
+import com.wiesfight.enums.PlayerActions;
 import com.wiesfight.figth.Animator;
 import com.wiesfight.figth.Fight;
 import com.wiesfight.managers.DialogManager;
@@ -242,46 +243,57 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
     
     public void onPressAttackItemButton(View v) {
-    	this.currentUser.useAttackItem();
-    	this.updateBattlefield();
+    	if (this.currentUser.useAttackItem()) {
+            this.fight.useItem(PlayerActions.USED_ATTACK_ITEM);
+            this.updateBattlefield();
+        }
     }
     
     public void onPressDefenseItemButton(View v) {
-    	this.currentUser.useDefenseItem();
-    	this.updateBattlefield();
+    	if (this.currentUser.useDefenseItem()) {
+            this.fight.useItem(PlayerActions.USED_DEFENSE_ITEM);
+            this.updateBattlefield();
+        }
     }
 
     public void onPressMiscItemButton(View v) {
-    	this.currentUser.useMiscItem();
-    	this.updateBattlefield();
+    	if (this.currentUser.useMiscItem()) {
+            this.fight.useItem(PlayerActions.USED_MISC_ITEM);
+            this.updateBattlefield();
+        }
     }
     
     public void updateBattlefield() {
-    	// Sprawdzić czy walka ciągle trwa i zaaktualizować feedback (HP, itemy itd.)
-    	updateHpBars();
-    	
-    	updateItemNotifications();
-    	
-    	if (fight.isFightFinished() || this.opponentLeft) {
-    		LayoutInflater inflater = this.getLayoutInflater();
-    	    View view = inflater.inflate(R.layout.dialog_ok, null);
-    	    final AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // Sprawdzić czy walka ciągle trwa i zaaktualizować feedback (HP, itemy itd.)
+                updateHpBars();
 
-    	    TextView txt = (TextView) view.findViewById(R.id.txtMessageOk);
-    	    txt.setText(String.format(getString(R.string.fightWon), opponentLeft ? getString(R.string.opponentLeft) : ""
-    	    	,fight.getWinner(this.opponentLeft).getName()));
+                updateItemNotifications();
 
-    	    Button btn = (Button) view.findViewById(R.id.btnOk);
-    	    btn.setOnClickListener(new OnClickListener() {
-    			@Override
-    			public void onClick(View v) {
-    				dialog.dismiss();
-    				handleLeave();
-    				FightActivity.this.finish();
-    			}
-    		});
-    	    dialog.show();
-    	}
+                if (fight.isFightFinished() || opponentLeft) {
+                    LayoutInflater inflater = getLayoutInflater();
+                    View view = inflater.inflate(R.layout.dialog_ok, null);
+                    final AlertDialog dialog = new AlertDialog.Builder(FightActivity.this).setView(view).create();
+
+                    TextView txt = (TextView) view.findViewById(R.id.txtMessageOk);
+                    txt.setText(String.format(getString(R.string.fightWon), opponentLeft ? getString(R.string.opponentLeft) : ""
+                            , fight.getWinner(opponentLeft).getName()));
+
+                    Button btn = (Button) view.findViewById(R.id.btnOk);
+                    btn.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                            handleLeave();
+                            FightActivity.this.finish();
+                        }
+                    });
+                    dialog.show();
+                }
+            }
+        });
     }
 
     private void updateHpBars() {

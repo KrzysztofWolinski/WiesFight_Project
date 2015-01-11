@@ -16,9 +16,9 @@ public interface IFighter {
     public void setHealth(int health);
 	String getName();
 	
-	public void useAttackItem();
-	public void useDefenseItem();
-	public void useMiscItem();
+	public boolean useAttackItem();
+	public boolean useDefenseItem();
+	public boolean useMiscItem();
 	
 	public int getAttackItemCount();
 	public int getDefenseItemCount();
