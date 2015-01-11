@@ -110,4 +110,10 @@ public class TrainingOpponent implements IFighter {
     @Override
     public void endTurn() {
     }
+    
+    @Override
+    public void addFight() {};
+    
+    @Override
+    public void fightWon() {};
 }

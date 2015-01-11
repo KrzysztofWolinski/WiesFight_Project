@@ -3,7 +3,6 @@ package com.wiesfight.activities;
 import java.util.HashMap;
 import java.util.Locale;
 
-import main.com.wiesfight.dto.User;
 import main.com.wiesfight.persistence.UserPersistence;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -17,7 +16,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.parse.GetCallback;
@@ -31,20 +29,17 @@ import com.shephertz.app42.gaming.multiplayer.client.events.MoveEvent;
 import com.shephertz.app42.gaming.multiplayer.client.events.RoomData;
 import com.shephertz.app42.gaming.multiplayer.client.events.RoomEvent;
 import com.shephertz.app42.gaming.multiplayer.client.events.UpdateEvent;
-import com.shephertz.app42.gaming.multiplayer.client.listener.ChatRequestListener;
 import com.shephertz.app42.gaming.multiplayer.client.listener.NotifyListener;
 import com.shephertz.app42.gaming.multiplayer.client.listener.RoomRequestListener;
 import com.wiesfight.R;
-import com.wiesfight.R.string;
 import com.wiesfight.enums.Items;
 import com.wiesfight.figth.Animator;
 import com.wiesfight.figth.Fight;
-import com.wiesfight.managers.DialogManager;
-import com.wiesfight.managers.PreferencesManager;
 import com.wiesfight.objects.Fighter;
 import com.wiesfight.objects.IFighter;
 import com.wiesfight.objects.TrainingOpponent;
 
+@SuppressLint("InflateParams")
 public class FightActivity extends Activity implements RoomRequestListener, NotifyListener, Animator {
 	private boolean training = false;
 	private IFighter currentUser;
@@ -55,7 +50,6 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 	private boolean isOwner = false;
 	private boolean opponentLeft = false;
 	private String roomId = "";
-	private String opponentName = "";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -194,7 +188,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     @SuppressLint("InflateParams")
 	@Override
     public void onBackPressed() {
-    	if(this.opponent == null) {
+    	if(this.opponent == null || this.training || this.opponentLeft) {
 			this.handleLeave();
 			super.onBackPressed();
     	}
@@ -257,31 +251,43 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
     
     public void updateBattlefield() {
-    	// Sprawdzić czy walka ciągle trwa i zaaktualizować feedback (HP, itemy itd.)
-    	updateHpBars();
-    	
-    	updateItemNotifications();
-    	
-    	if (fight.isFightFinished() || this.opponentLeft) {
-    		LayoutInflater inflater = this.getLayoutInflater();
-    	    View view = inflater.inflate(R.layout.dialog_ok, null);
-    	    final AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();
-
-    	    TextView txt = (TextView) view.findViewById(R.id.txtMessageOk);
-    	    txt.setText(String.format(getString(R.string.fightWon), opponentLeft ? getString(R.string.opponentLeft) : ""
-    	    	,fight.getWinner(this.opponentLeft).getName()));
-
-    	    Button btn = (Button) view.findViewById(R.id.btnOk);
-    	    btn.setOnClickListener(new OnClickListener() {
-    			@Override
-    			public void onClick(View v) {
-    				dialog.dismiss();
-    				handleLeave();
-    				FightActivity.this.finish();
-    			}
-    		});
-    	    dialog.show();
+    	runOnUiThread(new Runnable() {
+			@Override
+	    	public void run() {
+		    	// Sprawdzić czy walka ciągle trwa i zaaktualizować feedback (HP, itemy itd.)
+		    	updateHpBars();
+		    	
+		    	updateItemNotifications();
+		    	
+		    	if (fight.isFightFinished() || opponentLeft) {
+		    		handleFinish();
+		    	}
+			}
+    	});
+    }
+    
+    private void handleFinish() {
+    	if(!this.training) {
+    		
     	}
+    	LayoutInflater inflater = getLayoutInflater();
+	    View view = inflater.inflate(R.layout.dialog_ok, null);
+	    final AlertDialog dialog = new AlertDialog.Builder(FightActivity.this).setView(view).create();
+
+	    TextView txt = (TextView) view.findViewById(R.id.txtMessageOk);
+	    txt.setText(String.format(getString(R.string.fightWon), opponentLeft ? getString(R.string.opponentLeft) : ""
+	    	,fight.getWinner(opponentLeft).getName()));
+
+	    Button btn = (Button) view.findViewById(R.id.btnOk);
+	    btn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				handleLeave();
+				FightActivity.this.finish();
+			}
+		});
+	    dialog.show();
     }
 
     private void updateHpBars() {
@@ -422,11 +428,6 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
         } catch(Exception e) {
         }
     }
-
-    private void handleMessage(String message) {
-		// TODO obs�uzyc otrzymana wiadomosc
-		
-	}
     
     private void findOpponent(String username) {
     	if(findUser(username)) {
@@ -435,6 +436,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 		    	public void run() {
 					hideProgressDialog();
 					addOpponent();
+					currentUser.addFight();
 					fight = new Fight(currentUser, opponent, FightActivity.this, isOwner);
 					updateBattlefield();
     		     }
@@ -487,27 +489,20 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 	}
 
 	@Override
-	public void onChatReceived(final ChatEvent event) {
-//		String sender = event.getSender();
-//		if(sender == this.opponentName) {
-//    		runOnUiThread(new Runnable() {
-//    			@Override
-//		    	public void run() {
-//    				handleMessage(event.getMessage());
-//    			}
-//    		});
-//		}
-	}
-
-	@Override
 	public void onUserLeftRoom(RoomData data, String name) {
 		runOnUiThread(new Runnable() {
 			@Override
 	    	public void run() {
-				opponentLeft = true;
-				updateBattlefield();
+				if(!fight.isFightFinished()) {
+					opponentLeft = true;
+					updateBattlefield();
+				}
 			}
 		});
+	}
+
+	@Override
+	public void onChatReceived(final ChatEvent event) {
 	}
 
 	@Override

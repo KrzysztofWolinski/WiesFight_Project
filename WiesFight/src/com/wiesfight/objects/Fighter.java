@@ -158,4 +158,14 @@ public class Fighter implements IFighter {
     public void endTurn() {
         this.bonus.decrementDuration();
     }
+    
+    @Override
+    public void addFight() {
+    	this.user.setFights(this.user.getFights() + 1);
+    }
+
+    @Override
+    public void fightWon() {
+    	this.user.setWins(this.user.getWins() + 1);
+    }
 }
