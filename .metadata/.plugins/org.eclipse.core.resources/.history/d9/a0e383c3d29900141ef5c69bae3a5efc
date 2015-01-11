@@ -96,16 +96,6 @@ public class User implements Serializable {
 	public void addMiscItemCount() {
 		this.miscItemCount++;
 	} 
-	
-	public void removeAttackItemCount() {
-		this.attackItemCount--;
-	}
-	public void removeDefenceItemCount() {
-		this.defenseItemCount--;
-	}
-	public void removeMiscItemCount() {
-		this.miscItemCount--;
-	} 
 	public void addFight() {
 		this.fights++;
 	}

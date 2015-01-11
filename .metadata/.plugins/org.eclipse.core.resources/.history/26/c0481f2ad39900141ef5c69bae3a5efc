@@ -285,7 +285,6 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     	if(!this.training) {
     		
     	}
-    	this.dbUserPer.saveUserToDB();
     	LayoutInflater inflater = getLayoutInflater();
 	    View view = inflater.inflate(R.layout.dialog_ok, null);
 	    final AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();

@@ -28,4 +28,6 @@ public interface IFighter {
 	public int getDefenseItemDuration();
 
     public void endTurn();
+    public void addFight();
+    public void fightWon();
 }

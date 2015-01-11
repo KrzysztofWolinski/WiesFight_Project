@@ -3,7 +3,6 @@ package com.wiesfight.activities;
 import java.util.HashMap;
 import java.util.Locale;
 
-import main.com.wiesfight.dto.User;
 import main.com.wiesfight.persistence.UserPersistence;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -44,8 +43,6 @@ import com.wiesfight.objects.TrainingOpponent;
 @SuppressLint("InflateParams")
 public class FightActivity extends Activity implements RoomRequestListener, NotifyListener, Animator {
 	private boolean training = false;
-	private UserPersistence dbUserPer;
-	private User dbUser;
 	private IFighter currentUser;
 	private IFighter opponent;
 	private Fight fight;
@@ -64,8 +61,6 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 		query.fromPin("currentUser");
 		query.getFirstInBackground(new GetCallback<UserPersistence>() {
 			public void done(UserPersistence user, ParseException e) {
-				dbUserPer = user;
-				dbUser = user.getUser();
 				currentUser = new Fighter(user.getUser());
 				initializeRoom();
 			}
@@ -243,7 +238,6 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     
     public void onPressAttackItemButton(View v) {
     	if (this.currentUser.useAttackItem()) {
-    		this.dbUser.removeAttackItemCount();
             this.fight.useItem(PlayerActions.USED_ATTACK_ITEM);
             this.updateBattlefield();
         }
@@ -251,7 +245,6 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     
     public void onPressDefenseItemButton(View v) {
     	if (this.currentUser.useDefenseItem()) {
-    		this.dbUser.removeDefenceItemCount();
             this.fight.useItem(PlayerActions.USED_DEFENSE_ITEM);
             this.updateBattlefield();
         }
@@ -259,7 +252,6 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 
     public void onPressMiscItemButton(View v) {
     	if (this.currentUser.useMiscItem()) {
-    		this.dbUser.removeMiscItemCount();
             this.fight.useItem(PlayerActions.USED_MISC_ITEM);
             this.updateBattlefield();
         }
@@ -285,7 +277,6 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     	if(!this.training) {
     		
     	}
-    	this.dbUserPer.saveUserToDB();
     	LayoutInflater inflater = getLayoutInflater();
 	    View view = inflater.inflate(R.layout.dialog_ok, null);
 	    final AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();
@@ -452,7 +443,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 		    	public void run() {
 					hideProgressDialog();
 					addOpponent();
-					dbUser.addFight();
+					currentUser.addFight();
 					fight = new Fight(currentUser, opponent, FightActivity.this, isOwner);
 					updateBattlefield();
     		     }
