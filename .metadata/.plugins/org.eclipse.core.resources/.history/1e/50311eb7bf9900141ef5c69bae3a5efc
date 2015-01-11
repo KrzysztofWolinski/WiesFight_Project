@@ -2,8 +2,6 @@ package com.wiesfight.figth;
 
 import java.util.HashMap;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.shephertz.app42.gaming.multiplayer.client.WarpClient;
 import com.shephertz.app42.gaming.multiplayer.client.events.ChatEvent;
 import com.shephertz.app42.gaming.multiplayer.client.events.LobbyData;
@@ -26,18 +24,13 @@ public class FightMessanger implements IFightMessanger, NotifyListener, ChatRequ
 
     // Interface do wysyłania danych po wykonaniu ataku
     public void sendData(PlayerAction actions) {
-        this.theClient.sendChat(actions.toString());
+        //this.theClient.sendChat(actions.toString());
+        callback.receivePlayerActions(actions);
     }
 
-    private void onDataReceived(String message) {
-    	GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-        PlayerAction action = gson.fromJson(message, PlayerAction.class);
-        if(action == null) {
-        	// TODO kurwa blad
-        }
-        else
-        	callback.applyOpponentAction(action);
+    private void onDataReceived() {
+        // TODO unmock
+        //callback.switchPlayers();
     }
 
     private void initializeConnection() {
@@ -54,17 +47,14 @@ public class FightMessanger implements IFightMessanger, NotifyListener, ChatRequ
 	public void onChatReceived(ChatEvent event) {
 		String sender = event.getSender();
 		if(sender == this.opponentName) {
-    		this.onDataReceived(event.getMessage());
+    		
 		}
 	}
 
 	@Override
 	public void onSendChatDone(byte result) {
-		if(result == 0) {
-			this.callback.applyCurrentAction();
-		}
-		else {
-			// TODO blad wyslania wiadomosci, mozna poprosic o sprobowanie ponownie
+		if(result != 0) {
+			// TODO b�ad wyslania wiadomosci, mozna poprosic o sprobowanie ponownie
 		}
 	}
 

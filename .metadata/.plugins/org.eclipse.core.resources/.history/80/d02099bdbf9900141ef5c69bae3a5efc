@@ -33,9 +33,8 @@ public class FightMessanger implements IFightMessanger, NotifyListener, ChatRequ
     	GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
         PlayerAction action = gson.fromJson(message, PlayerAction.class);
-        if(action == null) {
+        if(action == null)
         	// TODO kurwa blad
-        }
         else
         	callback.applyOpponentAction(action);
     }
@@ -60,12 +59,11 @@ public class FightMessanger implements IFightMessanger, NotifyListener, ChatRequ
 
 	@Override
 	public void onSendChatDone(byte result) {
-		if(result == 0) {
-			this.callback.applyCurrentAction();
-		}
-		else {
+		if(result != 0) {
 			// TODO blad wyslania wiadomosci, mozna poprosic o sprobowanie ponownie
+			return;
 		}
+		this.callback.applyCurrentAction();
 	}
 
 	@Override

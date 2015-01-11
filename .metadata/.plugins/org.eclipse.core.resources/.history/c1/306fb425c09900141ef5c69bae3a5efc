@@ -60,12 +60,11 @@ public class FightMessanger implements IFightMessanger, NotifyListener, ChatRequ
 
 	@Override
 	public void onSendChatDone(byte result) {
-		if(result == 0) {
-			this.callback.applyCurrentAction();
-		}
-		else {
+		if(result != 0) {
 			// TODO blad wyslania wiadomosci, mozna poprosic o sprobowanie ponownie
+			return;
 		}
+		this.callback.applyCurrentAction();
 	}
 
 	@Override
