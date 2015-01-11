@@ -23,7 +23,7 @@ public class FightMessanger implements IFightMessanger, NotifyListener, ChatRequ
     }
 
     // Interface do wysyÅ‚ania danych po wykonaniu ataku
-    public void sendData(PlayerActions actions) {
+    public void sendData(PlayerAction actions) {
         //this.theClient.sendChat(actions.toString());
         callback.receivePlayerActions(actions);
     }
@@ -54,7 +54,7 @@ public class FightMessanger implements IFightMessanger, NotifyListener, ChatRequ
 	@Override
 	public void onSendChatDone(byte result) {
 		if(result != 0) {
-			// TODO b³ad wyslania wiadomosci, mozna poprosic o sprobowanie ponownie
+			// TODO bï¿½ad wyslania wiadomosci, mozna poprosic o sprobowanie ponownie
 		}
 	}
 

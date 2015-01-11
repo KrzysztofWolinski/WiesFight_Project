@@ -2,16 +2,13 @@ package com.wiesfight.objects;
 
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import main.com.wiesfight.dto.User;
 import main.com.wiesfight.dto.enums.CharacterClass;
 
 import com.wiesfight.enums.Items;
 import com.wiesfight.figth.Bonus;
 import com.wiesfight.figth.Bonuses;
-import com.wiesfight.figth.PlayerActions;
+import com.wiesfight.figth.PlayerAction;
 
 public class Fighter implements IFighter {
 	private User user;
@@ -51,8 +48,8 @@ public class Fighter implements IFighter {
     }
 
 	@Override
-	public PlayerActions getAttackStrength() {
-        PlayerActions actions = new PlayerActions();
+	public PlayerAction getAttackStrength() {
+        PlayerAction actions = new PlayerAction();
 
         int attackChance = (int) ((this.getUserClass().getAccuracy() * 100) - (Math.random() * 100));
 

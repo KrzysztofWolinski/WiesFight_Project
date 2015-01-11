@@ -1,6 +1,5 @@
 package com.wiesfight.figth;
 
-import com.wiesfight.objects.Fighter;
 import com.wiesfight.objects.IFighter;
 
 public class FightMessangerTraining implements IFightMessanger {
@@ -13,12 +12,12 @@ public class FightMessangerTraining implements IFightMessanger {
         this.trainingFighter = trainingFighter;
     }
 
-    public void sendData(PlayerActions actions) {
+    public void sendData(PlayerAction actions) {
         // TODO uzupełnić o przesyłanie wszystkiego co potrzebne, nie tylko siły ataku
 
         trainingFighter.decreaseHealth(actions.getAttackStrength());
 
-        PlayerActions response = new PlayerActions();
+        PlayerAction response = new PlayerAction();
 
         if (trainingFighter.getHealth() >= 0.0) {
             response.setAttackStrength(trainingFighter.getAttackStrength().getAttackStrength());

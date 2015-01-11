@@ -18,13 +18,6 @@ public class Fight {
 		this.opponent = opponent;
 		this.callback = callback;
 
-		// Randomly decide which fighter should start
-		if (((int)((Math.random() * 10) % 2)) == 0) {
-			this.isFighter1Active = false;
-		} else {
-			this.isFighter1Active = true;
-		}
-
 		this.isFightFinished = false;
 
         if (opponent.getClass().equals(TrainingOpponent.class)) {
@@ -32,12 +25,20 @@ public class Fight {
         } else {
             fightMessanger = new FightMessanger(this);
         }
+
+        // Randomly decide which fighter should start
+        if (((int)((Math.random() * 10) % 2)) == 0) {
+            this.isFighter1Active = false;
+            this.fightMessanger.sendData(new PlayerAction());
+        } else {
+            this.isFighter1Active = true;
+        }
 	}
 
 	public void attack() {
-		if (this.isFightFinished == false) {
+		if ((this.isFightFinished == false) && (isFighter1Active == true)) {
 
-            PlayerActions actions = getActiveFighter().getAttackStrength();
+            PlayerAction actions = getActiveFighter().getAttackStrength();
             callback.animatePlayerCriticalStrike(actions.isCriticalAttack());
 
             callback.animatePlayerAttacking();
@@ -82,8 +83,8 @@ public class Fight {
         this.isFighter1Active = true;
     }
 
-    protected void receivePlayerActions(PlayerActions actions) {
-        // TODO dodać wykrywanie czy walka ciągle trwa (refactor)
+    protected void receivePlayerActions(PlayerAction actions) {
+        // TODO  (refactor)
 
         new CountDownTimer(550, 550) {
             public void onTick(long millisUntilFinished) {
@@ -104,6 +105,7 @@ public class Fight {
 
                             public void onFinish() {
                                 callback.animatePlayerGettingHit();
+                                activatePlayer();
                             }
                         }.start();
                     }
@@ -113,9 +115,5 @@ public class Fight {
 
         opponent.setHealth((int) actions.getHealth());
         player.decreaseHealth(actions.getAttackStrength());
-
-
-
-        activatePlayer();
     }
 }

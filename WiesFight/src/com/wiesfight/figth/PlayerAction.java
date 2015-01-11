@@ -2,27 +2,28 @@ package com.wiesfight.figth;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.wiesfight.enums.PlayerActions;
 
-public class PlayerActions {
+public class PlayerAction {
 
-    private int attackStrength;
-    private double health;
+    private PlayerActions actionType;
+    private double damage;
     private boolean isCriticalAttack;
 
-    public int getAttackStrength() {
-        return attackStrength;
+    public PlayerActions getActionType() {
+        return actionType;
     }
 
-    public void setAttackStrength(int attackStrength) {
-        this.attackStrength = attackStrength;
+    public void setActionType(PlayerActions actionType) {
+        this.actionType = actionType;
     }
 
-    public double getHealth() {
-        return health;
+    public double getDamage() {
+        return damage;
     }
 
-    public void setHealth(double health) {
-        this.health = health;
+    public void setDamage(double damage) {
+        this.damage = damage;
     }
 
     public void setIsCriticalAttack(boolean isCriticalAttack) {
@@ -38,6 +39,4 @@ public class PlayerActions {
         Gson gson = builder.create();
         return gson.toJson(this);
     }
-
-    // TODO dodać potrzebne pola + gettery i settery
 }
