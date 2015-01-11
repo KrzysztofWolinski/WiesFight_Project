@@ -15,15 +15,13 @@ public class FightMessangerTraining implements IFightMessanger {
     public void sendData(PlayerAction actions) {
         // TODO uzupełnić o przesyłanie wszystkiego co potrzebne, nie tylko siły ataku
 
-        trainingFighter.decreaseHealth(actions.getAttackStrength());
+        trainingFighter.decreaseHealth((int) actions.getDamage());
 
         PlayerAction response = new PlayerAction();
 
         if (trainingFighter.getHealth() >= 0.0) {
-            response.setAttackStrength(trainingFighter.getAttackStrength().getAttackStrength());
+            response.setDamage(trainingFighter.getAttackStrength().getDamage());
         }
-
-        response.setHealth(trainingFighter.getHealth());
 
         callback.receivePlayerActions(response);
     }
