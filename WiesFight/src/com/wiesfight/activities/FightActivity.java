@@ -326,18 +326,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
 
     @Override
-    public void animatePlayerCriticalStrike(boolean isCriticalStrike) {
-        TextView criticalText = (TextView) findViewById(R.id.userCriticalAttack);
-
-        if (isCriticalStrike == true) {
-            criticalText.setText("Critical!");
-        } else {
-            criticalText.setText("");
-        }
-    }
-
-    @Override
-    public void animatePlayerAttacking() {
+    public void animatePlayerAttacking(boolean isCriticalStrike) {
         try {
             String playerClassName = this.currentUser.getUserClass().toString();
             ImageView img = (ImageView) findViewById(R.id.userCharacter);
@@ -387,18 +376,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
 
     @Override
-    public void animateOpponentCriticalStrike(boolean isCriticalStrike) {
-        TextView criticalText = (TextView) findViewById(R.id.opponentCriticalAttack);
-
-        if (isCriticalStrike == true) {
-            criticalText.setText("Critical!");
-        } else {
-            criticalText.setText("");
-        }
-    }
-
-    @Override
-    public void animateOpponentAttacking() {
+    public void animateOpponentAttacking(boolean isCriticalStrike) {
         try {
             String playerClassName = this.opponent.getUserClass().toString();
             ImageView img = (ImageView) findViewById(R.id.opponentCharacter);

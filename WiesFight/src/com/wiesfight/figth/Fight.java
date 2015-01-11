@@ -3,15 +3,17 @@ package com.wiesfight.figth;
 import android.os.CountDownTimer;
 
 import com.wiesfight.activities.FightActivity;
+import com.wiesfight.enums.PlayerActions;
 import com.wiesfight.objects.IFighter;
 import com.wiesfight.objects.TrainingOpponent;
 
 public class Fight {
 
-	IFighter player, opponent;
-	boolean isFighter1Active, isFightFinished;
-    IFightMessanger fightMessanger;
-    Animator callback;
+	private IFighter player, opponent;
+	private boolean isFighter1Active, isFightFinished;
+    private IFightMessanger fightMessanger;
+    private Animator callback;
+    private PlayerAction currentAction;
 
 	public Fight(IFighter player, IFighter opponent, FightActivity callback) {
 		this.player = player;
@@ -38,13 +40,14 @@ public class Fight {
 	public void attack() {
 		if ((this.isFightFinished == false) && (isFighter1Active == true)) {
 
-            PlayerAction actions = getActiveFighter().getAttackStrength();
+            // Wyliczanie obrażeń
+            PlayerAction actions = this.player.getAttackStrength();
+            actions = opponent.evaluateDamage(actions);
 
-            // TODO wyliczyć faktyczne obrażenia
+            // Animacja
+            callback.animatePlayerAttacking(actions.isCriticalAttack());
 
-            callback.animatePlayerCriticalStrike(actions.isCriticalAttack());
-            callback.animatePlayerAttacking();
-
+            // Zakończenie tury
             fightMessanger.sendData(actions);
             this.player.endTurn();
             deactivatePlayer();
@@ -57,10 +60,6 @@ public class Fight {
 	
 	public boolean isFightFinished() {
 		return this.isFightFinished;
-	}
-	
-	private IFighter getActiveFighter() {
-		return this.isFighter1Active ? this.player : this.opponent;
 	}
 
 	public IFighter getWinner(boolean opponentLeft) {
@@ -88,38 +87,44 @@ public class Fight {
     protected void applyOpponentAction(PlayerAction action) {
         // TODO  (refactor)
 
-        new CountDownTimer(550, 550) {
-            public void onTick(long millisUntilFinished) {
+        switch (action.getActionType()) {
+            case ATTACK : {
+
+                break;
             }
+            case USED_ATTACK_ITEM: {
 
-            public void onFinish() {
-                callback.animateOpponentGettingHit();
-
-                new CountDownTimer(550, 550) {
-                    public void onTick(long millisUntilFinished) {
-                    }
-
-                    public void onFinish() {
-                        callback.animateOpponentAttacking();
-                        new CountDownTimer(550, 550) {
-                            public void onTick(long millisUntilFinished) {
-                            }
-
-                            public void onFinish() {
-                                callback.animatePlayerGettingHit();
-                                activatePlayer();
-                            }
-                        }.start();
-                    }
-                }.start();
+                break;
             }
-        }.start();
+            case USED_DEFENSE_ITEM: {
 
-        opponent.setHealth((int) action.getHealth());
-        player.decreaseHealth(action.getAttackStrength());
+                break;
+            }
+            case USED_MISC_ITEM: {
+
+                break;
+            }
+        }
     }
 
     public void applyCurrentAction() {
+        switch (currentAction.getActionType()) {
+            case ATTACK : {
 
+                break;
+            }
+            case USED_ATTACK_ITEM: {
+
+                break;
+            }
+            case USED_DEFENSE_ITEM: {
+
+                break;
+            }
+            case USED_MISC_ITEM: {
+
+                break;
+            }
+        }
     }
 }
