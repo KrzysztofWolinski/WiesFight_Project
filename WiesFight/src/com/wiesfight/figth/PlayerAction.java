@@ -11,11 +11,14 @@ public class PlayerAction {
     private boolean isCriticalAttack;
 
     public PlayerAction() {
-
+        this.damage = 0.0;
+        isCriticalAttack = false;
     }
 
     public PlayerAction(PlayerActions type) {
         this.actionType = type;
+        this.damage = 0.0;
+        isCriticalAttack = false;
     }
 
     public PlayerActions getActionType() {

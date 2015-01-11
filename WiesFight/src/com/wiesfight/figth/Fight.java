@@ -15,7 +15,7 @@ public class Fight {
     private Animator callback;
     private PlayerAction currentAction;
 
-	public Fight(IFighter player, IFighter opponent, FightActivity callback) {
+	public Fight(IFighter player, IFighter opponent, FightActivity callback, boolean isStarting) {
 		this.player = player;
 		this.opponent = opponent;
 		this.callback = callback;
@@ -29,11 +29,21 @@ public class Fight {
         }
 
         // Randomly decide which fighter should start
-        if (((int)((Math.random() * 10) % 2)) == 0) {
+       /* if (((int)((Math.random() * 10) % 2)) == 0) {
             this.isFighter1Active = false;
-            this.fightMessanger.sendData(new PlayerAction());
+
+            PlayerAction initAction = new PlayerAction(PlayerActions.ATTACK);
+            initAction.setDamage(0.0);
+
+            this.fightMessanger.sendData(initAction);
         } else {
             this.isFighter1Active = true;
+        } */
+
+        if (isStarting == true) {
+            this.activatePlayer();
+        } else {
+            this.deactivatePlayer();
         }
 	}
 
@@ -104,6 +114,7 @@ public class Fight {
         }
 
         checkIfFightIsFinished();
+        activatePlayer();
     }
 
     public void applyCurrentAction() {
