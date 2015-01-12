@@ -108,9 +108,11 @@ public class User implements Serializable {
 	} 
 	public void addFight() {
 		this.fights++;
+		this.userCoins -= 5;
 	}
 	public void addWin() {
 		this.wins++;
+		this.userCoins += 10;
 	}
 	public void addBonusCoins() {
 		this.userCoins += 5;

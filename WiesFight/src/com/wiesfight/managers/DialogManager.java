@@ -13,23 +13,28 @@ import android.widget.TextView;
 
 @SuppressLint("InflateParams")
 public class DialogManager {
-	public static void showInfoDialog(Activity ctx, String infoText) {
-		LayoutInflater inflater = ctx.getLayoutInflater();
-	    View view = inflater.inflate(R.layout.dialog_ok, null);
-	    final AlertDialog dialog = new AlertDialog.Builder(ctx)
-	    	.setView(view).create();
-	    Button btn1 = (Button) view.findViewById(R.id.btnOk);
-	    TextView txt = (TextView) view.findViewById(R.id.txtMessageOk);
-	    txt.setText(infoText);
-	    btn1.setOnClickListener(new OnClickListener() {
+	public static void showInfoDialog(final Activity ctx, final String infoText) {
+		ctx.runOnUiThread(new Runnable() {
 			@Override
-			public void onClick(View v) {
-				dialog.dismiss();
+			public void run() {
+				LayoutInflater inflater = ctx.getLayoutInflater();
+			    View view = inflater.inflate(R.layout.dialog_ok, null);
+			    final AlertDialog dialog = new AlertDialog.Builder(ctx)
+			    	.setView(view).create();
+			    Button btn1 = (Button) view.findViewById(R.id.btnOk);
+			    TextView txt = (TextView) view.findViewById(R.id.txtMessageOk);
+			    txt.setText(infoText);
+			    btn1.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						dialog.dismiss();
+					}
+				});
+			    if (!ctx.isFinishing()) {
+			    	dialog.show();
+			    }
 			}
 		});
-	    if (!ctx.isFinishing()) {
-	    	dialog.show();
-	    }
 	}
 	
 	public static Boolean showConfirmDialog(Activity ctx, String text) {

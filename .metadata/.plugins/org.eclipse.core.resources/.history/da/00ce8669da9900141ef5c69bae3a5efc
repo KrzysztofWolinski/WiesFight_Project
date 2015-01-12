@@ -1,0 +1,218 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/txtPlayer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ring"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <ImageView
+        android:id="@+id/imgAvatarOpponent"
+        android:layout_width="84dp"
+        android:layout_height="75dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/desc"
+        android:scaleType="fitXY" />
+
+    <ImageView
+        android:id="@+id/imgAvatarUser"
+        android:layout_width="84dp"
+        android:layout_height="75dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="false"
+        android:contentDescription="@string/desc"
+        android:scaleType="fitXY" />
+
+    <ImageView
+        android:id="@+id/opponentCharacter"
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:layout_alignTop="@+id/userCharacter"
+        android:layout_toLeftOf="@+id/imgAvatarOpponent"
+        android:onClick="onPressAttackButton"
+        android:scaleType="fitEnd" />
+
+    <ImageView
+        android:id="@+id/userCharacter"
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:layout_toRightOf="@+id/imgAvatarUser"
+        android:scaleType="fitStart" />
+
+    <ImageButton
+        android:id="@+id/userDefenseItem"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/userAttackItem"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/userAttackItem"
+        android:onClick="onPressDefenseItemButton"
+        android:src="@drawable/padlock" />
+
+    <ImageButton
+        android:id="@+id/userMiscItem"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/userDefenseItem"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/userDefenseItem"
+        android:onClick="onPressMiscItemButton"
+        android:src="@drawable/padlock" />
+
+    <TextView
+        android:id="@+id/userAttackItemCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/userAttackItem"
+        android:layout_below="@+id/userAttackItem"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/userMiscItemCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/userMiscItem"
+        android:layout_below="@+id/userMiscItem"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/userDefenseItemCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/userDefenseItem"
+        android:layout_below="@+id/userDefenseItem"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <ImageButton
+        android:id="@+id/userAttackItem"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/imgAvatarUser"
+        android:onClick="onPressAttackItemButton"
+        android:src="@drawable/padlock" />
+
+    <TextView
+        android:id="@+id/userAttackItemDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/userDefenseItemDuration"
+        android:layout_alignBottom="@+id/userDefenseItemDuration"
+        android:layout_toRightOf="@+id/imgAvatarUser"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/userDefenseItemDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/userDefenseItemCount"
+        android:layout_below="@+id/userDefenseItemCount"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <ImageView
+        android:id="@+id/opponentMiscItem"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="5dp"
+        android:layout_above="@+id/userMiscItemCount"
+        android:layout_toLeftOf="@+id/imgAvatarOpponent"
+        android:src="@drawable/padlock" />
+
+    <ImageView
+        android:id="@+id/opponentDefenseItem"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/userMiscItemCount"
+        android:layout_toLeftOf="@+id/opponentMiscItem"
+        android:src="@drawable/padlock" />
+
+    <ImageView
+        android:id="@+id/opponentAttackItem"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/userMiscItemCount"
+        android:layout_toLeftOf="@+id/opponentDefenseItem"
+        android:src="@drawable/padlock" />
+
+    <View
+        android:id="@+id/userHpBar"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_below="@+id/userAttackItemDuration"
+        android:background="#11FF00"/>
+
+    <View
+        android:id="@+id/opponentHpBar"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:background="#11FF00"
+        android:layout_below="@+id/userDefenseItemDuration"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/userHpText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/userHpBar"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/opponentHpText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/opponentHpBar"
+        android:layout_alignParentRight="true"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/userCriticalAttack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/userCharacter"
+        android:layout_centerVertical="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FF0000" />
+
+    <TextView
+        android:id="@+id/opponentCriticalAttack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/userCriticalAttack"
+        android:layout_alignBottom="@+id/userCriticalAttack"
+        android:layout_alignLeft="@+id/opponentCharacter"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FF0000" />
+
+    <TextView
+        android:id="@+id/txtPlayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/userAttackItemDuration"
+        android:layout_alignParentLeft="true"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/txtOpponent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/userMiscItemCount"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>

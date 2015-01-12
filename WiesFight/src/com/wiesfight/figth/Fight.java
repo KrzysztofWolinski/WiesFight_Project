@@ -92,72 +92,82 @@ public class Fight {
         this.isFighter1Active = true;
     }
 
-    protected void applyOpponentAction(PlayerAction action) {
-        switch (action.getActionType()) {
-            case ATTACK : {
-                callback.animateOpponentAttacking(action.isCriticalAttack());
-
-                new CountDownTimer(500, 500) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {}
-
-                    @Override
-                    public void onFinish() {
-                        callback.animatePlayerGettingHit();
-                    }
-                };
-
-                player.decreaseHealth((int) action.getDamage());
-                break;
+    protected void applyOpponentAction(final PlayerAction action) {
+    	callback.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+		        switch (action.getActionType()) {
+		            case ATTACK : {
+		                callback.animateOpponentAttacking(action.isCriticalAttack());
+		
+		                new CountDownTimer(500, 500) {
+		                    @Override
+		                    public void onTick(long millisUntilFinished) {}
+		
+		                    @Override
+		                    public void onFinish() {
+		                        callback.animatePlayerGettingHit();
+		                    }
+		                };
+		
+		                player.decreaseHealth((int) action.getDamage());
+		                break;
+		            }
+		            case USED_ATTACK_ITEM: {
+		                opponent.useAttackItem();
+		                // TODO dodać odpowiednią animację
+		                break;
+		            }
+		            case USED_DEFENSE_ITEM: {
+		                opponent.useDefenseItem();
+		                // TODO dodać odpowiednią animację
+		                break;
+		            }
+		            case USED_MISC_ITEM: {
+		                opponent.useMiscItem();
+		                // TODO dodać odpowiednią animację
+		                break;
+		            }
+		        }
+		
+		        checkIfFightIsFinished();
+		        activatePlayer();
+		        callback.updateBattlefield();
             }
-            case USED_ATTACK_ITEM: {
-                this.opponent.useAttackItem();
-                // TODO dodać odpowiednią animację
-                break;
-            }
-            case USED_DEFENSE_ITEM: {
-                this.opponent.useDefenseItem();
-                // TODO dodać odpowiednią animację
-                break;
-            }
-            case USED_MISC_ITEM: {
-                this.opponent.useMiscItem();
-                // TODO dodać odpowiednią animację
-                break;
-            }
-        }
-
-        checkIfFightIsFinished();
-        activatePlayer();
-        this.callback.updateBattlefield();
+    	});
     }
 
     public void applyCurrentAction() {
-        if (currentAction != null) {
-            switch (currentAction.getActionType()) {
-                case ATTACK: {
-                    opponent.decreaseHealth((int) currentAction.getDamage());
-                    callback.animateOpponentGettingHit();
-                    break;
-                }
-                case USED_ATTACK_ITEM: {
-
-                    break;
-                }
-                case USED_DEFENSE_ITEM: {
-
-                    break;
-                }
-                case USED_MISC_ITEM: {
-
-                    break;
-                }
+    	callback.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+		        if (currentAction != null) {
+		            switch (currentAction.getActionType()) {
+		                case ATTACK: {
+		                    opponent.decreaseHealth((int) currentAction.getDamage());
+		                    callback.animateOpponentGettingHit();
+		                    break;
+		                }
+		                case USED_ATTACK_ITEM: {
+		
+		                    break;
+		                }
+		                case USED_DEFENSE_ITEM: {
+		
+		                    break;
+		                }
+		                case USED_MISC_ITEM: {
+		
+		                    break;
+		                }
+		            }
+		
+		            checkIfFightIsFinished();
+		            currentAction = null;
+		            callback.updateBattlefield();
+		        }
             }
-
-            checkIfFightIsFinished();
-            this.currentAction = null;
-            this.callback.updateBattlefield();
-        }
+    	});
     }
 
     public void useItem(PlayerActions type) {

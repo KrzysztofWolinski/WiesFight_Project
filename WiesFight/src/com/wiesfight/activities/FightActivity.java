@@ -53,6 +53,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 	private WarpClient theClient;
 	private boolean isOwner = false;
 	private boolean opponentLeft = false;
+	private boolean alreadyHandled = false;
 	private String roomId = "";
 	
 	@Override
@@ -141,6 +142,9 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 		String userClassName = currentUser.getUserClass().toString();
 		
     	try {
+    		TextView txt = (TextView) findViewById(R.id.txtPlayerName);
+    		txt.setText(currentUser.getName());
+    		
     		ImageView img = (ImageView) findViewById(R.id.imgAvatarUser);
     		img.setImageResource(R.drawable.class.getField(userClassName.toLowerCase(Locale.ENGLISH)).getInt(null));
     		
@@ -168,6 +172,9 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 		String opponentClassName = opponent.getUserClass().toString();
 		
     	try {
+    		TextView txt = (TextView) findViewById(R.id.txtOpponentName);
+    		txt.setText(opponent.getName());
+    		
     		ImageView img = (ImageView) findViewById(R.id.imgAvatarOpponent);
     		img.setImageResource(R.drawable.class.getField(opponentClassName.toLowerCase(Locale.ENGLISH)).getInt(null));
     		
@@ -243,8 +250,10 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     
     public void onPressAttackItemButton(View v) {
     	if (this.currentUser.useAttackItem()) {
-    		if(!this.training) 
+    		if(!this.training) {
     			this.dbUser.removeAttackItemCount();
+    			this.dbUserPer.saveUserToDB();
+    		}
             this.fight.useItem(PlayerActions.USED_ATTACK_ITEM);
             this.updateBattlefield();
         }
@@ -252,8 +261,10 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     
     public void onPressDefenseItemButton(View v) {
     	if (this.currentUser.useDefenseItem()) {
-    		if(!this.training) 
+    		if(!this.training) {
     			this.dbUser.removeDefenceItemCount();
+    			this.dbUserPer.saveUserToDB();
+    		}
             this.fight.useItem(PlayerActions.USED_DEFENSE_ITEM);
             this.updateBattlefield();
         }
@@ -261,8 +272,10 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 
     public void onPressMiscItemButton(View v) {
     	if (this.currentUser.useMiscItem()) {
-    		if(!this.training) 
+    		if(!this.training) {
     			this.dbUser.removeMiscItemCount();
+    			this.dbUserPer.saveUserToDB();
+    		}
             this.fight.useItem(PlayerActions.USED_MISC_ITEM);
             this.updateBattlefield();
         }
@@ -285,17 +298,19 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
     
     private void handleFinish() {
-    	if(!this.training) {
-    		
+    	String winnerName = fight.getWinner(opponentLeft).getName();
+    	if(!this.alreadyHandled && !this.training && winnerName.equals(this.dbUser.getUserName())) {
+    		this.alreadyHandled = true;
+    		this.dbUser.addWin();
+        	this.dbUserPer.saveUserToDB();
     	}
-    	this.dbUserPer.saveUserToDB();
     	LayoutInflater inflater = getLayoutInflater();
 	    View view = inflater.inflate(R.layout.dialog_ok, null);
 	    final AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();
 
 	    TextView txt = (TextView) view.findViewById(R.id.txtMessageOk);
 	    txt.setText(String.format(getString(R.string.fightWon), opponentLeft ? getString(R.string.opponentLeft) : ""
-	    	,fight.getWinner(opponentLeft).getName()));
+	    	,winnerName));
 
 	    Button btn = (Button) view.findViewById(R.id.btnOk);
 	    btn.setOnClickListener(new OnClickListener() {
@@ -306,7 +321,10 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 				FightActivity.this.finish();
 			}
 		});
-	    dialog.show();
+
+	    if (!this.isFinishing()) {
+	    	dialog.show();
+	    }
     }
 
     private void updateHpBars() {
@@ -476,6 +494,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 					hideProgressDialog();
 					addOpponent();
 					dbUser.addFight();
+					dbUserPer.saveUserToDB();
 					fight = new Fight(currentUser, opponent, FightActivity.this, isOwner);
 					updateBattlefield();
     		     }

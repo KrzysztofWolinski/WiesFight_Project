@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.parse.ParseQuery"/>
-<fullyQualifiedTypeName name="com.parse.FindCallback"/>
-<fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="com.parse.GetCallback"/>
-<fullyQualifiedTypeName name="com.parse.ParseObject"/>
 <fullyQualifiedTypeName name="com.parse.DeleteCallback"/>
 <fullyQualifiedTypeName name="android.widget.VideoView"/>
 <fullyQualifiedTypeName name="android.media.MediaPlayer.OnCompletionListener"/>
@@ -33,7 +28,6 @@
 <fullyQualifiedTypeName name="main.com.wiesfight.dto.enums.CharacterClass"/>
 <fullyQualifiedTypeName name="com.wiesfight.enums.Items"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
-<fullyQualifiedTypeName name="com.wiesfight.R.id"/>
 <fullyQualifiedTypeName name="android.app.ProgressDialog"/>
 <fullyQualifiedTypeName name="android.app.AlertDialog"/>
 <fullyQualifiedTypeName name="android.opengl.Visibility"/>
@@ -48,7 +42,6 @@
 <fullyQualifiedTypeName name="com.wiesfight.dialogs.InfoDialog"/>
 <fullyQualifiedTypeName name="android.app.Dialog"/>
 <fullyQualifiedTypeName name="main.com.wiesfight.persistence.enums.UserParametersEnum"/>
-<fullyQualifiedTypeName name="main.com.wiesfight.dto.User"/>
 <fullyQualifiedTypeName name="com.wiesfight.managers.DialogManager"/>
 <fullyQualifiedTypeName name="org.joda.time.LocalDate"/>
 <fullyQualifiedTypeName name="org.joda.time.DateTime"/>
@@ -57,7 +50,14 @@
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="android.graphics.Color"/>
 <fullyQualifiedTypeName name="com.shephertz.app42.gaming.multiplayer.client.listener.RoomRequestListener"/>
-<fullyQualifiedTypeName name="com.shephertz.app42.gaming.multiplayer.client.listener.NotifyListener"/>
 <fullyQualifiedTypeName name="com.wiesfight.R.string"/>
 <fullyQualifiedTypeName name="android.content.DialogInterface.OnDismissListener"/>
+<fullyQualifiedTypeName name="com.shephertz.app42.gaming.multiplayer.client.listener.ChatRequestListener"/>
+<fullyQualifiedTypeName name="com.shephertz.app42.gaming.multiplayer.client.listener.NotifyListener"/>
+<fullyQualifiedTypeName name="com.google.gson.GsonBuilder"/>
+<fullyQualifiedTypeName name="com.google.gson.Gson"/>
+<fullyQualifiedTypeName name="com.wiesfight.enums.PlayerActions"/>
+<fullyQualifiedTypeName name="com.wiesfight.activities.FightActivity"/>
+<fullyQualifiedTypeName name="main.com.wiesfight.dto.User"/>
+<fullyQualifiedTypeName name="com.wiesfight.R.id"/>
 </qualifiedTypeNameHistroy>
