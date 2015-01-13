@@ -97,28 +97,35 @@ public class Fighter implements IFighter {
 	}
 
 	@Override
-	public boolean useAttackItem() {
-		if ((this.user.getAttackItemCount() > 0) && (this.bonus.isSpecificBonusTypeEffectActive(Bonuses.ATTACKPOWER) == false)) {
+	public boolean useAttackItem(boolean removeDB) {
+		int count = this.user.getAttackItemCount();
+		if ((count > 0) && !this.bonus.isSpecificBonusTypeEffectActive(Bonuses.ATTACKPOWER)) {
 			Items item = Items.values()[this.user.getUserClass().getAttackItemID()];
 			this.bonus.addItem(item);
+            if(removeDB)
+            	this.user.setAttackItemCount(count - 1);
             return true;
 		}
         return false;
 	}
 
 	@Override
-	public boolean useDefenseItem() {
-		if ((this.user.getDefenseItemCount() > 0) && (this.bonus.isSpecificBonusTypeEffectActive(Bonuses.DEFENCE) == false)) {
+	public boolean useDefenseItem(boolean removeDB) {
+		int count = this.user.getDefenseItemCount();
+		if ((count > 0) && !this.bonus.isSpecificBonusTypeEffectActive(Bonuses.DEFENCE)) {
 			Items item = Items.values()[this.user.getUserClass().getDefenceItemID()];
             this.bonus.addItem(item);
+            if(removeDB)
+            	this.user.setDefenceItemCount(count - 1);
             return true;
 		}
         return false;
 	}
 
 	@Override
-	public boolean useMiscItem() {
-		if (this.user.getMiscItemCount() > 0) {
+	public boolean useMiscItem(boolean removeDB) {
+		int count = this.user.getMiscItemCount();
+		if (count > 0) {
             Items item = Items.values()[this.user.getUserClass().getMiscItemID()];
 
             if (item.getBonusType().equals(Bonuses.HEALTHPOINTS)) {
@@ -126,6 +133,8 @@ public class Fighter implements IFighter {
             } else {
                 this.bonus.addItem(item);
             }
+            if(removeDB)
+            	this.user.setMiscItemCount(count - 1);
 
             return true;
 		}
@@ -161,4 +170,41 @@ public class Fighter implements IFighter {
     public void endTurn() {
         this.bonus.decrementDuration();
     }
+
+    @Override
+	public void addFight() {
+    	this.user.setFights(this.user.getFights() + 1);
+    	this.user.setUserCoins(this.user.getUserCoins() - 5);
+	}
+    @Override
+	public void addWin() {
+    	this.user.setWins(this.user.getWins() + 1);
+    	this.user.setUserCoins(this.user.getUserCoins() + 10);
+	}
+
+	@Override
+	public int getLevel() {
+		return this.user.getUserLevel();
+	}
+
+	@Override
+	public int getWinsPercent() {
+		int wins = this.user.getWins(), fights = this.user.getFights();
+		return fights == 0 ? 0 : (int) (((float) wins / (float) fights) * 100);
+	}
+	
+	@Override
+	public void addExperience(int xp) {
+		int added = this.user.getUserExperience() + xp;
+		this.user.setUserExperience(added);
+		this.user.setUserLevel(this.calculateLevel(added));
+	}
+
+	private int calculateLevel(int xp) {
+		for(int i = 0; i < 999; i++) {
+			if((100 * (int)Math.pow(2.0, i)) > xp)
+				return i + 1;
+		}
+		return 999;
+	}
 }

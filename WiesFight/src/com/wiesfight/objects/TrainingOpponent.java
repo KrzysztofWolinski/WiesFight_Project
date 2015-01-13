@@ -10,10 +10,10 @@ public class TrainingOpponent implements IFighter {
 	private double health;
 	private double maxHealth;
 	
-	public TrainingOpponent() {
+	public TrainingOpponent(String name) {
 		this.user = new User();
 		this.user.setUserClass(CharacterClass.TRENING);
-		this.user.setUserName("Rocky Pierdoła");
+		this.user.setUserName(name);
 		this.health = this.user.getUserClass().getHealthPoints();
 		this.maxHealth = this.user.getUserClass().getHealthPoints();
 	}
@@ -63,19 +63,19 @@ public class TrainingOpponent implements IFighter {
 	}
 
 	@Override
-	public boolean useAttackItem() {
+	public boolean useAttackItem(boolean removeDB) {
 		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
-	public boolean useDefenseItem() {
+	public boolean useDefenseItem(boolean removeDB) {
 		// TODO Auto-generated method stub
         return true;
 	}
 
 	@Override
-	public boolean useMiscItem() {
+	public boolean useMiscItem(boolean removeDB) {
 		// TODO Auto-generated method stub
         return true;
 	}
@@ -110,4 +110,26 @@ public class TrainingOpponent implements IFighter {
     @Override
     public void endTurn() {
     }
+
+	@Override
+	public void addFight() {
+	}
+
+	@Override
+	public void addWin() {
+	}
+	
+	@Override
+	public void addExperience(int xp) {
+	}
+
+	@Override
+	public int getLevel() {
+		return 0;
+	}
+
+	@Override
+	public int getWinsPercent() {
+		return 0;
+	}
 }

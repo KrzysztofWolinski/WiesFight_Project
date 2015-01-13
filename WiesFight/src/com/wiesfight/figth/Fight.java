@@ -114,17 +114,17 @@ public class Fight {
 		                break;
 		            }
 		            case USED_ATTACK_ITEM: {
-		                opponent.useAttackItem();
+		                opponent.useAttackItem(false);
 		                // TODO dodać odpowiednią animację
 		                break;
 		            }
 		            case USED_DEFENSE_ITEM: {
-		                opponent.useDefenseItem();
+		                opponent.useDefenseItem(false);
 		                // TODO dodać odpowiednią animację
 		                break;
 		            }
 		            case USED_MISC_ITEM: {
-		                opponent.useMiscItem();
+		                opponent.useMiscItem(false);
 		                // TODO dodać odpowiednią animację
 		                break;
 		            }
@@ -180,4 +180,31 @@ public class Fight {
             this.isFightFinished = true;
         }
     }
+
+	public void currentUserWon() {
+		this.player.addWin();
+		int levelDifference = this.opponent.getLevel() - this.player.getLevel();
+		this.player.addExperience(this.calculateWinnerExperience(levelDifference));
+	}
+
+	public void currentUserLose() {
+		int levelDifference = this.player.getLevel() - this.opponent.getLevel();
+		this.player.addExperience(this.calculateLoserExperience(levelDifference));
+	}
+	
+	private int calculateWinnerExperience(int lvlDiff) {
+		int base = 50 + (lvlDiff * 10);
+		if(base < 0)
+			base = 0;
+		return base + this.opponent.getWinsPercent();
+	}
+	
+	private int calculateLoserExperience(int lvlDiff) {
+		int base = 50 - (lvlDiff * 10);
+		if(base < 0)
+			base = 0;
+		else if(base > 50)
+			base = 50;
+		return base;
+	}
 }

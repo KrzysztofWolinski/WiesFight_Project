@@ -16,9 +16,9 @@ public interface IFighter {
     public void setHealth(int health);
 	String getName();
 	
-	public boolean useAttackItem();
-	public boolean useDefenseItem();
-	public boolean useMiscItem();
+	public boolean useAttackItem(boolean removeDB);
+	public boolean useDefenseItem(boolean removeDB);
+	public boolean useMiscItem(boolean removeDB);
 	
 	public int getAttackItemCount();
 	public int getDefenseItemCount();
@@ -26,6 +26,12 @@ public interface IFighter {
 	
 	public int getAttackItemDuration();
 	public int getDefenseItemDuration();
+	
+	public void addExperience(int xp);
+	public void addFight();
+	public void addWin();
+	public int getWinsPercent();
+	public int getLevel();
 
     public void endTurn();
 }

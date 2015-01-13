@@ -3,7 +3,6 @@ package com.wiesfight.activities;
 import java.util.HashMap;
 import java.util.Locale;
 
-import main.com.wiesfight.dto.User;
 import main.com.wiesfight.persistence.UserPersistence;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -45,7 +44,6 @@ import com.wiesfight.objects.TrainingOpponent;
 public class FightActivity extends Activity implements RoomRequestListener, NotifyListener, Animator {
 	private boolean training = false;
 	private UserPersistence dbUserPer;
-	private User dbUser;
 	private IFighter currentUser;
 	private IFighter opponent;
 	private Fight fight;
@@ -66,7 +64,6 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 		query.getFirstInBackground(new GetCallback<UserPersistence>() {
 			public void done(UserPersistence user, ParseException e) {
 				dbUserPer = user;
-				dbUser = user.getUser();
 				currentUser = new Fighter(user.getUser());
 				initializeRoom();
 			}
@@ -76,7 +73,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 	protected void initializeRoom() {
 		this.addPlayer();
 		if(this.training) {
-			this.opponent = new TrainingOpponent();
+			this.opponent = new TrainingOpponent(this.getString(R.string.trainingOpponent));
 			this.addOpponent();
 			this.fight = new Fight(this.currentUser, this.opponent, this, true);
 			updateBattlefield();
@@ -249,9 +246,8 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
     
     public void onPressAttackItemButton(View v) {
-    	if (this.currentUser.useAttackItem()) {
+    	if (this.currentUser.useAttackItem(!this.training)) {
     		if(!this.training) {
-    			this.dbUser.removeAttackItemCount();
     			this.dbUserPer.saveUserToDB();
     		}
             this.fight.useItem(PlayerActions.USED_ATTACK_ITEM);
@@ -260,9 +256,8 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
     
     public void onPressDefenseItemButton(View v) {
-    	if (this.currentUser.useDefenseItem()) {
+    	if (this.currentUser.useDefenseItem(!this.training)) {
     		if(!this.training) {
-    			this.dbUser.removeDefenceItemCount();
     			this.dbUserPer.saveUserToDB();
     		}
             this.fight.useItem(PlayerActions.USED_DEFENSE_ITEM);
@@ -271,9 +266,8 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
 
     public void onPressMiscItemButton(View v) {
-    	if (this.currentUser.useMiscItem()) {
+    	if (this.currentUser.useMiscItem(!this.training)) {
     		if(!this.training) {
-    			this.dbUser.removeMiscItemCount();
     			this.dbUserPer.saveUserToDB();
     		}
             this.fight.useItem(PlayerActions.USED_MISC_ITEM);
@@ -299,9 +293,12 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     
     private void handleFinish() {
     	String winnerName = fight.getWinner(opponentLeft).getName();
-    	if(!this.alreadyHandled && !this.training && winnerName.equals(this.dbUser.getUserName())) {
+    	if(!this.alreadyHandled && !this.training) {
     		this.alreadyHandled = true;
-    		this.dbUser.addWin();
+    		if(winnerName.equals(this.currentUser.getName()))
+    			this.fight.currentUserWon();
+    		else
+    			this.fight.currentUserLose();
         	this.dbUserPer.saveUserToDB();
     	}
     	LayoutInflater inflater = getLayoutInflater();
@@ -493,7 +490,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 		    	public void run() {
 					hideProgressDialog();
 					addOpponent();
-					dbUser.addFight();
+					currentUser.addFight();
 					dbUserPer.saveUserToDB();
 					fight = new Fight(currentUser, opponent, FightActivity.this, isOwner);
 					updateBattlefield();
