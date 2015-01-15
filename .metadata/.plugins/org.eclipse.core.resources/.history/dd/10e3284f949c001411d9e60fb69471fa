@@ -108,7 +108,6 @@
         android:layout_alignBottom="@+id/userAttackItem"
         android:layout_alignLeft="@+id/userAttackItem"
         android:layout_alignRight="@+id/userAttackItem"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="center"
         android:textColor="@android:color/white" />
 
@@ -120,7 +119,6 @@
         android:layout_alignLeft="@+id/userDefenseItem"
         android:layout_alignRight="@+id/userDefenseItem"
         android:layout_alignTop="@+id/userDefenseItem"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="center"
         android:textColor="@android:color/white" />
 

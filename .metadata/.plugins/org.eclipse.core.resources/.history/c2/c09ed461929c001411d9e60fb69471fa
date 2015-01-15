@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -352,35 +351,15 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     	TextView defenceItemsText = (TextView) findViewById(R.id.userDefenseItemCount);
     	TextView miscItemsText = (TextView) findViewById(R.id.userMiscItemCount);
     	
-    	attackItemsText.setText(this.currentUser.getAttackItemCount()+"");
-		miscItemsText.setText(this.currentUser.getMiscItemCount()+"");
-		defenceItemsText.setText(this.currentUser.getDefenseItemCount()+"");
+    	attackItemsText.setText(this.currentUser.getAttackItemCount());
+		miscItemsText.setText(this.currentUser.getMiscItemCount());
+		defenceItemsText.setText(this.currentUser.getDefenseItemCount());
 		
-		int attItemDur = this.currentUser.getAttackItemDuration();
-		int defItemDur = this.currentUser.getDefenseItemDuration();
 		TextView attackItemsDurationText = (TextView) findViewById(R.id.userAttackItemDuration);
     	TextView defenceItemsDurationText = (TextView) findViewById(R.id.userDefenseItemDuration);
-		ImageButton ibtn = (ImageButton) findViewById(R.id.userAttackItem);
-		if(attItemDur > 0) {
-			attackItemsDurationText.setVisibility(View.VISIBLE);
-	    	attackItemsDurationText.setText(attItemDur+"");
-	    	ibtn.setAlpha(0.4f);
-		}
-		else {
-	    	ibtn.setAlpha(1.0f);
-			attackItemsDurationText.setVisibility(View.INVISIBLE);
-		}
-		
-		ibtn = (ImageButton) findViewById(R.id.userDefenseItem);
-		if(defItemDur > 0) {
-			defenceItemsDurationText.setVisibility(View.VISIBLE);
-			defenceItemsDurationText.setText(defItemDur+"");
-			ibtn.setAlpha(0.4f);
-		}
-		else {
-	    	ibtn.setAlpha(1.0f);
-			defenceItemsDurationText.setVisibility(View.INVISIBLE);
-		}
+    	
+    	attackItemsDurationText.setText(String.valueOf(this.currentUser.getAttackItemDuration()));
+    	defenceItemsDurationText.setText(String.valueOf(this.currentUser.getDefenseItemDuration()));
     }
 
     @Override

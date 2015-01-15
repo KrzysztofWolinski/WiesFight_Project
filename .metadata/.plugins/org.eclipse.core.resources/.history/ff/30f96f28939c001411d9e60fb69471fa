@@ -104,25 +104,20 @@
         android:id="@+id/userAttackItemDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/userAttackItem"
-        android:layout_alignBottom="@+id/userAttackItem"
-        android:layout_alignLeft="@+id/userAttackItem"
-        android:layout_alignRight="@+id/userAttackItem"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:gravity="center"
-        android:textColor="@android:color/white" />
+        android:layout_alignBaseline="@+id/userDefenseItemDuration"
+        android:layout_alignBottom="@+id/userDefenseItemDuration"
+        android:layout_toRightOf="@+id/imgAvatarUser"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/userDefenseItemDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/userDefenseItem"
-        android:layout_alignLeft="@+id/userDefenseItem"
-        android:layout_alignRight="@+id/userDefenseItem"
-        android:layout_alignTop="@+id/userDefenseItem"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:gravity="center"
-        android:textColor="@android:color/white" />
+        android:layout_alignLeft="@+id/userDefenseItemCount"
+        android:layout_below="@+id/userDefenseItemCount"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <ImageView
         android:id="@+id/opponentMiscItem"
