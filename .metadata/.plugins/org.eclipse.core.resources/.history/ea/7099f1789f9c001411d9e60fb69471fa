@@ -19,7 +19,7 @@ public enum Items {
 	
 	TOREBKA(R.drawable.moher_attack, R.string.torba, Bonuses.ATTACKPOWER, 1.2, 3),
 	CHODZIK(R.drawable.moher_defense, R.string.chodzik, Bonuses.DEFENCE, 1.2, 3),
-	WODA(R.drawable.moher_misc, R.string.woda, Bonuses.HEALTHPOINTS, 5, 2),
+	WODA(R.drawable.moher_misc, R.string.woda, Bonuses.HEALTHPOINTS, 5, 3),
 	
 	TIPSY(R.drawable.blachara_attack, R.string.tipsy, Bonuses.ATTACKPOWER, 1.2, 3),
 	IMPLANTY(R.drawable.blachara_defense, R.string.imp, Bonuses.DEFENCE, 1.2, 3),

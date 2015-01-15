@@ -1,6 +1,5 @@
 package com.wiesfight.objects;
 
-import com.wiesfight.enums.Items;
 import com.wiesfight.figth.PlayerAction;
 
 import main.com.wiesfight.dto.User;
@@ -105,11 +104,6 @@ public class TrainingOpponent implements IFighter {
 	@Override
 	public int getDefenseItemDuration() {
 		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	@Override
-	public int getMiscItemDuration() {
 		return 0;
 	}
 

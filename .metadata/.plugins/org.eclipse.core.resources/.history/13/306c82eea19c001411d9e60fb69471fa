@@ -125,8 +125,8 @@ public class Fighter implements IFighter {
 	@Override
 	public boolean useMiscItem(boolean removeDB) {
 		int count = this.user.getMiscItemCount();
-        Items item = Items.values()[this.user.getUserClass().getMiscItemID()];
-		if (count > 0 && !this.bonus.isSpecificBonusTypeEffectActive(item.getBonusType())) {
+		if (count > 0) {
+            Items item = Items.values()[this.user.getUserClass().getMiscItemID()];
 
             if (item.getBonusType().equals(Bonuses.HEALTHPOINTS))
                 this.health += item.getBonus();

@@ -361,16 +361,14 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 		int miscItemDur = this.currentUser.getMiscItemDuration();
 		TextView attackItemsDurationText = (TextView) findViewById(R.id.userAttackItemDuration);
     	TextView defenceItemsDurationText = (TextView) findViewById(R.id.userDefenseItemDuration);
-    	TextView miscItemsDurationText = (TextView) findViewById(R.id.userMiscItemDuration);
+    	TextView miscItemsDurationText = (TextView) findViewById(R.id.userDefenseItemDuration);
 		ImageButton ibtn = (ImageButton) findViewById(R.id.userAttackItem);
 		if(attItemDur > 0) {
 			attackItemsDurationText.setVisibility(View.VISIBLE);
 	    	attackItemsDurationText.setText(attItemDur+"");
 	    	ibtn.setAlpha(0.4f);
-	    	ibtn.setEnabled(false);
 		}
 		else {
-	    	ibtn.setEnabled(true);
 	    	ibtn.setAlpha(1.0f);
 			attackItemsDurationText.setVisibility(View.INVISIBLE);
 		}
@@ -380,25 +378,10 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 			defenceItemsDurationText.setVisibility(View.VISIBLE);
 			defenceItemsDurationText.setText(defItemDur+"");
 			ibtn.setAlpha(0.4f);
-			ibtn.setEnabled(false);
 		}
 		else {
-	    	ibtn.setEnabled(true);
 	    	ibtn.setAlpha(1.0f);
 			defenceItemsDurationText.setVisibility(View.INVISIBLE);
-		}
-		
-		ibtn = (ImageButton) findViewById(R.id.userMiscItem);
-		if(miscItemDur > 0) {
-			miscItemsDurationText.setVisibility(View.VISIBLE);
-			miscItemsDurationText.setText(miscItemDur+"");
-			ibtn.setAlpha(0.4f);
-			ibtn.setEnabled(false);
-		}
-		else {
-	    	ibtn.setEnabled(true);
-	    	ibtn.setAlpha(1.0f);
-	    	miscItemsDurationText.setVisibility(View.INVISIBLE);
 		}
     }
 

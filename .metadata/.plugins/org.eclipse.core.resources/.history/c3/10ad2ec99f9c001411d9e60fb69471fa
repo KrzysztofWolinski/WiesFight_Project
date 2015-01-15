@@ -34,7 +34,7 @@ public class FightMessanger implements IFightMessanger, NotifyListener, ChatRequ
         Gson gson = builder.create();
         PlayerAction action = gson.fromJson(message, PlayerAction.class);
         if(action == null) {
-        	// TODO  blad
+        	// TODO kurwa blad
         }
         else
         	callback.applyOpponentAction(action);

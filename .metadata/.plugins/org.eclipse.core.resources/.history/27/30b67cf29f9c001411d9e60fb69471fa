@@ -124,18 +124,6 @@
         android:gravity="center"
         android:textColor="@android:color/white" />
 
-    <TextView
-        android:id="@+id/userMiscItemDuration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/userMiscItem"
-        android:layout_alignLeft="@+id/userMiscItem"
-        android:layout_alignRight="@+id/userMiscItem"
-        android:layout_alignTop="@+id/userMiscItem"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:gravity="center"
-        android:textColor="@android:color/white" />
-
     <ImageView
         android:id="@+id/opponentMiscItem"
         android:layout_width="40dp"
