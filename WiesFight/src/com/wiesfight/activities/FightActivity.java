@@ -484,6 +484,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
                             } catch (Exception e) {
 
                             }
+                            animatePlayerGettingHit();
                         }
                     }.start();
                 } catch (Exception e) {
@@ -520,6 +521,68 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
                 }
             }
         });
+    }
+
+    public void animatePlayerDrinking() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String playerClassName = currentUser.getUserClass().toString();
+                    ImageView img = (ImageView) findViewById(R.id.userCharacter);
+                    img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_drinking").getInt(null));
+
+                    new CountDownTimer(500, 100) {
+                        public void onTick(long millisUntilFinished) {
+                        }
+
+                        public void onFinish() {
+                            String playerClassName = currentUser.getUserClass().toString();
+                            ImageView img = (ImageView) findViewById(R.id.userCharacter);
+                            try {
+                                img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
+                            } catch (Exception e) {
+
+                            }
+                        }
+                    }.start();
+                } catch (Exception e) {
+                }
+            }
+        });
+    }
+
+    public void animateOpponentDrinking() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String playerClassName = opponent.getUserClass().toString();
+                    ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
+                    img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_drinking").getInt(null));
+
+                    new CountDownTimer(500, 100) {
+                        public void onTick(long millisUntilFinished) {
+                        }
+
+                        public void onFinish() {
+                            String playerClassName = opponent.getUserClass().toString();
+                            ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
+                            try {
+                                img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
+                            } catch (Exception e) {
+
+                            }
+                        }
+                    }.start();
+                } catch (Exception e) {
+                }
+            }
+        });
+    }
+
+    void setPlayerActive(boolean isActive) {
+        // TODO
     }
     
     private void findOpponent(String username) {
