@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -249,7 +248,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
     
     public void onPressAttackItemButton(View v) {
-    	if (this.fight.isPlayerActive() && this.currentUser.useAttackItem(!this.training)) {
+    	if (this.currentUser.useAttackItem(!this.training)) {
     		if(!this.training) {
     			this.dbUserPer.saveUserToDB();
     		}
@@ -259,7 +258,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
     
     public void onPressDefenseItemButton(View v) {
-    	if (this.fight.isPlayerActive() && this.currentUser.useDefenseItem(!this.training)) {
+    	if (this.currentUser.useDefenseItem(!this.training)) {
     		if(!this.training) {
     			this.dbUserPer.saveUserToDB();
     		}
@@ -269,7 +268,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
 
     public void onPressMiscItemButton(View v) {
-    	if (this.fight.isPlayerActive() && this.currentUser.useMiscItem(!this.training)) {
+    	if (this.currentUser.useMiscItem(!this.training)) {
     		if(!this.training) {
     			this.dbUserPer.saveUserToDB();
     		}
@@ -768,9 +767,4 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 	@Override
 	public void onUpdatePropertyDone(LiveRoomInfoEvent arg0) {
 	}
-
-    public void showToast(String text) {
-        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-        toast.show();
-    }
 }
