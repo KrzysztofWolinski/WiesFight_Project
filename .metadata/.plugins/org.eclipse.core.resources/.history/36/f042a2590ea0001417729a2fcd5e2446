@@ -166,13 +166,15 @@ public class Fight {
     }
 
     public void useItem(PlayerActions type) {
-        PlayerAction action = new PlayerAction(type);
-        fightMessanger.sendData(action);
+        if (isFighter1Active == true) {
+            PlayerAction action = new PlayerAction(type);
+            fightMessanger.sendData(action);
 
-        if (type.equals(PlayerActions.USED_MISC_ITEM)) {
-            callback.animatePlayerDrinking();
-        } else {
-            callback.animatePlayerUsingItem();
+            if (type.equals(PlayerActions.USED_MISC_ITEM)) {
+                callback.animatePlayerDrinking();
+            } else {
+                callback.animatePlayerUsingItem();
+            }
         }
     }
 
