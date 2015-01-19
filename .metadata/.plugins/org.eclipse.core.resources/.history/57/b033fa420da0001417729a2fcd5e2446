@@ -70,10 +70,6 @@ public class Fight {
 	public boolean isFightFinished() {
 		return this.isFightFinished;
 	}
-	
-	public boolean isPlayerActive() {
-		return this.isFighter1Active;
-	}
 
 	public IFighter getWinner(boolean opponentLeft) {
 		if(opponentLeft) {

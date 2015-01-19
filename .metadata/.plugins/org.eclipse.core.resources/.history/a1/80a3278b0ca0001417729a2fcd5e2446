@@ -36,8 +36,6 @@ public class Fighter implements IFighter {
 	@Override
 	public void decreaseHealth(int minus) {
 		this.health -= minus;
-		if(this.health < 0)
-			this.health = 0;
 	}
 
     @Override
