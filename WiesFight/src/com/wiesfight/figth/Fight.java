@@ -91,6 +91,7 @@ public class Fight {
 
     protected void activatePlayer() {
         this.isFighter1Active = true;
+        this.callback.showToast("Rozpoczęła się nowa tura");
     }
 
     protected void applyOpponentAction(final PlayerAction action) {
@@ -100,8 +101,21 @@ public class Fight {
 		        switch (action.getActionType()) {
 		            case ATTACK : {
 		                callback.animateOpponentAttacking(action.isCriticalAttack());
-
 		                player.decreaseHealth((int) action.getDamage());
+
+                        if (action.getDamage() > 0) {
+                            if (action.isCriticalAttack() == true) {
+                                callback.showToast("Zadałeś KRYTYCZNE " + action.getDamage() + " obrażeń!!");
+                            } else {
+                                callback.showToast("Otrzymałeś " + action.getDamage() + " obrażeń!");
+                            }
+                        } else {
+                            callback.showToast("Przeciwnik spudłował!");
+                        }
+
+                        checkIfFightIsFinished();
+                        activatePlayer();
+
 		                break;
 		            }
 		            case USED_ATTACK_ITEM: {
@@ -120,9 +134,7 @@ public class Fight {
 		                break;
 		            }
 		        }
-		
-		        checkIfFightIsFinished();
-		        activatePlayer();
+
 		        callback.updateBattlefield();
             }
     	});
@@ -136,7 +148,17 @@ public class Fight {
 		            switch (currentAction.getActionType()) {
 		                case ATTACK: {
 		                    opponent.decreaseHealth((int) currentAction.getDamage());
-		                    callback.animateOpponentGettingHit();
+
+                            if (currentAction.getDamage() > 0) {
+                                if (currentAction.isCriticalAttack() == true) {
+                                    callback.showToast("Zadałeś KRYTYCZNE " + currentAction.getDamage() + " obrażeń!!");
+                                } else {
+                                    callback.showToast("Zadałeś " + currentAction.getDamage() + " obrażeń!");
+                                }
+                            } else {
+                                callback.showToast("Pudło!");
+                            }
+
 		                    break;
 		                }
 		                case USED_ATTACK_ITEM: {

@@ -66,7 +66,8 @@ public class Fighter implements IFighter {
             Log.i("[critical]", String.valueOf(criticalChance));
 
             if (isCriticalAttack) {
-                attackStrength += this.bonus.applyBonusEffect(Bonuses.CRITICALPOWER);
+                attackStrength += this.user.getUserClass().getCriticalPower();
+                attackStrength *= this.bonus.applyBonusEffect(Bonuses.CRITICALPOWER);
             }
         }
 

@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -767,4 +768,9 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 	@Override
 	public void onUpdatePropertyDone(LiveRoomInfoEvent arg0) {
 	}
+
+    public void showToast(String text) {
+        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+        toast.show();
+    }
 }
