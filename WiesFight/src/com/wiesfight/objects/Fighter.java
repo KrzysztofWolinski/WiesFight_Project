@@ -109,6 +109,7 @@ public class Fighter implements IFighter {
             }
 
             this.activeBonus = Bonuses.ATTACKPOWER;
+            this.bonus.removeEffect(Bonuses.DEFENCE);
 
             return true;
 		}
@@ -126,6 +127,7 @@ public class Fighter implements IFighter {
             }
 
             this.activeBonus = Bonuses.DEFENCE;
+            this.bonus.removeEffect(Bonuses.ATTACKPOWER);
 
             return true;
 		}

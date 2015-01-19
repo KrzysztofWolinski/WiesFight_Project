@@ -26,6 +26,15 @@ public class Bonus {
         return bonusEffect;
     }
 
+    public void removeEffect(Bonuses bonusType) {
+        for (ItemWithDuration item : items) {
+            if (item.getBonusType().equals(bonusType)) {
+                this.items.remove(item);
+                break;
+            }
+        }
+    }
+
     public int getDuration(Bonuses bonusType) {
         for (ItemWithDuration item : items) {
             if (item.getBonusType().equals(bonusType)) {
