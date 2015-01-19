@@ -5,6 +5,7 @@ import com.wiesfight.enums.Items;
 import java.util.ArrayList;
 
 public class Bonus {
+    // TODO można przerobić na HashMap, będzie kurwa prościej
 	private ArrayList<ItemWithDuration> items = new ArrayList<ItemWithDuration>();
 
     public void addItem(Items item) {

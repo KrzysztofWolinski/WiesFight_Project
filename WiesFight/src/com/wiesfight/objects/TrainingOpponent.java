@@ -1,6 +1,7 @@
 package com.wiesfight.objects;
 
 import com.wiesfight.enums.Items;
+import com.wiesfight.figth.Bonuses;
 import com.wiesfight.figth.PlayerAction;
 
 import main.com.wiesfight.dto.User;
@@ -138,4 +139,9 @@ public class TrainingOpponent implements IFighter {
 	public int getWinsPercent() {
 		return 0;
 	}
+
+    @Override
+    public String getActiveImageName() {
+        return "_big_fight";
+    }
 }

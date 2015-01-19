@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -420,7 +421,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
                             String playerClassName = currentUser.getUserClass().toString();
                             ImageView img = (ImageView) findViewById(R.id.userCharacter);
                             try {
-                                img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
+                                img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + currentUser.getActiveImageName()).getInt(null));
                             } catch (Exception e) {
 
                             }
@@ -450,7 +451,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
                             String playerClassName = currentUser.getUserClass().toString();
                             ImageView img = (ImageView) findViewById(R.id.userCharacter);
                             try {
-                                img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
+                                img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + currentUser.getActiveImageName()).getInt(null));
                             } catch (Exception e) {
 
                             }
@@ -480,7 +481,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
                             String playerClassName = opponent.getUserClass().toString();
                             ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
                             try {
-                                img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
+                                img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + opponent.getActiveImageName()).getInt(null));
                             } catch (Exception e) {
 
                             }
@@ -511,7 +512,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
                             String playerClassName = opponent.getUserClass().toString();
                             ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
                             try {
-                                img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
+                                img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + opponent.getActiveImageName()).getInt(null));
                             } catch (Exception e) {
 
                             }
@@ -530,7 +531,9 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
                 try {
                     String playerClassName = currentUser.getUserClass().toString();
                     ImageView img = (ImageView) findViewById(R.id.userCharacter);
+                    Resources imageResources = img.getResources();
                     img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_drinking").getInt(null));
+
 
                     new CountDownTimer(500, 100) {
                         public void onTick(long millisUntilFinished) {
@@ -540,7 +543,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
                             String playerClassName = currentUser.getUserClass().toString();
                             ImageView img = (ImageView) findViewById(R.id.userCharacter);
                             try {
-                                img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
+                                img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + currentUser.getActiveImageName()).getInt(null));
                             } catch (Exception e) {
 
                             }
@@ -569,7 +572,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
                             String playerClassName = opponent.getUserClass().toString();
                             ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
                             try {
-                                img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
+                                img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + opponent.getActiveImageName()).getInt(null));
                             } catch (Exception e) {
 
                             }
@@ -579,6 +582,24 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
                 }
             }
         });
+    }
+
+    public void animatePlayerUsingItem() {
+        String playerClassName = currentUser.getUserClass().toString();
+        ImageView img = (ImageView) findViewById(R.id.userCharacter);
+        try {
+            img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + currentUser.getActiveImageName()).getInt(null));
+        } catch (Exception e) {
+        }
+    }
+
+    public void animateOpponentUsingItem() {
+        String playerClassName = opponent.getUserClass().toString();
+        ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
+        try {
+            img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + opponent.getActiveImageName()).getInt(null));
+        } catch (Exception e) {
+        }
     }
 
     void setPlayerActive(boolean isActive) {

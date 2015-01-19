@@ -63,6 +63,7 @@ public class Fight {
             fightMessanger.sendData(this.currentAction);
             this.player.endTurn();
             deactivatePlayer();
+            this.opponent.endTurn();
 		}
 	}
 	
@@ -105,12 +106,12 @@ public class Fight {
 		            }
 		            case USED_ATTACK_ITEM: {
 		                opponent.useAttackItem(false);
-		                // TODO dodać odpowiednią animację
+		                callback.animateOpponentUsingItem();
 		                break;
 		            }
 		            case USED_DEFENSE_ITEM: {
 		                opponent.useDefenseItem(false);
-		                // TODO dodać odpowiednią animację
+                        callback.animateOpponentUsingItem();
 		                break;
 		            }
 		            case USED_MISC_ITEM: {
@@ -139,11 +140,11 @@ public class Fight {
 		                    break;
 		                }
 		                case USED_ATTACK_ITEM: {
-		
+                            callback.animatePlayerUsingItem();
 		                    break;
 		                }
 		                case USED_DEFENSE_ITEM: {
-		
+                            callback.animatePlayerUsingItem();
 		                    break;
 		                }
 		                case USED_MISC_ITEM: {
@@ -166,6 +167,8 @@ public class Fight {
 
         if (type.equals(PlayerActions.USED_MISC_ITEM)) {
             callback.animatePlayerDrinking();
+        } else {
+            callback.animatePlayerUsingItem();
         }
     }
 

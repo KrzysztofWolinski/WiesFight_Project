@@ -15,6 +15,7 @@ public class Fighter implements IFighter {
 	private double health;
 	private double maxHealth;
 	private Bonus bonus = new Bonus();
+    Bonuses activeBonus;
 
 	public Fighter(User user) {
 		this.user = user;
@@ -83,6 +84,7 @@ public class Fighter implements IFighter {
         }
 
         action.setDamage(damage);
+
         return action;
     }
 
@@ -102,8 +104,12 @@ public class Fighter implements IFighter {
 		if ((count > 0) && !this.bonus.isSpecificBonusTypeEffectActive(Bonuses.ATTACKPOWER)) {
 			Items item = Items.values()[this.user.getUserClass().getAttackItemID()];
 			this.bonus.addItem(item);
-            if(removeDB)
-            	this.user.setAttackItemCount(count - 1);
+            if(removeDB) {
+                this.user.setAttackItemCount(count - 1);
+            }
+
+            this.activeBonus = Bonuses.ATTACKPOWER;
+
             return true;
 		}
         return false;
@@ -115,8 +121,12 @@ public class Fighter implements IFighter {
 		if ((count > 0) && !this.bonus.isSpecificBonusTypeEffectActive(Bonuses.DEFENCE)) {
 			Items item = Items.values()[this.user.getUserClass().getDefenceItemID()];
             this.bonus.addItem(item);
-            if(removeDB)
-            	this.user.setDefenceItemCount(count - 1);
+            if(removeDB) {
+                this.user.setDefenceItemCount(count - 1);
+            }
+
+            this.activeBonus = Bonuses.DEFENCE;
+
             return true;
 		}
         return false;
@@ -158,12 +168,14 @@ public class Fighter implements IFighter {
 
 	@Override
 	public int getAttackItemDuration() {
-		return bonus.getDuration(Bonuses.ATTACKPOWER);
+        int duration = bonus.getDuration(Bonuses.ATTACKPOWER);
+		return duration;
 	}
 
 	@Override
 	public int getDefenseItemDuration() {
-		return bonus.getDuration(Bonuses.DEFENCE);
+        int duration = bonus.getDuration(Bonuses.DEFENCE);
+		return duration;
 	}
 
 	@Override
@@ -171,6 +183,21 @@ public class Fighter implements IFighter {
 		Items item = Items.values()[this.user.getUserClass().getMiscItemID()];
 		return bonus.getDuration(item.getBonusType());
 	}
+
+    @Override
+    public String getActiveImageName() {
+        if (bonus.getDuration(activeBonus) <= 0) {
+            this.activeBonus = null;
+        }
+
+        if (Bonuses.ATTACKPOWER.equals(activeBonus)) {
+            return "_big_fight_attack";
+        } else if (Bonuses.DEFENCE.equals(activeBonus)) {
+            return "_big_fight_defense";
+        } else {
+            return "_big_fight";
+        }
+    }
 
     @Override
     public void endTurn() {

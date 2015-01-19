@@ -27,6 +27,8 @@ public interface IFighter {
 	public int getAttackItemDuration();
 	public int getDefenseItemDuration();
 	public int getMiscItemDuration();
+
+    public String getActiveImageName();
 	
 	public void addExperience(int xp);
 	public void addFight();
