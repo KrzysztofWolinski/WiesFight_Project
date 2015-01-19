@@ -60,16 +60,24 @@ public class Fighter implements IFighter {
 
             attackStrength += this.bonus.applyBonusEffect(Bonuses.ATTACKPOWER);
 
-            // TODO losowanie czy były obrażenia krytyczne czy nie - sprawdzić czy na pewno działa
-            double criticalChance = this.getUserClass().getCriticalChance() + this.bonus.applyBonusEffect(Bonuses.CRITICALCHANCE) - Math.random();
+            double bonusCriticalChance = this.bonus.applyBonusEffect(Bonuses.CRITICALCHANCE);
+            if (bonusCriticalChance < 1.0) {
+                bonusCriticalChance = 1.0;
+            }
+            double criticalChance = this.getUserClass().getCriticalChance() * bonusCriticalChance - Math.random();
             boolean isCriticalAttack = (criticalChance >= 0.0) ? true : false;
             action.setIsCriticalAttack(isCriticalAttack);
 
             Log.i("[critical]", String.valueOf(criticalChance));
 
             if (isCriticalAttack) {
-                attackStrength += this.user.getUserClass().getCriticalPower();
-                attackStrength *= this.bonus.applyBonusEffect(Bonuses.CRITICALPOWER);
+                double criticalPower = this.user.getUserClass().getCriticalPower();
+                double additionalCriticalPower = this.bonus.applyBonusEffect(Bonuses.CRITICALPOWER);
+                if (additionalCriticalPower > 1.0) {
+                    criticalPower *= additionalCriticalPower;
+                }
+
+                attackStrength += criticalPower;
             }
         }
 

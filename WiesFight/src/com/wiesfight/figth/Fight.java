@@ -62,8 +62,8 @@ public class Fight {
             // Zakończenie tury
             fightMessanger.sendData(this.currentAction);
             this.player.endTurn();
-            deactivatePlayer();
             this.opponent.endTurn();
+            deactivatePlayer();
 		}
 	}
 	
@@ -109,9 +109,9 @@ public class Fight {
 
                         if (action.getDamage() > 0) {
                             if (action.isCriticalAttack() == true) {
-                                callback.showToast("Zadałeś KRYTYCZNE " + action.getDamage() + " obrażeń!!");
+                                callback.showToast("Zadałeś KRYTYCZNE " + (int) action.getDamage() + " obrażeń!!");
                             } else {
-                                callback.showToast("Otrzymałeś " + action.getDamage() + " obrażeń!");
+                                callback.showToast("Otrzymałeś " + (int) action.getDamage() + " obrażeń!");
                             }
                         } else {
                             callback.showToast("Przeciwnik spudłował!");
@@ -155,9 +155,9 @@ public class Fight {
 
                             if (currentAction.getDamage() > 0) {
                                 if (currentAction.isCriticalAttack() == true) {
-                                    callback.showToast("Zadałeś KRYTYCZNE " + currentAction.getDamage() + " obrażeń!!");
+                                    callback.showToast("Zadałeś KRYTYCZNE " + (int) currentAction.getDamage() + " obrażeń!!");
                                 } else {
-                                    callback.showToast("Zadałeś " + currentAction.getDamage() + " obrażeń!");
+                                    callback.showToast("Zadałeś " + (int) currentAction.getDamage() + " obrażeń!");
                                 }
                             } else {
                                 callback.showToast("Pudło!");

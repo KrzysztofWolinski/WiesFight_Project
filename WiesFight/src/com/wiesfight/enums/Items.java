@@ -23,7 +23,7 @@ public enum Items {
 	
 	TIPSY(R.drawable.blachara_attack, R.string.tipsy, Bonuses.ATTACKPOWER, 1.2, 3),
 	IMPLANTY(R.drawable.blachara_defense, R.string.imp, Bonuses.DEFENCE, 1.2, 3),
-	DRINK(R.drawable.blachara_misc, R.string.drink, Bonuses.CRITICALCHANCE, 1.2, 3);
+	DRINK(R.drawable.blachara_misc, R.string.drink, Bonuses.CRITICALCHANCE, 4.0, 3);
 	
 	private int file;
 	

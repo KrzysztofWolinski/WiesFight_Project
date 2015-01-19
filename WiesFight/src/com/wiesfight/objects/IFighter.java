@@ -29,7 +29,7 @@ public interface IFighter {
 	public int getMiscItemDuration();
 
     public String getActiveImageName();
-	
+
 	public void addExperience(int xp);
 	public void addFight();
 	public void addWin();
