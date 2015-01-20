@@ -2,9 +2,9 @@ package com.wiesfight.figth;
 
 public interface Animator {
 
-    public void animatePlayerAttacking(boolean isCriticalStrike);
-    public void animatePlayerGettingHit();
+    public void animatePlayerAttacking(PlayerAction action);
+    public void animatePlayerGettingHit(PlayerAction action);
 
-    public void animateOpponentAttacking(boolean isCriticalStrike);
-    public void animateOpponentGettingHit();
+    public void animateOpponentAttacking(PlayerAction action);
+    public void animateOpponentGettingHit(PlayerAction action);
 }

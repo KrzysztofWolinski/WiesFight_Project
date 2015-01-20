@@ -1,0 +1,291 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fightLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ring"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <ImageView
+        android:id="@+id/imgAvatarOpponent"
+        android:layout_width="84dp"
+        android:layout_height="75dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/desc"
+        android:scaleType="fitXY" />
+
+    <ImageView
+        android:id="@+id/imgAvatarUser"
+        android:layout_width="84dp"
+        android:layout_height="75dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="false"
+        android:contentDescription="@string/desc"
+        android:scaleType="fitXY" />
+
+    <ImageView
+        android:id="@+id/userMarker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-15dp"
+        android:layout_marginLeft="-17dp"
+        android:layout_alignBottom="@+id/userCharacter"
+        android:layout_alignLeft="@+id/userCharacter"
+        android:contentDescription="@string/desc"
+        android:src="@drawable/podstawka"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/opponentMarker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-15dp"
+        android:layout_marginRight="-17dp"
+        android:layout_alignBottom="@+id/opponentCharacter"
+        android:layout_alignRight="@+id/opponentCharacter"
+        android:contentDescription="@string/desc"
+        android:src="@drawable/podstawka"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/opponentCharacter"
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:layout_alignTop="@+id/userCharacter"
+        android:layout_toLeftOf="@+id/imgAvatarOpponent"
+        android:onClick="onPressAttackButton"
+        android:contentDescription="@string/desc"
+        android:scaleType="fitEnd" />
+
+    <ImageView
+        android:id="@+id/userCharacter"
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:layout_toRightOf="@+id/imgAvatarUser"
+        android:scaleType="fitStart"
+        android:contentDescription="@string/desc" />
+
+    <ImageButton
+        android:id="@+id/userDefenseItem"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/userAttackItem"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/userAttackItem"
+        android:onClick="onPressDefenseItemButton"
+        android:src="@drawable/padlock"
+        android:contentDescription="@string/desc" />
+
+    <ImageButton
+        android:id="@+id/userMiscItem"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/userDefenseItem"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/userDefenseItem"
+        android:onClick="onPressMiscItemButton"
+        android:src="@drawable/padlock"
+        android:contentDescription="@string/desc" />
+
+    <ImageButton
+        android:id="@+id/userAttackItem"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/imgAvatarUser"
+        android:onClick="onPressAttackItemButton"
+        android:contentDescription="@string/desc"
+        android:src="@drawable/padlock" />
+
+    <TextView
+        android:id="@+id/userAttackItemCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/userAttackItem"
+        android:layout_alignTop="@+id/userAttackItem"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/userMiscItemCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/userMiscItem"
+        android:layout_alignTop="@+id/userMiscItem"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/userDefenseItemCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/userDefenseItem"
+        android:layout_alignTop="@+id/userDefenseItem"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/userAttackItemDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/userAttackItem"
+        android:layout_alignBottom="@+id/userAttackItem"
+        android:layout_alignLeft="@+id/userAttackItem"
+        android:layout_alignRight="@+id/userAttackItem"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:gravity="center"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/userDefenseItemDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/userDefenseItem"
+        android:layout_alignLeft="@+id/userDefenseItem"
+        android:layout_alignRight="@+id/userDefenseItem"
+        android:layout_alignTop="@+id/userDefenseItem"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:gravity="center"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/userMiscItemDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/userMiscItem"
+        android:layout_alignLeft="@+id/userMiscItem"
+        android:layout_alignRight="@+id/userMiscItem"
+        android:layout_alignTop="@+id/userMiscItem"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:gravity="center"
+        android:textColor="@android:color/white" />
+
+    <ImageView
+        android:id="@+id/opponentMiscItem"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="5dp"
+        android:layout_alignTop="@+id/userAttackItem"
+        android:layout_toLeftOf="@+id/imgAvatarOpponent"
+        android:src="@drawable/padlock"
+        android:contentDescription="@string/desc" />
+
+    <ImageView
+        android:id="@+id/opponentDefenseItem"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/userAttackItem"
+        android:layout_toLeftOf="@+id/opponentMiscItem"
+        android:src="@drawable/padlock"
+        android:contentDescription="@string/desc" />
+
+    <ImageView
+        android:id="@+id/opponentAttackItem"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/userAttackItem"
+        android:layout_toLeftOf="@+id/opponentDefenseItem"
+        android:src="@drawable/padlock"
+        android:contentDescription="@string/desc" />
+
+    <View
+        android:id="@+id/userHpBar"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_below="@+id/txtPlayerName"
+        android:background="#11FF00"/>
+
+    <View
+        android:id="@+id/opponentHpBar"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:background="#11FF00"
+        android:layout_below="@+id/txtOpponentName"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/userHpText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/userHpBar"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/opponentHpText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/opponentHpBar"
+        android:layout_alignParentRight="true"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/userCriticalAttack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/userCharacter"
+        android:layout_centerVertical="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FF0000" />
+
+    <TextView
+        android:id="@+id/opponentCriticalAttack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/userCriticalAttack"
+        android:layout_alignBottom="@+id/userCriticalAttack"
+        android:layout_alignLeft="@+id/opponentCharacter"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FF0000" />
+
+    <TextView
+        android:id="@+id/txtPlayerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/imgAvatarUser"
+        android:background="@android:color/white"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/txtOpponentName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/imgAvatarOpponent"
+        android:background="@android:color/white"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/txtUserDamage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/userMarker"
+        android:layout_alignParentLeft="true"
+        android:layout_alignLeft="@+id/userCharacter"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtOpponentDamage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/opponentMarker"
+        android:layout_alignLeft="@+id/opponentCharacter"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
+
+</RelativeLayout>

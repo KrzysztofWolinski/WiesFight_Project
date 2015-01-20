@@ -38,6 +38,7 @@ import com.wiesfight.enums.Items;
 import com.wiesfight.enums.PlayerActions;
 import com.wiesfight.figth.Animator;
 import com.wiesfight.figth.Fight;
+import com.wiesfight.figth.PlayerAction;
 import com.wiesfight.objects.Fighter;
 import com.wiesfight.objects.IFighter;
 import com.wiesfight.objects.TrainingOpponent;
@@ -61,6 +62,10 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_fight);
 		this.training = getIntent().getBooleanExtra("training", false);
+		if(!this.training) {
+			RelativeLayout layout = (RelativeLayout)findViewById(R.id.fightLayout);
+			layout.setBackgroundResource(R.drawable.fight_bg);
+		}
 		ParseQuery<UserPersistence> query = ParseQuery.getQuery(UserPersistence.class);
 		query.fromPin("currentUser");
 		query.getFirstInBackground(new GetCallback<UserPersistence>() {
@@ -81,8 +86,6 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 			updateBattlefield();
 		}
 		else {
-			RelativeLayout layout = (RelativeLayout)findViewById(R.id.fightLayout);
-			layout.setBackgroundResource(R.drawable.fight_bg);
 			this.roomId = getIntent().getStringExtra("roomId");
 			this.isOwner = getIntent().getBooleanExtra("newRoom", false);
 			try {
@@ -181,18 +184,6 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     		
     		img = (ImageView) findViewById(R.id.opponentCharacter);
     		img.setImageResource(R.drawable.class.getField(opponent.getUserClass().toString().toLowerCase(Locale.ENGLISH) + "_big_fight").getInt(null));
-        	
-    		Items item = Items.values()[opponent.getUserClass().getAttackItemID()];
-        	img = (ImageView) findViewById(R.id.opponentAttackItem);
-        	img.setImageResource(item.getImageFile());
-        	
-        	item = Items.values()[opponent.getUserClass().getDefenceItemID()];
-        	img = (ImageView) findViewById(R.id.opponentDefenseItem);
-        	img.setImageResource(item.getImageFile());
-        	
-        	item = Items.values()[opponent.getUserClass().getMiscItemID()];
-        	img = (ImageView) findViewById(R.id.opponentMiscItem);
-        	img.setImageResource(item.getImageFile());
     	}
     	catch(Exception e) {
     		
@@ -250,7 +241,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
     
     public void onPressAttackItemButton(View v) {
-    	if (this.fight.isPlayerActive() && this.currentUser.useAttackItem(!this.training)) {
+    	if (!this.fight.isAnimation() && this.fight.isPlayerActive() && this.currentUser.useAttackItem(!this.training)) {
     		if(!this.training) {
     			this.dbUserPer.saveUserToDB();
     		}
@@ -260,7 +251,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
     
     public void onPressDefenseItemButton(View v) {
-    	if (this.fight.isPlayerActive() && this.currentUser.useDefenseItem(!this.training)) {
+    	if (!this.fight.isAnimation() && this.fight.isPlayerActive() && this.currentUser.useDefenseItem(!this.training)) {
     		if(!this.training) {
     			this.dbUserPer.saveUserToDB();
     		}
@@ -270,7 +261,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
 
     public void onPressMiscItemButton(View v) {
-    	if (this.fight.isPlayerActive() && this.currentUser.useMiscItem(!this.training)) {
+    	if (!this.fight.isAnimation() && this.fight.isPlayerActive() && this.currentUser.useMiscItem(!this.training)) {
     		if(!this.training) {
     			this.dbUserPer.saveUserToDB();
     		}
@@ -396,13 +387,14 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
 
     @Override
-    public void animatePlayerAttacking(boolean isCriticalStrike) {
+    public void animatePlayerAttacking(final PlayerAction action) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 try {
+                	fight.setIsAnimation(true);
                     String playerClassName = currentUser.getUserClass().toString();
-                    ImageView img = (ImageView) findViewById(R.id.userCharacter);
+                    final ImageView img = (ImageView) findViewById(R.id.userCharacter);
                     img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_attacking").getInt(null));
 
                     new CountDownTimer(500, 100) {
@@ -410,13 +402,15 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
                         }
 
                         public void onFinish() {
+                        	fight.setIsAnimation(false);
                             String playerClassName = currentUser.getUserClass().toString();
-                            ImageView img = (ImageView) findViewById(R.id.userCharacter);
                             try {
                                 img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + currentUser.getActiveImageName()).getInt(null));
                             } catch (Exception e) {
 
                             }
+                            if(action.getDamage() > 0.0)
+                            	animateOpponentGettingHit(action);
                         }
                     }.start();
                 } catch (Exception e) {
@@ -426,13 +420,19 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
 
     @Override
-    public void animatePlayerGettingHit() {
+    public void animatePlayerGettingHit(final PlayerAction action) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 try {
+                	fight.setIsAnimation(true);
+                	final TextView txt = (TextView) findViewById(R.id.txtUserDamage);
+                	txt.setTextColor(action.isCriticalAttack() ? getResources().getColor(android.R.color.holo_red_light) 
+                			: getResources().getColor(android.R.color.black));
+                	txt.setText(action.getDamage() + "");
+                	txt.setVisibility(View.VISIBLE);
                     String playerClassName = currentUser.getUserClass().toString();
-                    ImageView img = (ImageView) findViewById(R.id.userCharacter);
+                    final ImageView img = (ImageView) findViewById(R.id.userCharacter);
                     img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_getting_hit").getInt(null));
 
                     new CountDownTimer(500, 100) {
@@ -440,8 +440,9 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
                         }
 
                         public void onFinish() {
+                        	fight.setIsAnimation(false);
+                        	txt.setVisibility(View.INVISIBLE);
                             String playerClassName = currentUser.getUserClass().toString();
-                            ImageView img = (ImageView) findViewById(R.id.userCharacter);
                             try {
                                 img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + currentUser.getActiveImageName()).getInt(null));
                             } catch (Exception e) {
@@ -456,13 +457,14 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
 
     @Override
-    public void animateOpponentAttacking(boolean isCriticalStrike) {
+    public void animateOpponentAttacking(final PlayerAction action) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 try {
+                	fight.setIsAnimation(true);
                     String playerClassName = opponent.getUserClass().toString();
-                    ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
+                    final ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
                     img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_attacking").getInt(null));
 
                     new CountDownTimer(500, 100) {
@@ -470,14 +472,15 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
                         }
 
                         public void onFinish() {
+                        	fight.setIsAnimation(false);
                             String playerClassName = opponent.getUserClass().toString();
-                            ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
                             try {
                                 img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + opponent.getActiveImageName()).getInt(null));
                             } catch (Exception e) {
 
                             }
-                            animatePlayerGettingHit();
+                            if(action.getDamage() > 0.0)
+                            	animatePlayerGettingHit(action);
                         }
                     }.start();
                 } catch (Exception e) {
@@ -487,13 +490,19 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
 
     @Override
-    public void animateOpponentGettingHit() {
+    public void animateOpponentGettingHit(final PlayerAction action) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 try {
+                	fight.setIsAnimation(true);
+                	final TextView txt = (TextView) findViewById(R.id.txtOpponentDamage);
+                	txt.setTextColor(action.isCriticalAttack() ? getResources().getColor(android.R.color.holo_red_light) 
+                			: getResources().getColor(android.R.color.black));
+                	txt.setText(action.getDamage() + "");
+                	txt.setVisibility(View.VISIBLE);
                     String playerClassName = opponent.getUserClass().toString();
-                    ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
+                    final ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
                     img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_getting_hit").getInt(null));
 
                     new CountDownTimer(500, 100) {
@@ -501,8 +510,9 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
                         }
 
                         public void onFinish() {
+                        	fight.setIsAnimation(false);
+                        	txt.setVisibility(View.INVISIBLE);
                             String playerClassName = opponent.getUserClass().toString();
-                            ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
                             try {
                                 img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + opponent.getActiveImageName()).getInt(null));
                             } catch (Exception e) {
@@ -521,8 +531,9 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
             @Override
             public void run() {
                 try {
+                	fight.setIsAnimation(true);
                     String playerClassName = currentUser.getUserClass().toString();
-                    ImageView img = (ImageView) findViewById(R.id.userCharacter);
+                    final ImageView img = (ImageView) findViewById(R.id.userCharacter);
                     img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_drinking").getInt(null));
 
 
@@ -531,8 +542,8 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
                         }
 
                         public void onFinish() {
+                        	fight.setIsAnimation(false);
                             String playerClassName = currentUser.getUserClass().toString();
-                            ImageView img = (ImageView) findViewById(R.id.userCharacter);
                             try {
                                 img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + currentUser.getActiveImageName()).getInt(null));
                             } catch (Exception e) {
@@ -551,8 +562,9 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
             @Override
             public void run() {
                 try {
+                	fight.setIsAnimation(true);
                     String playerClassName = opponent.getUserClass().toString();
-                    ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
+                    final ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
                     img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_drinking").getInt(null));
 
                     new CountDownTimer(500, 100) {
@@ -560,8 +572,8 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
                         }
 
                         public void onFinish() {
+                        	fight.setIsAnimation(false);
                             String playerClassName = opponent.getUserClass().toString();
-                            ImageView img = (ImageView) findViewById(R.id.opponentCharacter);
                             try {
                                 img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + opponent.getActiveImageName()).getInt(null));
                             } catch (Exception e) {

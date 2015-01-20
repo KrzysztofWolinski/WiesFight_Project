@@ -165,34 +165,6 @@
         android:gravity="center"
         android:textColor="@android:color/white" />
 
-    <ImageView
-        android:id="@+id/opponentMiscItem"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginRight="5dp"
-        android:layout_alignTop="@+id/userAttackItem"
-        android:layout_toLeftOf="@+id/imgAvatarOpponent"
-        android:src="@drawable/padlock"
-        android:contentDescription="@string/desc" />
-
-    <ImageView
-        android:id="@+id/opponentDefenseItem"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignTop="@+id/userAttackItem"
-        android:layout_toLeftOf="@+id/opponentMiscItem"
-        android:src="@drawable/padlock"
-        android:contentDescription="@string/desc" />
-
-    <ImageView
-        android:id="@+id/opponentAttackItem"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignTop="@+id/userAttackItem"
-        android:layout_toLeftOf="@+id/opponentDefenseItem"
-        android:src="@drawable/padlock"
-        android:contentDescription="@string/desc" />
-
     <View
         android:id="@+id/userHpBar"
         android:layout_width="150dp"
@@ -226,25 +198,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/userCriticalAttack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/userCharacter"
-        android:layout_centerVertical="true"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#FF0000" />
-
-    <TextView
-        android:id="@+id/opponentCriticalAttack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/userCriticalAttack"
-        android:layout_alignBottom="@+id/userCriticalAttack"
-        android:layout_alignLeft="@+id/opponentCharacter"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#FF0000" />
-
-    <TextView
         android:id="@+id/txtPlayerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -263,5 +216,29 @@
         android:background="@android:color/white"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/txtUserDamage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/userMarker"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/userCharacter"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtOpponentDamage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/opponentMarker"
+        android:layout_toRightOf="@+id/opponentCharacter"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
 
 </RelativeLayout>

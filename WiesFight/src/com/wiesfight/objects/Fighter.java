@@ -56,9 +56,12 @@ public class Fighter implements IFighter {
         double attackStrength = 0.0;
 
         if (attackChance > 0) {
-            attackStrength = this.user.getUserClass().getAttackPower();
-
-            attackStrength += this.bonus.applyBonusEffect(Bonuses.ATTACKPOWER);
+        	double classAttackPower = this.user.getUserClass().getAttackPower();
+        	double randomValue = 0.5 + (Math.random() * 0.5); // wartosc w przedziale 0.5 - 1
+            Log.i("[randomValue]", String.valueOf(randomValue));
+            attackStrength = classAttackPower;
+            attackStrength *= randomValue;
+            Log.i("[attackStrength]", String.valueOf(attackStrength));
 
             double bonusCriticalChance = this.bonus.applyBonusEffect(Bonuses.CRITICALCHANCE);
             if (bonusCriticalChance < 1.0) {
@@ -77,9 +80,24 @@ public class Fighter implements IFighter {
                     criticalPower *= additionalCriticalPower;
                 }
 
-                attackStrength += criticalPower;
+                attackStrength *= criticalPower;
+                
+                //jezeli po krytyku wartosc jest mniejsza niz poczatkowa wartosc, 
+                //to trza ja zwiekszyc, bo co by to byl za kryt? 
+                if(attackStrength < classAttackPower)
+                	attackStrength = classAttackPower;
+                
+                Log.i("[critPower]", String.valueOf(attackStrength));
             }
         }
+
+        double bonusAttackPower = this.bonus.applyBonusEffect(Bonuses.ATTACKPOWER);
+        if (bonusAttackPower < 1.0) {
+        	bonusAttackPower = 1.0;
+        }
+        Log.i("[bonusAttack]", String.valueOf(bonusAttackPower));
+        attackStrength *= bonusAttackPower;
+        Log.i("[attackStrength]", String.valueOf(attackStrength));
 
         action.setDamage(attackStrength);
 
@@ -89,12 +107,18 @@ public class Fighter implements IFighter {
     @Override
     public PlayerAction evaluateDamage(PlayerAction action) {
         double damage = action.getDamage();
-        damage -= bonus.applyBonusEffect(Bonuses.DEFENCE);
+        double defence = this.user.getUserClass().getDefence();
+        Log.i("[damage]", String.valueOf(damage));
+        double bonusDefence = this.bonus.applyBonusEffect(Bonuses.DEFENCE);
+        defence += bonusDefence;
+        damage *= (1.0 - defence);
+        Log.i("[bonusDefence]", String.valueOf(defence));
+        Log.i("[damage]", String.valueOf(damage));
         if (damage < 0) {
             damage = 0;
         }
-
-        action.setDamage(damage);
+        // zaokraglenie wartosci
+        action.setDamage((double)((int)(damage + 0.5)));
 
         return action;
     }

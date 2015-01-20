@@ -8,7 +8,7 @@ import com.wiesfight.objects.TrainingOpponent;
 public class Fight {
 
 	private IFighter player, opponent;
-	private boolean isFighter1Active, isFightFinished;
+	private boolean isFighter1Active, isFightFinished, isAnimation;
     private IFightMessanger fightMessanger;
     private FightActivity callback;
     private PlayerAction currentAction;
@@ -46,14 +46,14 @@ public class Fight {
 	}
 
 	public void attack() {
-		if ((this.isFightFinished == false) && (isFighter1Active == true)) {
+		if (!this.isAnimation() && (this.isFightFinished == false) && (isFighter1Active == true)) {
             // Wyliczanie obrażeń
             this.currentAction = this.player.getAttackStrength();
             this.currentAction.setActionType(PlayerActions.ATTACK);
             this.currentAction = opponent.evaluateDamage(this.currentAction);
 
             // Animacja
-            callback.animatePlayerAttacking(this.currentAction.isCriticalAttack());
+            callback.animatePlayerAttacking(this.currentAction);
 
             // Zakończenie tury
             fightMessanger.sendData(this.currentAction);
@@ -69,6 +69,14 @@ public class Fight {
 	
 	public boolean isPlayerActive() {
 		return this.isFighter1Active;
+	}
+	
+	public boolean isAnimation() {
+		return this.isAnimation;
+	}
+	
+	public void setIsAnimation(boolean value) {
+		this.isAnimation = value;
 	}
 
 	public IFighter getWinner(boolean opponentLeft) {
@@ -99,7 +107,7 @@ public class Fight {
             public void run() {
 		        switch (action.getActionType()) {
 		            case ATTACK : {
-		                callback.animateOpponentAttacking(action.isCriticalAttack());
+		                callback.animateOpponentAttacking(action);
 		                player.decreaseHealth((int) action.getDamage());
 
                         checkIfFightIsFinished();
