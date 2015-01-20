@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/logo" />
+
+    <ImageView
+        android:id="@+id/imgBtnBg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btnTraining"
+        android:layout_alignLeft="@+id/btnFindOponent"
+        android:layout_alignRight="@+id/btnFindOponent"
+        android:layout_alignTop="@+id/btnFindOponent"
+        android:layout_marginBottom="-15dp"
+        android:layout_marginLeft="-10dp"
+        android:layout_marginRight="-10dp"
+        android:layout_marginTop="-15dp"
+        android:alpha="0.3"
+        android:contentDescription="@string/desc"
+        android:src="@drawable/tlopodprzyciski" />
+
+    <Button
+        android:id="@+id/btnTraining"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/btnFindOponent"
+        android:layout_marginTop="15dp"
+        android:onClick="startTraining"
+        android:background="@drawable/pre_trening" />
+
+    <Button
+        android:id="@+id/btnFindOponent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true"
+        android:onClick="findOponent"
+        android:background="@drawable/pre_walka" />
+
+</RelativeLayout>

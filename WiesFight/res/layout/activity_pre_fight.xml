@@ -20,24 +20,40 @@
         android:contentDescription="@string/logo"
         android:src="@drawable/logo" />
 
+    <ImageView
+        android:id="@+id/imgBtnBg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btnTraining"
+        android:layout_alignLeft="@+id/btnFindOponent"
+        android:layout_alignRight="@+id/btnFindOponent"
+        android:layout_alignTop="@+id/btnFindOponent"
+        android:layout_marginBottom="-15dp"
+        android:layout_marginLeft="-20dp"
+        android:layout_marginRight="-20dp"
+        android:layout_marginTop="-15dp"
+        android:alpha="0.3"
+        android:contentDescription="@string/desc"
+        android:scaleType="fitXY"
+        android:src="@drawable/tlopodprzyciski" />
+
     <Button
         android:id="@+id/btnTraining"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/btnFindOponent"
+        android:layout_marginTop="15dp"
         android:onClick="startTraining"
-        android:text="@string/trening"
-        android:textColor="@android:color/white" />
+        android:background="@drawable/pre_trening" />
 
     <Button
         android:id="@+id/btnFindOponent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnTraining"
+        android:layout_marginTop="100dp"
         android:layout_centerHorizontal="true"
         android:onClick="findOponent"
-        android:text="@string/fight"
-        android:textColor="@android:color/white" />
+        android:background="@drawable/pre_walka" />
 
 </RelativeLayout>

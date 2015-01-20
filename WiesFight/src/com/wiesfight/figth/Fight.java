@@ -1,13 +1,9 @@
 package com.wiesfight.figth;
 
-import android.os.CountDownTimer;
-
 import com.wiesfight.activities.FightActivity;
 import com.wiesfight.enums.PlayerActions;
 import com.wiesfight.objects.IFighter;
 import com.wiesfight.objects.TrainingOpponent;
-
-import main.com.wiesfight.dto.enums.CharacterClass;
 
 public class Fight {
 
@@ -95,7 +91,6 @@ public class Fight {
 
     protected void activatePlayer() {
         this.isFighter1Active = true;
-        this.callback.showToast("Rozpoczęła się nowa tura");
     }
 
     protected void applyOpponentAction(final PlayerAction action) {
@@ -106,16 +101,6 @@ public class Fight {
 		            case ATTACK : {
 		                callback.animateOpponentAttacking(action.isCriticalAttack());
 		                player.decreaseHealth((int) action.getDamage());
-
-                        if (action.getDamage() > 0) {
-                            if (action.isCriticalAttack() == true) {
-                                callback.showToast("Zadałeś KRYTYCZNE " + (int) action.getDamage() + " obrażeń!!");
-                            } else {
-                                callback.showToast("Otrzymałeś " + (int) action.getDamage() + " obrażeń!");
-                            }
-                        } else {
-                            callback.showToast("Przeciwnik spudłował!");
-                        }
 
                         checkIfFightIsFinished();
                         activatePlayer();
@@ -152,16 +137,6 @@ public class Fight {
 		            switch (currentAction.getActionType()) {
 		                case ATTACK: {
 		                    opponent.decreaseHealth((int) currentAction.getDamage());
-
-                            if (currentAction.getDamage() > 0) {
-                                if (currentAction.isCriticalAttack() == true) {
-                                    callback.showToast("Zadałeś KRYTYCZNE " + (int) currentAction.getDamage() + " obrażeń!!");
-                                } else {
-                                    callback.showToast("Zadałeś " + (int) currentAction.getDamage() + " obrażeń!");
-                                }
-                            } else {
-                                callback.showToast("Pudło!");
-                            }
 
 		                    break;
 		                }

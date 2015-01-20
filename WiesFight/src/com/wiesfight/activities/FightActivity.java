@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -18,8 +17,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -82,6 +81,8 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 			updateBattlefield();
 		}
 		else {
+			RelativeLayout layout = (RelativeLayout)findViewById(R.id.fightLayout);
+			layout.setBackgroundResource(R.drawable.fight_bg);
 			this.roomId = getIntent().getStringExtra("roomId");
 			this.isOwner = getIntent().getBooleanExtra("newRoom", false);
 			try {
@@ -283,6 +284,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 			@Override
 	    	public void run() {
 		    	// Sprawdzić czy walka ciągle trwa i zaaktualizować feedback (HP, itemy itd.)
+				setPlayerActive(fight.isPlayerActive());
 		    	updateHpBars();
 		    	
 		    	updateItemNotifications();
@@ -292,6 +294,13 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 		    	}
 			}
     	});
+    }
+
+    private void setPlayerActive(boolean isActive) {
+        ImageView userMarker = (ImageView) this.findViewById(R.id.userMarker);
+        ImageView opponentMarker = (ImageView) this.findViewById(R.id.opponentMarker);
+        userMarker.setVisibility(isActive ? View.VISIBLE : View.INVISIBLE);
+        opponentMarker.setVisibility(isActive ? View.INVISIBLE : View.VISIBLE);
     }
     
     private void handleFinish() {
@@ -364,43 +373,25 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 		TextView attackItemsDurationText = (TextView) findViewById(R.id.userAttackItemDuration);
     	TextView defenceItemsDurationText = (TextView) findViewById(R.id.userDefenseItemDuration);
     	TextView miscItemsDurationText = (TextView) findViewById(R.id.userMiscItemDuration);
-		ImageButton ibtn = (ImageButton) findViewById(R.id.userAttackItem);
-		if(attItemDur > 0) {
-			attackItemsDurationText.setVisibility(View.VISIBLE);
-	    	attackItemsDurationText.setText(attItemDur+"");
-	    	ibtn.setAlpha(0.4f);
-	    	ibtn.setEnabled(false);
-		}
-		else {
-	    	ibtn.setEnabled(true);
-	    	ibtn.setAlpha(1.0f);
-			attackItemsDurationText.setVisibility(View.INVISIBLE);
-		}
-		
-		ibtn = (ImageButton) findViewById(R.id.userDefenseItem);
-		if(defItemDur > 0) {
-			defenceItemsDurationText.setVisibility(View.VISIBLE);
-			defenceItemsDurationText.setText(defItemDur+"");
+		ImageButton attackBtn = (ImageButton) findViewById(R.id.userAttackItem);
+		ImageButton defenceBtn = (ImageButton) findViewById(R.id.userDefenseItem);
+		ImageButton miscBtn = (ImageButton) findViewById(R.id.userMiscItem);
+		this.manageItemDuration(attItemDur, attackBtn, attackItemsDurationText);
+		this.manageItemDuration(defItemDur, defenceBtn, defenceItemsDurationText);
+		this.manageItemDuration(miscItemDur, miscBtn, miscItemsDurationText);
+    }
+    
+    private void manageItemDuration(int dur, ImageButton ibtn, TextView txt) {
+    	if(dur > 0) {
+    		txt.setVisibility(View.VISIBLE);
+    		txt.setText(dur+"");
 			ibtn.setAlpha(0.4f);
 			ibtn.setEnabled(false);
 		}
 		else {
 	    	ibtn.setEnabled(true);
 	    	ibtn.setAlpha(1.0f);
-			defenceItemsDurationText.setVisibility(View.INVISIBLE);
-		}
-		
-		ibtn = (ImageButton) findViewById(R.id.userMiscItem);
-		if(miscItemDur > 0) {
-			miscItemsDurationText.setVisibility(View.VISIBLE);
-			miscItemsDurationText.setText(miscItemDur+"");
-			ibtn.setAlpha(0.4f);
-			ibtn.setEnabled(false);
-		}
-		else {
-	    	ibtn.setEnabled(true);
-	    	ibtn.setAlpha(1.0f);
-	    	miscItemsDurationText.setVisibility(View.INVISIBLE);
+	    	txt.setVisibility(View.INVISIBLE);
 		}
     }
 
@@ -532,7 +523,6 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
                 try {
                     String playerClassName = currentUser.getUserClass().toString();
                     ImageView img = (ImageView) findViewById(R.id.userCharacter);
-                    Resources imageResources = img.getResources();
                     img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + "_big_fight_drinking").getInt(null));
 
 
@@ -601,10 +591,6 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
             img.setImageResource(R.drawable.class.getField(playerClassName.toLowerCase(Locale.ENGLISH) + opponent.getActiveImageName()).getInt(null));
         } catch (Exception e) {
         }
-    }
-
-    void setPlayerActive(boolean isActive) {
-        // TODO
     }
     
     private void findOpponent(String username) {
@@ -768,9 +754,4 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 	@Override
 	public void onUpdatePropertyDone(LiveRoomInfoEvent arg0) {
 	}
-
-    public void showToast(String text) {
-        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-        toast.show();
-    }
 }
