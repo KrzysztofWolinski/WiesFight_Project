@@ -42,6 +42,10 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
+            android:name=".activities.TutorialActivity"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
             android:name=".activities.StartActivity"
             android:screenOrientation="landscape" >
             <intent-filter>

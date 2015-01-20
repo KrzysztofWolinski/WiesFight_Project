@@ -50,7 +50,7 @@ public class SettingsActivity extends Activity {
 			img.setImageResource(R.drawable.wyl);
 		}
 		PreferencesManager.putSoundPreference(this, this.soundOn);
-	}
+	}\
 	
 	public void deleteCharacter(View v) {
 	    LayoutInflater inflater = this.getLayoutInflater();

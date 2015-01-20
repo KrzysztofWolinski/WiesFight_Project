@@ -34,7 +34,6 @@
         android:layout_marginTop="-15dp"
         android:alpha="0.3"
         android:contentDescription="@string/desc"
-        android:scaleType="fitXY"
         android:src="@drawable/tlopodprzyciski" />
 
     <Button
@@ -44,17 +43,27 @@
         android:layout_below="@+id/imgLogo"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         android:layout_marginLeft="140dp"
         android:onClick="switchSound"
         android:background="@drawable/glos" />
 
     <Button
-        android:id="@+id/btnDeleteCharacter"
+        android:id="@+id/btnHowToPlay"
         android:layout_width="150dp"
         android:layout_height="30dp"
         android:layout_alignLeft="@+id/btnSound"
         android:layout_below="@+id/btnSound"
+        android:layout_marginTop="15dp"
+        android:onClick="showHowToPlay"
+        android:background="@drawable/jakgrac" />
+
+    <Button
+        android:id="@+id/btnDeleteCharacter"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/btnHowToPlay"
+        android:layout_below="@+id/btnHowToPlay"
         android:layout_marginTop="15dp"
         android:onClick="deleteCharacter"
         android:background="@drawable/usunpostac" />

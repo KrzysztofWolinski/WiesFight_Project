@@ -52,6 +52,11 @@ public class SettingsActivity extends Activity {
 		PreferencesManager.putSoundPreference(this, this.soundOn);
 	}
 	
+	public void showHowToPlay(View v) {
+		Intent intent = new Intent(this, TutorialActivity.class);
+    	startActivity(intent);
+	}
+	
 	public void deleteCharacter(View v) {
 	    LayoutInflater inflater = this.getLayoutInflater();
 	    View view = inflater.inflate(R.layout.dialog_yesno, null);

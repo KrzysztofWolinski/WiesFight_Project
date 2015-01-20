@@ -40,7 +40,7 @@
         <activity
             android:name=".activities.PreFightActivity"
             android:screenOrientation="landscape" >
-        </activity>
+        </activity>=
         <activity
             android:name=".activities.StartActivity"
             android:screenOrientation="landscape" >
