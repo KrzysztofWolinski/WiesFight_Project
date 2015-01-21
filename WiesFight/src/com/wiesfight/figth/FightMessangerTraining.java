@@ -17,7 +17,6 @@ public class FightMessangerTraining implements IFightMessanger {
     }
 
     public void sendData(PlayerAction actions) {
-        // TODO uzupełnić o przesyłanie wszystkiego co potrzebne, nie tylko siły ataku
     	if(actions.getActionType() != PlayerActions.ATTACK) {
     		return;
     	}
@@ -33,29 +32,5 @@ public class FightMessangerTraining implements IFightMessanger {
         this.currentAction = response;
 
         callback.applyCurrentAction();
-
-        callback.applyOpponentAction(currentAction);
-
-        /*
-        new CountDownTimer(1000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {}
-
-            @Override
-            public void onFinish() {
-                callback.applyCurrentAction();
-                new CountDownTimer(1000, 1000) {
-
-                    @Override
-                    public void onTick(long millisUntilFinished) {}
-
-                    @Override
-                    public void onFinish() {
-                        callback.applyOpponentAction(currentAction);
-                    }
-                };
-            }
-        };
-        */
     }
 }

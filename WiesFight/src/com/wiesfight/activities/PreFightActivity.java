@@ -26,6 +26,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 public class PreFightActivity extends Activity implements ConnectionRequestListener, ZoneRequestListener {
 	private WarpClient theClient;
@@ -46,19 +47,17 @@ public class PreFightActivity extends Activity implements ConnectionRequestListe
 		query.getFirstInBackground(new GetCallback<UserPersistence>() {
 			public void done(UserPersistence user, ParseException e) {
 		        currentUser = user.getUser();
-		        checkCoinsAmount();
 			}
 		});
 	}
-	
-	private void checkCoinsAmount() {
-		if(this.currentUser.getUserCoins() < 5) {
-			findViewById(R.id.btnFindOponent).setEnabled(false);
-		}
-	}
-	
+
 	public void findOponent(View v) {
-		this.tryConnect();
+        if(this.currentUser.getUserCoins() < 5) {
+            Toast toast = Toast.makeText(this, "Masz zbyt mało monet żeby grać! \nWymagana suma to 5 monet.", Toast.LENGTH_SHORT);
+            toast.show();
+        } else {
+            this.tryConnect();
+        }
 	}
 	
 	private void tryConnect() {
