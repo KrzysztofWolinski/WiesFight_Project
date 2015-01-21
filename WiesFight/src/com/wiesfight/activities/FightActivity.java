@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -241,7 +242,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
     
     public void onPressAttackItemButton(View v) {
-    	if (!this.fight.isAnimation() && this.fight.isPlayerActive() && this.currentUser.useAttackItem(!this.training)) {
+    	if (!this.fight.isAnimation() && ((this.fight.isPlayerActive() || (this.training))) && this.currentUser.useAttackItem(!this.training)) {
     		if(!this.training) {
     			this.dbUserPer.saveUserToDB();
     		}
@@ -251,7 +252,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
     
     public void onPressDefenseItemButton(View v) {
-    	if (!this.fight.isAnimation() && this.fight.isPlayerActive() && this.currentUser.useDefenseItem(!this.training)) {
+    	if (!this.fight.isAnimation() && ((this.fight.isPlayerActive() || (this.training))) && this.currentUser.useDefenseItem(!this.training)) {
     		if(!this.training) {
     			this.dbUserPer.saveUserToDB();
     		}
@@ -261,7 +262,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
     }
 
     public void onPressMiscItemButton(View v) {
-    	if (!this.fight.isAnimation() && this.fight.isPlayerActive() && this.currentUser.useMiscItem(!this.training)) {
+    	if (!this.fight.isAnimation() && ((this.fight.isPlayerActive() || (this.training))) && this.currentUser.useMiscItem(!this.training)) {
     		if(!this.training) {
     			this.dbUserPer.saveUserToDB();
     		}
@@ -310,7 +311,7 @@ public class FightActivity extends Activity implements RoomRequestListener, Noti
 
 	    TextView txt = (TextView) view.findViewById(R.id.txtMessageOk);
 	    txt.setText(String.format(getString(R.string.fightWon), opponentLeft ? getString(R.string.opponentLeft) : ""
-	    	,winnerName));
+                , winnerName));
 
 	    Button btn = (Button) view.findViewById(R.id.btnOk);
 	    btn.setOnClickListener(new OnClickListener() {

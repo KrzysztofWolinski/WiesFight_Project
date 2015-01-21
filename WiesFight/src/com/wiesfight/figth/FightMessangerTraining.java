@@ -32,6 +32,11 @@ public class FightMessangerTraining implements IFightMessanger {
 
         this.currentAction = response;
 
+        callback.applyCurrentAction();
+
+        callback.applyOpponentAction(currentAction);
+
+        /*
         new CountDownTimer(1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {}
@@ -51,5 +56,6 @@ public class FightMessangerTraining implements IFightMessanger {
                 };
             }
         };
+        */
     }
 }

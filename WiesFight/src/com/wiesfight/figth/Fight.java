@@ -26,18 +26,6 @@ public class Fight {
             fightMessanger = new FightMessanger(this, opponent.getName());
         }
 
-        // Randomly decide which fighter should start
-       /* if (((int)((Math.random() * 10) % 2)) == 0) {
-            this.isFighter1Active = false;
-
-            PlayerAction initAction = new PlayerAction(PlayerActions.ATTACK);
-            initAction.setDamage(0.0);
-
-            this.fightMessanger.sendData(initAction);
-        } else {
-            this.isFighter1Active = true;
-        } */
-
         if (isStarting == true) {
             this.activatePlayer();
         } else {
@@ -46,7 +34,12 @@ public class Fight {
 	}
 
 	public void attack() {
-		if (!this.isAnimation() && (this.isFightFinished == false) && (isFighter1Active == true)) {
+
+        if (opponent.getClass().equals(TrainingOpponent.class)) {
+            activatePlayer();
+        }
+
+		if (!this.isAnimation() && (!this.isFightFinished()) && (this.isPlayerActive() == true)) {
             // Wyliczanie obrażeń
             this.currentAction = this.player.getAttackStrength();
             this.currentAction.setActionType(PlayerActions.ATTACK);
@@ -112,6 +105,10 @@ public class Fight {
 
                         checkIfFightIsFinished();
                         activatePlayer();
+
+                        if (opponent.getClass().equals(TrainingOpponent.class)) {
+                            setIsAnimation(false);
+                        }
 
 		                break;
 		            }

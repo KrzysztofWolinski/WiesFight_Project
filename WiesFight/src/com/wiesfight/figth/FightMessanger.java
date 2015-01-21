@@ -36,8 +36,9 @@ public class FightMessanger implements IFightMessanger, NotifyListener, ChatRequ
         if(action == null) {
         	// TODO  blad
         }
-        else
-        	callback.applyOpponentAction(action);
+        else {
+            callback.applyOpponentAction(action);
+        }
     }
 
     private void initializeConnection() {
