@@ -108,16 +108,15 @@ public class Fighter implements IFighter {
     public PlayerAction evaluateDamage(PlayerAction action) {
         double damage = action.getDamage();
         double defence = this.user.getUserClass().getDefence();
-        Log.i("[damage]", String.valueOf(damage));
+
         double bonusDefence = this.bonus.applyBonusEffect(Bonuses.DEFENCE);
         defence += bonusDefence;
         damage *= (1.0 - defence);
-        Log.i("[bonusDefence]", String.valueOf(defence));
-        Log.i("[damage]", String.valueOf(damage));
+
         if (damage < 0) {
             damage = 0;
         }
-        // zaokraglenie wartosci
+        
         action.setDamage((double)((int)(damage + 0.5)));
 
         return action;
