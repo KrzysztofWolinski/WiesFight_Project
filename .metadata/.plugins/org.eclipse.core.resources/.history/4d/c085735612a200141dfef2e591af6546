@@ -51,8 +51,6 @@ public class TrainingOpponent implements IFighter {
 
     @Override
     public PlayerAction evaluateDamage(PlayerAction action) {
-    	double damage = action.getDamage();
-    	action.setDamage((double)((int)(damage + 0.5)));
         return action;
     }
 
