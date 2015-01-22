@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="-15dp"
-        android:layout_marginRight="-20dp"
+        android:layout_marginRight="0dp"
         android:layout_alignBottom="@+id/opponentCharacter"
         android:layout_alignRight="@+id/opponentCharacter"
         android:contentDescription="@string/desc"
